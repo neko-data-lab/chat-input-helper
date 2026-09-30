@@ -1,172 +1,611 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
 <title>Chat Input Helper</title>
+
 <style>
-    * {
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-    }
-    html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        min-height: 100%;
-        background: #2b2b2b;
-        color: white;
-        font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-    }
-    body {
-        padding: 16px;
-    }
-    .container {
-        width: 100%;
-        max-width: 700px;
-        margin: 0 auto;
-    }
-    .label {
-        height: 22px;
-        line-height: 22px;
-        margin-bottom: 6px;
-        font-size: 15px;
-        font-weight: 700;
-        color: white;
-    }
-    textarea {
-        display: block;
-        width: 100%;
-        height: 90px;
-        margin: 0 0 16px 0;
-        padding: 8px;
-        resize: none;
-        border: 1px solid #666;
-        border-radius: 8px;
-        background: #333333;
-        color: white;
-        font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-        font-size: 16px;
-        line-height: 22px;
-        outline: none;
-        -webkit-appearance: none;
-    }
-    textarea:focus {
-        border-color: #888;
-    }
-    .color-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 10px;
-    }
-    button {
-        border: none;
-        border-radius: 8px;
-        height: 34px;
-        min-height: 34px;
-        font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-        font-size: 15px;
-        font-weight: 500;
-        cursor: pointer;
-        touch-action: manipulation;
-        -webkit-appearance: none;
-    }
-    .color-button {
-        width: 58px;
-    }
-    .control-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-top: 4px;
-        margin-bottom: 12px;
-    }
-    .control-button {
-        background: #3a3a3a;
-        color: white;
-    }
-    .sup-button,
-    .sub-button {
-        width: 44px;
-    }
-    .clear-button {
-        width: 60px;
-    }
-    .copy-button {
-        width: 120px;
-    }
-    .preview {
-        width: 100%;
-        height: 140px;
-        border: 1px solid #666;
-        border-radius: 8px;
-        background: #333333;
-        padding: 10px;
-        overflow: hidden;
-        font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-        font-size: 16px;
-        line-height: 24px;
-        white-space: normal;
-        overflow-wrap: anywhere;
-        word-break: break-all;
-    }
-    .preview-line {
-        min-height: 24px;
-    }
-    .preview-char {
-        display: inline-block;
-        white-space: pre;
-        vertical-align: baseline;
-    }
-    .preview-char.sup {
-        font-size: 12px;
-        position: relative;
-        top: -6px;
-    }
-    .preview-char.sub {
-        font-size: 12px;
-        position: relative;
-        top: 4px;
-    }
-    .copy-status {
-        height: 20px;
-        margin-top: 4px;
-        font-size: 13px;
-        color: #cccccc;
-        text-align: right;
-    }
+
+/* =========================================================
+   基本
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    min-height: 100%;
+
+    background: #2b2b2b;
+    color: white;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        sans-serif;
+}
+
+body {
+    padding: 16px;
+}
+
+.container {
+
+    width: 100%;
+    max-width: 700px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   ラベル
+   ========================================================= */
+
+.label {
+
+    height: 22px;
+
+    line-height: 22px;
+
+    margin-bottom: 4px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    color: white;
+}
+
+
+/* =========================================================
+   テキスト入力
+   ========================================================= */
+
+textarea {
+
+    display: block;
+
+    width: 100%;
+    height: 90px;
+
+    margin: 0 0 12px 0;
+
+    padding: 8px;
+
+    resize: none;
+
+    border: 1px solid #666;
+    border-radius: 8px;
+
+    background: #333333;
+    color: white;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        sans-serif;
+
+    font-size: 16px;
+    line-height: 22px;
+
+    outline: none;
+
+    -webkit-appearance: none;
+}
+
+textarea:focus {
+
+    border-color: #888;
+
+}
+
+
+/* =========================================================
+   共通ボタン
+   ========================================================= */
+
+button {
+
+    border: none;
+    border-radius: 7px;
+
+    height: 30px;
+    min-height: 30px;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+
+    -webkit-appearance: none;
+}
+
+
+/* =========================================================
+   カラーボタン
+   ========================================================= */
+
+.color-buttons {
+
+    display: flex;
+
+    width: 100%;
+
+    gap: 5px;
+
+    margin-bottom: 7px;
+}
+
+.color-button {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 30px;
+
+    padding: 0;
+
+}
+
+
+/* =========================================================
+   up / down / undo 行
+   ========================================================= */
+
+.control-row {
+
+    display: flex;
+
+    width: 100%;
+
+    align-items: center;
+
+    margin-bottom: 7px;
+}
+
+
+/*
+   up / up off / dn / dn off の4個
+
+   undoの57px + gap 5pxを除いた幅を使用
+*/
+
+.control-group {
+
+    display: flex;
+
+    width: calc(100% - 62px);
+
+    gap: 5px;
+}
+
+.control-group button {
+
+    flex: 1;
+
+    min-width: 0;
+
+    background: #3a3a3a;
+    color: white;
+
+}
+
+
+/*
+   undo
+
+   幅は以前と同じ57px
+*/
+
+.undo-button {
+
+    flex: 0 0 57px;
+
+    width: 57px;
+
+    height: 30px;
+
+    margin-left: 5px;
+
+    background: #3a3a3a;
+    color: white;
+
+}
+
+
+/* =========================================================
+   random系
+   ========================================================= */
+
+/*
+   上の4ボタン群と同じ横幅
+*/
+
+.random-buttons {
+
+    display: flex;
+
+    width: calc(100% - 62px);
+
+    gap: 5px;
+
+    margin-bottom: 10px;
+}
+
+.random-buttons button {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 30px;
+
+    padding: 0;
+
+    background: #3a3a3a;
+    color: white;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   プレビュー
+   ========================================================= */
+
+.preview {
+
+    width: 100%;
+    height: 140px;
+
+    border: 1px solid #666;
+    border-radius: 8px;
+
+    background: #333333;
+
+    padding: 10px;
+
+    overflow: hidden;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        sans-serif;
+
+    font-size: 16px;
+    line-height: 24px;
+
+    white-space: normal;
+
+    overflow-wrap: anywhere;
+    word-break: break-all;
+}
+
+.preview-line {
+
+    min-height: 24px;
+
+}
+
+.preview-char {
+
+    display: inline-block;
+
+    white-space: pre;
+
+    vertical-align: baseline;
+
+}
+
+.preview-char.sup {
+
+    font-size: 12px;
+
+    position: relative;
+
+    top: -6px;
+
+}
+
+.preview-char.sub {
+
+    font-size: 12px;
+
+    position: relative;
+
+    top: 4px;
+
+}
+
+
+/* =========================================================
+   copy / clear
+   ========================================================= */
+
+.copy-button,
+.clear-all-button {
+
+    display: block;
+
+    width: 100%;
+    height: 34px;
+
+    margin-top: 8px;
+
+    background: #3a3a3a;
+    color: white;
+
+}
+
+.clear-all-button {
+
+    margin-top: 6px;
+
+}
+
+
+/* =========================================================
+   コピー状態
+   ========================================================= */
+
+.copy-status {
+
+    height: 18px;
+
+    margin-top: 3px;
+
+    font-size: 12px;
+
+    color: #cccccc;
+
+    text-align: right;
+
+}
+
+
+/* =========================================================
+   使い方リンク
+   ========================================================= */
+
+.help-link {
+
+    display: block;
+
+    margin-top: 18px;
+    margin-bottom: 4px;
+
+    text-align: center;
+
+    color: #cccccc;
+
+    font-size: 13px;
+
+    text-decoration: none;
+}
+
+.help-link:active {
+
+    color: white;
+
+}
+
 </style>
+
 </head>
+
+
 <body>
+
+
 <div class="container">
-<div class="label">テキスト入力</div>
-<textarea id="inputText"
-          autocorrect="off"
-          autocapitalize="none"
-          spellcheck="false"></textarea>
-<div class="color-buttons" id="colorButtons"></div>
-<div class="control-buttons">
-    <button class="control-button sup-button"
-            id="supButton">up</button>
-    <button class="control-button clear-button"
-            id="supOffButton">up off</button>
-    <button class="control-button sub-button"
-            id="subButton">dn</button>
-    <button class="control-button clear-button"
-            id="subOffButton">dn off</button>
-    <button class="control-button copy-button"
-            id="copyButton">copy</button>
+
+
+    <!-- =====================================================
+         テキスト入力
+         ===================================================== -->
+
+    <div class="label">
+        テキスト入力
+    </div>
+
+
+    <textarea
+        id="inputText"
+        autocorrect="off"
+        autocapitalize="none"
+        spellcheck="false"></textarea>
+
+
+    <!-- =====================================================
+         カラーボタン
+         ===================================================== -->
+
+    <div
+        class="color-buttons"
+        id="colorButtons">
+    </div>
+
+
+    <!-- =====================================================
+         up / down / undo
+         ===================================================== -->
+
+    <div class="control-row">
+
+
+        <div class="control-group">
+
+
+            <button
+                id="supButton">
+                up
+            </button>
+
+
+            <button
+                id="supOffButton">
+                up off
+            </button>
+
+
+            <button
+                id="subButton">
+                dn
+            </button>
+
+
+            <button
+                id="subOffButton">
+                dn off
+            </button>
+
+
+        </div>
+
+
+        <button
+            class="undo-button"
+            id="undoButton">
+            undo
+        </button>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         random
+         ===================================================== -->
+
+    <div class="random-buttons">
+
+
+        <button
+            id="randomColorButton">
+            random
+        </button>
+
+
+        <button
+            id="upDownButton">
+            up/dn
+        </button>
+
+
+        <button
+            id="randomDecorationButton">
+            rnd+up/dn
+        </button>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         プレビュー
+         ===================================================== -->
+
+    <div class="label">
+        プレビュー
+    </div>
+
+
+    <div
+        class="preview"
+        id="preview">
+    </div>
+
+
+    <!-- =====================================================
+         copy
+         ===================================================== -->
+
+    <button
+        class="copy-button"
+        id="copyButton">
+        copy
+    </button>
+
+
+    <!-- =====================================================
+         clear
+         ===================================================== -->
+
+    <button
+        class="clear-all-button"
+        id="clearButton">
+        clear
+    </button>
+
+
+    <div
+        class="copy-status"
+        id="copyStatus">
+    </div>
+
+
+    <!-- =====================================================
+         使い方
+         ===================================================== -->
+
+    <a
+        class="help-link"
+        href="help.html">
+        使い方
+    </a>
+
+
 </div>
-<div class="label">プレビュー</div>
-<div class="preview" id="preview"></div>
-<div class="copy-status" id="copyStatus"></div>
-</div>
+
+
 <script>
+
+
+/* =========================================================
+   色定義
+   ========================================================= */
+
 const SAMPLE_COLORS = [
+
     ['白', 'ffffff'],
     ['灰', '808080'],
-    ['青', '0000ff'],
+
+    /* 青を0099FFへ変更 */
+
+    ['青', '0099FF'],
+
     ['赤', 'ff0000'],
     ['緑', '00aa00'],
     ['黄', 'ffd700'],
@@ -174,397 +613,1665 @@ const SAMPLE_COLORS = [
     ['水', '00ced1'],
     ['桃', 'ff69b4'],
     ['橙', 'ff8c00']
+
 ];
+
 const WHITE = 'white';
-const input = document.getElementById('inputText');
-const preview = document.getElementById('preview');
-const copyStatus = document.getElementById('copyStatus');
-// ============================================================
-// Pythonista版:
-// to_chat_color_tag()
-// ============================================================
+
+
+/* =========================================================
+   Undo
+   ========================================================= */
+
+const undoStack = [];
+
+const MAX_UNDO = 50;
+
+let isUndoing = false;
+
+let lastInputValue = '';
+
+let typingTimer = null;
+
+
+/* =========================================================
+   DOM
+   ========================================================= */
+
+const input =
+    document.getElementById(
+        'inputText'
+    );
+
+const preview =
+    document.getElementById(
+        'preview'
+    );
+
+const copyStatus =
+    document.getElementById(
+        'copyStatus'
+    );
+
+
+/* =========================================================
+   Undo履歴保存
+   ========================================================= */
+
+function saveUndoState() {
+
+    if (isUndoing) {
+        return;
+    }
+
+
+    const currentValue =
+        input.value || '';
+
+
+    if (
+
+        undoStack.length > 0 &&
+
+        undoStack[
+            undoStack.length - 1
+        ] === currentValue
+
+    ) {
+
+        return;
+
+    }
+
+
+    undoStack.push(
+        currentValue
+    );
+
+
+    if (
+        undoStack.length >
+        MAX_UNDO
+    ) {
+
+        undoStack.shift();
+
+    }
+
+}
+
+
+/* =========================================================
+   色タグ生成
+   ========================================================= */
+
 function toChatColorTag(hex6) {
-    let s = (hex6 || '')
+
+    let s =
+        (hex6 || '')
         .trim()
         .replace('#', '');
-    if (s.length !== 6) {
+
+
+    if (
+        s.length !== 6
+    ) {
+
         return '';
+
     }
-    s = s.toUpperCase();
-    return `[${s[0]}[[#C0]-]${s.slice(1)}]`;
+
+
+    s =
+        s.toUpperCase();
+
+
+    return (
+
+        '[' +
+        s[0] +
+        '[[#C0]-]' +
+        s.slice(1) +
+        ']'
+
+    );
+
 }
-// ============================================================
-// Pythonista版:
-// 選択範囲取得
-// ============================================================
+
+
+/* =========================================================
+   選択範囲
+   ========================================================= */
+
 function getSelection() {
-    const text = input.value || '';
-    let start = input.selectionStart;
-    let end = input.selectionEnd;
-    if (start === null || start === undefined) {
-        start = text.length;
+
+    const text =
+        input.value || '';
+
+
+    let start =
+        input.selectionStart;
+
+    let end =
+        input.selectionEnd;
+
+
+    if (
+        start === null ||
+        start === undefined
+    ) {
+
+        start =
+            text.length;
+
     }
-    if (end === null || end === undefined) {
-        end = text.length;
+
+
+    if (
+        end === null ||
+        end === undefined
+    ) {
+
+        end =
+            text.length;
+
     }
-    start = Math.max(0, Math.min(Number(start), text.length));
-    end = Math.max(0, Math.min(Number(end), text.length));
-    if (start > end) {
-        [start, end] = [end, start];
+
+
+    start =
+        Math.max(
+            0,
+            Math.min(
+                Number(start),
+                text.length
+            )
+        );
+
+
+    end =
+        Math.max(
+            0,
+            Math.min(
+                Number(end),
+                text.length
+            )
+        );
+
+
+    if (
+        start > end
+    ) {
+
+        [
+            start,
+            end
+        ] = [
+            end,
+            start
+        ];
+
     }
+
+
     return {
-        text: text,
-        start: start,
-        end: end
+
+        text:
+            text,
+
+        start:
+            start,
+
+        end:
+            end
+
     };
+
 }
-// ============================================================
-// Pythonista版:
-// replace_selection()
-// ============================================================
-function replaceSelection(replacement) {
-    const selection = getSelection();
-    const before = selection.text.slice(0, selection.start);
-    const after = selection.text.slice(selection.end);
+
+
+/* =========================================================
+   選択範囲置換
+   ========================================================= */
+
+function replaceSelection(
+    replacement
+) {
+
+    saveUndoState();
+
+
+    const selection =
+        getSelection();
+
+
+    const before =
+        selection.text.slice(
+            0,
+            selection.start
+        );
+
+
+    const after =
+        selection.text.slice(
+            selection.end
+        );
+
+
     input.value =
+
         before +
         replacement +
         after;
+
+
     const newPos =
+
         selection.start +
         replacement.length;
+
+
+    lastInputValue =
+        input.value;
+
+
     input.focus();
+
+
     input.setSelectionRange(
         newPos,
         newPos
     );
+
+
     refreshPreview();
+
 }
-// ============================================================
-// Pythonista版:
-// wrap_selection()
-// ============================================================
-function wrapSelection(openTag, closeTag) {
-    const selection = getSelection();
-    if (selection.start === selection.end) {
-        replaceSelection(openTag);
+
+
+/* =========================================================
+   選択範囲をタグで囲む
+   ========================================================= */
+
+function wrapSelection(
+    openTag,
+    closeTag
+) {
+
+    const selection =
+        getSelection();
+
+
+    if (
+        selection.start ===
+        selection.end
+    ) {
+
+        replaceSelection(
+            openTag
+        );
+
         return;
+
     }
+
+
     const selected =
         selection.text.slice(
             selection.start,
             selection.end
         );
+
+
     const replacement =
+
         openTag +
         selected +
         closeTag;
-    replaceSelection(replacement);
+
+
+    replaceSelection(
+        replacement
+    );
+
 }
-// ============================================================
-// 色ボタン
-// ============================================================
-function insertColorCode(hex) {
+
+
+/* =========================================================
+   色
+   ========================================================= */
+
+function insertColorCode(
+    hex
+) {
+
     const code =
-        toChatColorTag(hex);
+        toChatColorTag(
+            hex
+        );
+
+
     if (code) {
-        replaceSelection(code);
+
+        replaceSelection(
+            code
+        );
+
     }
+
 }
-// ============================================================
-// SUP / SUB
-// ============================================================
+
+
+/* =========================================================
+   UP
+   ========================================================= */
+
 function toggleSup() {
+
     wrapSelection(
         '[SUP]',
         '[/SUP]'
     );
+
 }
+
+
+/* =========================================================
+   UP OFF
+   ========================================================= */
+
 function toggleSupOff() {
+
     replaceSelection(
         '[/SUP]'
     );
+
 }
+
+
+/* =========================================================
+   DOWN
+   ========================================================= */
+
 function toggleSub() {
+
     wrapSelection(
         '[SUB]',
         '[/SUB]'
     );
+
 }
+
+
+/* =========================================================
+   DOWN OFF
+   ========================================================= */
+
 function toggleSubOff() {
+
     replaceSelection(
         '[/SUB]'
     );
+
 }
-// ============================================================
-// プレビュー解析
-// Pythonista版 parse_preview() 相当
-// ============================================================
-function parsePreview(text) {
-    text = text || '';
-    const items = [];
-    let i = 0;
-    let currentColor = WHITE;
-    let supDepth = 0;
-    let subDepth = 0;
-    while (i < text.length) {
-        // ----------------------------
-        // SUP開始
-        // ----------------------------
-        if (text.startsWith('[SUP]', i)) {
-            supDepth++;
-            i += 5;
-            continue;
+
+
+/* =========================================================
+   CLEAR
+   ========================================================= */
+
+function clearText() {
+
+    if (
+        input.value !== ''
+    ) {
+
+        saveUndoState();
+
+    }
+
+
+    input.value =
+        '';
+
+
+    lastInputValue =
+        '';
+
+
+    refreshPreview();
+
+
+    input.focus();
+
+}
+
+
+/* =========================================================
+   Undo
+   ========================================================= */
+
+function undo() {
+
+    if (
+        undoStack.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    isUndoing =
+        true;
+
+
+    const previousValue =
+        undoStack.pop();
+
+
+    input.value =
+        previousValue;
+
+
+    lastInputValue =
+        previousValue;
+
+
+    refreshPreview();
+
+
+    input.focus();
+
+
+    input.setSelectionRange(
+
+        previousValue.length,
+        previousValue.length
+
+    );
+
+
+    isUndoing =
+        false;
+
+}
+
+
+/* =========================================================
+   制御タグ判定
+   ========================================================= */
+
+function getControlTagLength(
+    text,
+    index
+) {
+
+    const tags = [
+
+        '[SUP]',
+        '[/SUP]',
+        '[SUB]',
+        '[/SUB]'
+
+    ];
+
+
+    for (
+        const tag of tags
+    ) {
+
+        if (
+            text.startsWith(
+                tag,
+                index
+            )
+        ) {
+
+            return tag.length;
+
         }
-        // ----------------------------
-        // SUP終了
-        // ----------------------------
-        if (text.startsWith('[/SUP]', i)) {
+
+    }
+
+
+    /*
+       色タグ
+    */
+
+    if (
+
+        index + 15 <
+        text.length &&
+
+        text[index] === '[' &&
+
+        text.slice(
+            index + 2,
+            index + 8
+        ) === '[[#C0]' &&
+
+        text.slice(
+            index + 8,
+            index + 10
+        ) === '-]' &&
+
+        text[index + 15] === ']'
+
+    ) {
+
+        const first =
+            text[index + 1];
+
+
+        const last5 =
+            text.slice(
+                index + 10,
+                index + 15
+            );
+
+
+        const hexChars =
+            '0123456789ABCDEFabcdef';
+
+
+        if (
+
+            hexChars.includes(
+                first
+            ) &&
+
+            last5.length === 5 &&
+
+            [...last5].every(
+                c =>
+                    hexChars.includes(
+                        c
+                    )
+            )
+
+        ) {
+
+            return 16;
+
+        }
+
+    }
+
+
+    return 0;
+
+}
+
+
+/* =========================================================
+   RANDOM COLOR
+   ========================================================= */
+
+function randomizeColors() {
+
+    const selection =
+        getSelection();
+
+
+    if (
+        selection.start ===
+        selection.end
+    ) {
+
+        return;
+
+    }
+
+
+    const selected =
+        selection.text.slice(
+            selection.start,
+            selection.end
+        );
+
+
+    const result = [];
+
+    let i = 0;
+
+
+    while (
+        i < selected.length
+    ) {
+
+        const tagLength =
+            getControlTagLength(
+                selected,
+                i
+            );
+
+
+        if (
+            tagLength > 0
+        ) {
+
+            result.push(
+
+                selected.slice(
+                    i,
+                    i + tagLength
+                )
+
+            );
+
+
+            i +=
+                tagLength;
+
+
+            continue;
+
+        }
+
+
+        if (
+            selected[i] ===
+            '\n'
+        ) {
+
+            result.push(
+                '\n'
+            );
+
+
+            i++;
+
+
+            continue;
+
+        }
+
+
+        const ch =
+            selected[i];
+
+
+        const randomIndex =
+            Math.floor(
+                Math.random() *
+                SAMPLE_COLORS.length
+            );
+
+
+        const randomCode =
+            SAMPLE_COLORS[
+                randomIndex
+            ][1];
+
+
+        result.push(
+
+            toChatColorTag(
+                randomCode
+            ) +
+
+            ch
+
+        );
+
+
+        i++;
+
+    }
+
+
+    replaceSelection(
+        result.join('')
+    );
+
+}
+
+
+/* =========================================================
+   UP / DOWN
+   ========================================================= */
+
+function applyUpDown() {
+
+    const selection =
+        getSelection();
+
+
+    if (
+        selection.start ===
+        selection.end
+    ) {
+
+        return;
+
+    }
+
+
+    const selected =
+        selection.text.slice(
+            selection.start,
+            selection.end
+        );
+
+
+    const result = [];
+
+    let i = 0;
+
+    let characterIndex =
+        0;
+
+
+    while (
+        i < selected.length
+    ) {
+
+        const tagLength =
+            getControlTagLength(
+                selected,
+                i
+            );
+
+
+        if (
+            tagLength > 0
+        ) {
+
+            result.push(
+
+                selected.slice(
+                    i,
+                    i + tagLength
+                )
+
+            );
+
+
+            i +=
+                tagLength;
+
+
+            continue;
+
+        }
+
+
+        if (
+            selected[i] ===
+            '\n'
+        ) {
+
+            result.push(
+                '\n'
+            );
+
+
+            i++;
+
+
+            continue;
+
+        }
+
+
+        const ch =
+            selected[i];
+
+
+        const mode =
+            characterIndex % 2;
+
+
+        if (
+            mode === 0
+        ) {
+
+            result.push(
+
+                '[SUP]' +
+                ch +
+                '[/SUP]'
+
+            );
+
+        } else {
+
+            result.push(
+
+                '[SUB]' +
+                ch +
+                '[/SUB]'
+
+            );
+
+        }
+
+
+        characterIndex++;
+
+        i++;
+
+    }
+
+
+    replaceSelection(
+        result.join('')
+    );
+
+}
+
+
+/* =========================================================
+   RANDOM + UP/DOWN
+   ========================================================= */
+
+function randomizeColorsAndSupSub() {
+
+    const selection =
+        getSelection();
+
+
+    if (
+        selection.start ===
+        selection.end
+    ) {
+
+        return;
+
+    }
+
+
+    const selected =
+        selection.text.slice(
+            selection.start,
+            selection.end
+        );
+
+
+    const result = [];
+
+    let i = 0;
+
+    let characterIndex =
+        0;
+
+
+    while (
+        i < selected.length
+    ) {
+
+        const tagLength =
+            getControlTagLength(
+                selected,
+                i
+            );
+
+
+        if (
+            tagLength > 0
+        ) {
+
+            result.push(
+
+                selected.slice(
+                    i,
+                    i + tagLength
+                )
+
+            );
+
+
+            i +=
+                tagLength;
+
+
+            continue;
+
+        }
+
+
+        if (
+            selected[i] ===
+            '\n'
+        ) {
+
+            result.push(
+                '\n'
+            );
+
+
+            i++;
+
+
+            continue;
+
+        }
+
+
+        const ch =
+            selected[i];
+
+
+        const randomIndex =
+            Math.floor(
+                Math.random() *
+                SAMPLE_COLORS.length
+            );
+
+
+        const randomCode =
+            SAMPLE_COLORS[
+                randomIndex
+            ][1];
+
+
+        const colorTag =
+            toChatColorTag(
+                randomCode
+            );
+
+
+        const mode =
+            characterIndex % 2;
+
+
+        if (
+            mode === 0
+        ) {
+
+            result.push(
+
+                colorTag +
+
+                '[SUP]' +
+                ch +
+                '[/SUP]'
+
+            );
+
+        } else {
+
+            result.push(
+
+                colorTag +
+
+                '[SUB]' +
+                ch +
+                '[/SUB]'
+
+            );
+
+        }
+
+
+        characterIndex++;
+
+        i++;
+
+    }
+
+
+    replaceSelection(
+        result.join('')
+    );
+
+}
+
+
+/* =========================================================
+   プレビュー解析
+   ========================================================= */
+
+function parsePreview(
+    text
+) {
+
+    text =
+        text || '';
+
+
+    const items = [];
+
+    let i = 0;
+
+    let currentColor =
+        WHITE;
+
+    let supDepth =
+        0;
+
+    let subDepth =
+        0;
+
+
+    while (
+        i < text.length
+    ) {
+
+        if (
+            text.startsWith(
+                '[SUP]',
+                i
+            )
+        ) {
+
+            supDepth++;
+
+            i += 5;
+
+            continue;
+
+        }
+
+
+        if (
+            text.startsWith(
+                '[/SUP]',
+                i
+            )
+        ) {
+
             supDepth =
                 Math.max(
                     0,
                     supDepth - 1
                 );
+
             i += 6;
+
             continue;
+
         }
-        // ----------------------------
-        // SUB開始
-        // ----------------------------
-        if (text.startsWith('[SUB]', i)) {
+
+
+        if (
+            text.startsWith(
+                '[SUB]',
+                i
+            )
+        ) {
+
             subDepth++;
+
             i += 5;
+
             continue;
+
         }
-        // ----------------------------
-        // SUB終了
-        // ----------------------------
-        if (text.startsWith('[/SUB]', i)) {
+
+
+        if (
+            text.startsWith(
+                '[/SUB]',
+                i
+            )
+        ) {
+
             subDepth =
                 Math.max(
                     0,
                     subDepth - 1
                 );
+
             i += 6;
+
             continue;
+
         }
-        // ----------------------------
-        // 色タグ
-        // Pythonista版と同じ形式
-        // ----------------------------
+
+
         if (
-            i + 15 < text.length &&
+
+            i + 15 <
+            text.length &&
+
             text[i] === '[' &&
-            text.slice(i + 2, i + 8) === '[[#C0]' &&
-            text.slice(i + 8, i + 10) === '-]' &&
+
+            text.slice(
+                i + 2,
+                i + 8
+            ) === '[[#C0]' &&
+
+            text.slice(
+                i + 8,
+                i + 10
+            ) === '-]' &&
+
             text[i + 15] === ']'
+
         ) {
+
             const first =
                 text[i + 1];
+
+
             const last5 =
-                text.slice(i + 10, i + 15);
+                text.slice(
+                    i + 10,
+                    i + 15
+                );
+
+
             const hexChars =
                 '0123456789ABCDEFabcdef';
-            const validFirst =
-                hexChars.includes(first);
-            const validLast =
-                last5.length === 5 &&
-                [...last5].every(
-                    c => hexChars.includes(c)
-                );
+
+
             if (
-                validFirst &&
-                validLast
+
+                hexChars.includes(
+                    first
+                ) &&
+
+                last5.length === 5 &&
+
+                [...last5].every(
+                    c =>
+                        hexChars.includes(
+                            c
+                        )
+                )
+
             ) {
+
                 currentColor =
                     '#' +
                     (
                         first +
                         last5
                     ).toUpperCase();
+
+
                 i += 16;
+
                 continue;
+
             }
+
         }
-        // ----------------------------
-        // 通常 / SUP / SUB
-        // ----------------------------
-        let kind = 'normal';
-        if (supDepth > 0) {
-            kind = 'sup';
-        } else if (subDepth > 0) {
-            kind = 'sub';
+
+
+        let kind =
+            'normal';
+
+
+        if (
+            supDepth > 0
+        ) {
+
+            kind =
+                'sup';
+
         }
+        else if (
+            subDepth > 0
+        ) {
+
+            kind =
+                'sub';
+
+        }
+
+
         items.push({
-            char: text[i],
-            color: currentColor,
-            kind: kind
+
+            char:
+                text[i],
+
+            color:
+                currentColor,
+
+            kind:
+                kind
+
         });
+
+
         i++;
+
     }
+
+
     return items;
+
 }
-// ============================================================
-// プレビュー描画
-// ============================================================
+
+
+/* =========================================================
+   プレビュー
+   ========================================================= */
+
 function refreshPreview() {
+
     const text =
         input.value || '';
+
+
     const items =
-        parsePreview(text);
-    preview.innerHTML = '';
+        parsePreview(
+            text
+        );
+
+
+    preview.innerHTML =
+        '';
+
+
     let line =
-        document.createElement('div');
+        document.createElement(
+            'div'
+        );
+
+
     line.className =
         'preview-line';
-    preview.appendChild(line);
-    for (const item of items) {
-        if (item.char === '\n') {
+
+
+    preview.appendChild(
+        line
+    );
+
+
+    for (
+        const item of items
+    ) {
+
+        if (
+            item.char ===
+            '\n'
+        ) {
+
             line =
-                document.createElement('div');
+                document.createElement(
+                    'div'
+                );
+
+
             line.className =
                 'preview-line';
-            preview.appendChild(line);
+
+
+            preview.appendChild(
+                line
+            );
+
+
             continue;
+
         }
+
+
         const span =
-            document.createElement('span');
+            document.createElement(
+                'span'
+            );
+
+
         span.className =
             'preview-char ' +
             item.kind;
+
+
         span.textContent =
             item.char;
+
+
         span.style.color =
             item.color;
-        line.appendChild(span);
+
+
+        line.appendChild(
+            span
+        );
+
     }
+
 }
-// ============================================================
-// 色ボタン生成
-// ============================================================
+
+
+/* =========================================================
+   カラーボタン生成
+   ========================================================= */
+
 function createColorButtons() {
+
     const container =
         document.getElementById(
             'colorButtons'
         );
+
+
     for (
         const [title, code]
         of SAMPLE_COLORS
     ) {
+
         const button =
             document.createElement(
                 'button'
             );
+
+
         button.className =
             'color-button';
+
+
         button.textContent =
             title;
+
+
         button.style.backgroundColor =
             '#' + code;
+
+
         if (
-            ['白', '黄', '水', '桃']
-                .includes(title)
+
+            [
+                '白',
+                '黄',
+                '水',
+                '桃'
+            ].includes(
+                title
+            )
+
         ) {
+
             button.style.color =
                 'black';
-        } else {
+
+        }
+        else {
+
             button.style.color =
                 'white';
+
         }
+
+
         button.addEventListener(
             'click',
-            () => insertColorCode(code)
+            () =>
+                insertColorCode(
+                    code
+                )
         );
-        container.appendChild(button);
+
+
+        container.appendChild(
+            button
+        );
+
     }
+
 }
-// ============================================================
-// コピー
-// ============================================================
+
+
+/* =========================================================
+   コピー
+   ========================================================= */
+
 async function copyText() {
+
     const text =
         input.value || '';
+
+
     try {
+
         await navigator.clipboard.writeText(
             text
         );
+
+
         copyStatus.textContent =
             'コピーしました';
+
+
         setTimeout(
             () => {
-                copyStatus.textContent = '';
+
+                copyStatus.textContent =
+                    '';
+
             },
             1500
         );
-    } catch (error) {
-        // Clipboard APIが使用できない場合の
-        // フォールバック
+
+
+    }
+    catch (error) {
+
         try {
+
             const temp =
                 document.createElement(
                     'textarea'
                 );
-            temp.value = text;
-            document.body.appendChild(temp);
+
+
+            temp.value =
+                text;
+
+
+            document.body.appendChild(
+                temp
+            );
+
+
             temp.select();
-            document.execCommand('copy');
-            document.body.removeChild(temp);
+
+
+            document.execCommand(
+                'copy'
+            );
+
+
+            document.body.removeChild(
+                temp
+            );
+
+
             copyStatus.textContent =
                 'コピーしました';
+
+
             setTimeout(
                 () => {
-                    copyStatus.textContent = '';
+
+                    copyStatus.textContent =
+                        '';
+
                 },
                 1500
             );
-        } catch (fallbackError) {
+
+        }
+        catch (
+            fallbackError
+        ) {
+
             copyStatus.textContent =
                 'コピーできませんでした';
+
         }
+
     }
+
 }
-// ============================================================
-// イベント
-// ============================================================
+
+
+/* =========================================================
+   文字入力
+   ========================================================= */
+
 input.addEventListener(
     'input',
-    refreshPreview
+    function() {
+
+        if (
+            !isUndoing
+        ) {
+
+            if (
+                input.value !==
+                lastInputValue
+            ) {
+
+                clearTimeout(
+                    typingTimer
+                );
+
+
+                typingTimer =
+                    setTimeout(
+                        () => {
+
+                            if (
+                                input.value !==
+                                lastInputValue
+                            ) {
+
+                                saveUndoState();
+
+                            }
+
+
+                            lastInputValue =
+                                input.value;
+
+                        },
+                        500
+                    );
+
+            }
+
+        }
+
+
+        refreshPreview();
+
+    }
 );
+
+
+/* =========================================================
+   ボタンイベント
+   ========================================================= */
+
 document
-    .getElementById('supButton')
+    .getElementById(
+        'supButton'
+    )
     .addEventListener(
         'click',
         toggleSup
     );
+
+
 document
-    .getElementById('supOffButton')
+    .getElementById(
+        'supOffButton'
+    )
     .addEventListener(
         'click',
         toggleSupOff
     );
+
+
 document
-    .getElementById('subButton')
+    .getElementById(
+        'subButton'
+    )
     .addEventListener(
         'click',
         toggleSub
     );
+
+
 document
-    .getElementById('subOffButton')
+    .getElementById(
+        'subOffButton'
+    )
     .addEventListener(
         'click',
         toggleSubOff
     );
+
+
 document
-    .getElementById('copyButton')
+    .getElementById(
+        'undoButton'
+    )
+    .addEventListener(
+        'click',
+        undo
+    );
+
+
+document
+    .getElementById(
+        'clearButton'
+    )
+    .addEventListener(
+        'click',
+        clearText
+    );
+
+
+document
+    .getElementById(
+        'randomColorButton'
+    )
+    .addEventListener(
+        'click',
+        randomizeColors
+    );
+
+
+document
+    .getElementById(
+        'upDownButton'
+    )
+    .addEventListener(
+        'click',
+        applyUpDown
+    );
+
+
+document
+    .getElementById(
+        'randomDecorationButton'
+    )
+    .addEventListener(
+        'click',
+        randomizeColorsAndSupSub
+    );
+
+
+document
+    .getElementById(
+        'copyButton'
+    )
     .addEventListener(
         'click',
         copyText
     );
-// ============================================================
-// 初期化
-// ============================================================
+
+
+/* =========================================================
+   初期化
+   ========================================================= */
+
 createColorButtons();
+
+lastInputValue =
+    input.value;
+
 refreshPreview();
+
+
 </script>
+
+
 </body>
 </html>
