@@ -11,8 +11,14 @@
                maximum-scale=1.0,
                user-scalable=no">
 
-<title>使い方 - Chat Input Helper</title>
+<link rel="icon"
+      type="image/png"
+      href="cat-icon.png">
 
+<link rel="apple-touch-icon"
+      href="cat-icon.png">
+
+<title>Chat Input Helper - 使い方</title>
 
 <style>
 
@@ -21,15 +27,10 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-
 html,
 body {
-
     margin: 0;
     padding: 0;
-
-    width: 100%;
-    min-height: 100%;
 
     background: #2b2b2b;
     color: white;
@@ -38,194 +39,155 @@ body {
         -apple-system,
         BlinkMacSystemFont,
         "Helvetica Neue",
+        Arial,
         sans-serif;
 }
 
-
 body {
-
     padding: 16px;
-
+    padding-bottom: 30px;
 }
 
-
-.container {
-
+.page {
     width: 100%;
-
     max-width: 700px;
-
     margin: 0 auto;
-
 }
 
+
+/* -------------------------
+   タイトル
+------------------------- */
 
 h1 {
-
-    margin:
-        0 0 18px 0;
-
-    font-size: 21px;
-
+    font-size: 22px;
+    margin: 0 0 20px 0;
 }
-
 
 h2 {
-
-    margin:
-        24px 0 8px 0;
-
-    padding-bottom: 5px;
-
-    border-bottom:
-        1px solid #555;
-
     font-size: 17px;
+    margin: 24px 0 10px 0;
+}
 
+h3 {
+    font-size: 15px;
+    margin: 18px 0 8px 0;
 }
 
 
-p {
+/* -------------------------
+   本文
+------------------------- */
 
-    margin:
-        8px 0;
-
+p,
+li {
     font-size: 14px;
-
     line-height: 1.7;
-
 }
-
 
 ul {
-
-    margin:
-        8px 0 8px 20px;
-
-    padding: 0;
-
+    padding-left: 22px;
 }
 
 
-li {
+/* -------------------------
+   ボタン説明
+------------------------- */
 
-    margin-bottom: 7px;
+.feature {
+    background: #333333;
 
-    font-size: 14px;
-
-    line-height: 1.6;
-
-}
-
-
-.tool-name {
-
-    padding: 10px;
-
-    margin-bottom: 15px;
+    border: 1px solid #555;
 
     border-radius: 8px;
 
-    background: #333333;
+    padding: 10px 12px;
 
-    font-size: 14px;
+    margin-bottom: 8px;
+}
 
+.feature-title {
+    font-weight: bold;
+    font-size: 15px;
+
+    margin-bottom: 4px;
+}
+
+.feature-description {
+    font-size: 13px;
     line-height: 1.6;
-
 }
 
 
-.note {
+/* -------------------------
+   注意書き
+------------------------- */
 
-    padding: 10px;
+.notice {
+    background: #333333;
 
-    margin:
-        12px 0;
+    border: 1px solid #666;
 
     border-radius: 8px;
 
-    background: #333333;
+    padding: 12px;
 
-    color: #dddddd;
+    margin-top: 12px;
 
     font-size: 13px;
-
-    line-height: 1.6;
-
+    line-height: 1.7;
 }
 
 
-.button-name {
+/* -------------------------
+   戻るボタン
+------------------------- */
 
-    display: inline-block;
-
-    min-width: 70px;
-
-    padding:
-        2px 7px;
-
-    margin-right: 4px;
-
-    border-radius: 5px;
-
-    background: #3a3a3a;
-
-    color: white;
-
-    font-size: 12px;
-
+.back-area {
     text-align: center;
 
+    margin-top: 28px;
 }
 
+.back-button {
+    display: inline-flex;
 
-.back-link {
+    align-items: center;
+    justify-content: center;
 
-    display: block;
+    min-width: 150px;
+    height: 38px;
 
-    margin-top: 28px;
-
-    padding: 10px;
-
-    border-radius: 8px;
+    padding: 0 24px;
 
     background: #3a3a3a;
-
     color: white;
 
     text-decoration: none;
 
-    text-align: center;
+    border-radius: 8px;
 
-    font-size: 14px;
+    border: 1px solid #555;
+}
 
+.back-button:active {
+    opacity: 0.7;
+    transform: scale(0.98);
 }
 
 
-.back-link:active {
-
-    background: #444444;
-
-}
-
+/* -------------------------
+   フッター
+------------------------- */
 
 .footer {
-
-    margin-top: 25px;
-
-    padding-top: 12px;
-
-    border-top:
-        1px solid #444;
-
-    color: #999999;
-
-    font-size: 11px;
-
-    line-height: 1.6;
+    margin-top: 22px;
 
     text-align: center;
 
+    color: #999;
+
+    font-size: 12px;
 }
 
 </style>
@@ -235,382 +197,427 @@ li {
 
 <body>
 
-
-<div class="container">
+<div class="page">
 
 
 <h1>
-    Chat Input Helper ― 使い方
+    Chat Input Helper
 </h1>
 
-
-<div class="tool-name">
-
-    このツールは、
-
-    「パズルアンドサバイバル」の
-    チャット欄で使える装飾を
-    楽にしてくれるかもしれないツールです。
-
-    <br><br>
-
-    チャットの内容がどこかに収集される
-    なんてことはないので安心してください
-    ヽ(=´▽`=)ﾉ
-
-    <br><br>
-
-    iPhoneでのみ動作確認しています。
-
-</div>
-
-
-<!-- =====================================================
-     概要
-     ===================================================== -->
 
 <h2>
     概要
 </h2>
 
-
 <p>
-
-このツールでは、チャットに入力する文字に対して、
-
-色付け・上付き・下付きなどの装飾を
-簡単なボタン操作で行うことができます。
-
+このツールは、
+「パズルアンドサバイバル」のチャット欄で使える
+文字装飾を楽にしてくれるかもしれないツールです。
 </p>
 
-
 <p>
-
-装飾した文字列を最後にコピーして、
-ゲームのチャット欄などに貼り付けて使用してください。
-
+文字に色を付けたり、上付き・下付きにしたり、
+選択した文字をランダムカラーやグラデーションにしたりできます。
 </p>
 
+<p>
+このツールに入力したチャット内容が、
+どこかのサーバーなどに収集・保存されることはありません。
+安心してお使いくださいヽ(=´▽`=)ﾉ
+</p>
 
-<!-- =====================================================
-     使い方
-     ===================================================== -->
+<p>
+現在は<strong>iPhoneでのみ動作確認</strong>しています。
+</p>
+
 
 <h2>
-    使い方
+    基本的な使い方
 </h2>
 
+<p>
+上部の「テキスト入力」欄に文字を入力します。
+</p>
 
 <p>
+文字の一部を装飾したい場合は、
+iPhoneの操作で文字を選択してからボタンを押してください。
+</p>
 
-まず、上部の「テキスト入力」欄に
-チャットへ入力したい文章を入力します。
-
+<p>
+選択範囲がない状態で一部のボタンを押した場合は、
+カーソル位置にタグを挿入します。
 </p>
 
 
-<p>
-
-文字の一部分だけを装飾したい場合は、
-入力欄の中で装飾したい文字を選択してから
-各ボタンを押してください。
-
-</p>
-
-
-<ul>
-
-<li>
-
-    <span class="button-name">
-        白 / 灰 / 青
-    </span>
-
-    などのカラーボタンを押すと、
-    選択範囲にその色の装飾を追加します。
-
-</li>
-
-
-<li>
-
-    <span class="button-name">
-        up
-    </span>
-
-    選択範囲を上付き文字にします。
-
-</li>
-
-
-<li>
-
-    <span class="button-name">
-        up off
-    </span>
-
-    上付き状態を終了するタグを
-    入力します。
-
-</li>
-
-
-<li>
-
-    <span class="button-name">
-        dn
-    </span>
-
-    選択範囲を下付き文字にします。
-
-</li>
-
-
-<li>
-
-    <span class="button-name">
-        dn off
-    </span>
-
-    下付き状態を終了するタグを
-    入力します。
-
-</li>
-
-
-<li>
-
-    <span class="button-name">
-        random
-    </span>
-
-    選択範囲の文字を、
-    1文字ずつランダムな色にします。
-
-</li>
-
-
-<li>
-
-    <span class="button-name">
-        up/dn
-    </span>
-
-    選択範囲を、
-    上付き・下付き・上付き・下付き……
-    と1文字ずつ交互にします。
-
-</li>
-
-
-<li>
-
-    <span class="button-name">
-        rnd+up/dn
-    </span>
-
-    1文字ずつランダムな色にしながら、
-    上付き・下付きを交互に設定します。
-
-</li>
-
-
-<li>
-
-    <span class="button-name">
-        undo
-    </span>
-
-    直前の操作を取り消します。
-
-    複数回押すことで、
-    保存されている範囲まで順番に戻すことができます。
-
-</li>
-
-
-<li>
-
-    <span class="button-name">
-        copy
-    </span>
-
-    装飾後の文字列をクリップボードへ
-    コピーします。
-
-</li>
-
-
-<li>
-
-    <span class="button-name">
-        clear
-    </span>
-
-    テキスト入力欄をすべて消去します。
-
-    消去後に
-    <span class="button-name">
-        undo
-    </span>
-    を押すと、
-    消去前の状態に戻せます。
-
-</li>
-
-</ul>
-
-
-<div class="note">
-
-※ 装飾の結果は「プレビュー」で確認できます。
-
-<br>
-
-※ ゲーム側の仕様変更などにより、
-以前と同じように表示されなくなる場合があります。
+<h2>
+    カラーボタン
+</h2>
+
+<div class="feature">
+<div class="feature-title">白</div>
+<div class="feature-description">
+選択した文字を白色にします。
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-title">灰</div>
+<div class="feature-description">
+選択した文字を灰色にします。
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-title">青</div>
+<div class="feature-description">
+選択した文字を青色にします。
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-title">赤</div>
+<div class="feature-description">
+選択した文字を赤色にします。
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-title">緑</div>
+<div class="feature-description">
+選択した文字を緑色にします。
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-title">黄</div>
+<div class="feature-description">
+選択した文字を黄色にします。
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-title">水</div>
+<div class="feature-description">
+選択した文字を水色にします。
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-title">桃</div>
+<div class="feature-description">
+選択した文字を桃色にします。
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-title">橙</div>
+<div class="feature-description">
+選択した文字を橙色にします。
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-title">カスタム</div>
+<div class="feature-description">
+カラージェネレーターで作成した色を、
+選択範囲に適用します。
+</div>
+</div>
+
+
+<h2>
+    上付き・下付き
+</h2>
+
+<div class="feature">
+
+<div class="feature-title">
+up
+</div>
+
+<div class="feature-description">
+選択範囲を上付き文字にします。
+</div>
 
 </div>
 
 
-<!-- =====================================================
-     ツールの仕様
-     ===================================================== -->
+<div class="feature">
+
+<div class="feature-title">
+up off
+</div>
+
+<div class="feature-description">
+上付き文字の終了タグを挿入します。
+</div>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-title">
+dn
+</div>
+
+<div class="feature-description">
+選択範囲を下付き文字にします。
+</div>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-title">
+dn off
+</div>
+
+<div class="feature-description">
+下付き文字の終了タグを挿入します。
+</div>
+
+</div>
+
 
 <h2>
-    ツールの仕様
+    copy
+</h2>
+
+<p>
+入力欄に入っている完成した文字列を
+クリップボードへコピーします。
+</p>
+
+<p>
+コピーした内容を、そのままゲームのチャット欄などへ
+貼り付けることができます。
+</p>
+
+
+<h2>
+    clear
+</h2>
+
+<p>
+入力欄の文字をすべて消去します。
+</p>
+
+
+<h2>
+    undo
+</h2>
+
+<p>
+直前の編集操作を取り消します。
+</p>
+
+<p>
+最大50回分まで履歴を保持します。
+</p>
+
+
+<h2>
+    おまけ
 </h2>
 
 
-<p>
+<div class="feature">
 
-このページに記載している内容および
-このツールの仕様は、
+<div class="feature-title">
+random
+</div>
 
-<strong>
-2026年9月30日時点
-</strong>
+<div class="feature-description">
+選択範囲の文字を1文字ずつ、
+ランダムな色にします。
+</div>
 
-の情報をもとにしています。
-
-</p>
-
-
-<ul>
-
-<li>
-    iPhoneで動作確認しています。
-</li>
-
-<li>
-    Android端末など、
-    iPhone以外の環境では
-    動作確認を行っていません。
-</li>
-
-<li>
-    入力した文章は、
-    このツールから外部のサーバーへ
-    送信・保存する仕組みを
-    使用していません。
-</li>
-
-<li>
-    プレビューは、
-    入力した内容を端末上で処理して
-    表示しています。
-</li>
-
-<li>
-    Undo履歴は、
-    ページを閉じたり再読み込みしたりすると
-    消えます。
-</li>
-
-<li>
-    Undo履歴は最大50段階までです。
-</li>
-
-</ul>
+</div>
 
 
-<!-- =====================================================
-     終わりに
-     ===================================================== -->
+<div class="feature">
+
+<div class="feature-title">
+up/dn
+</div>
+
+<div class="feature-description">
+選択範囲を1文字ずつ、
+上付き・下付き・上付き・下付き……
+と交互にします。
+</div>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-title">
+rnd+up/dn
+</div>
+
+<div class="feature-description">
+1文字ずつランダムな色を付けながら、
+上付き・下付きを交互にします。
+</div>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-title">
+gradation
+</div>
+
+<div class="feature-description">
+カラージェネレーターで指定した色を起点として、
+同系色方向へ少しずつ色を変化させます。
+選択範囲の各文字に異なる色を設定します。
+文字数が多い場合も色の変化が循環します。
+</div>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-title">
+gradation 🌈
+</div>
+
+<div class="feature-description">
+カラージェネレーターで指定した色を起点として、
+色相を変化させながら虹色方向へ
+グラデーションさせます。
+文字数が多い場合も色の変化が循環します。
+</div>
+
+</div>
+
 
 <h2>
-    終わりに
+    カラージェネレーター
 </h2>
 
+<p>
+R・G・Bの3本のスライダーを動かして、
+好きな色を作ることができます。
+</p>
 
 <p>
+スライダーを動かすと、
+色見本とHEXカラーコードがリアルタイムで変化します。
+</p>
 
-このツールは、
-チャットの文字装飾をちょっと楽にするための
-個人的な補助ツールです。
-
+<p>
+作成した色は「カスタム」ボタンから
+文字へ適用できます。
 </p>
 
 
+<h2>
+    プレビュー
+</h2>
+
 <p>
+入力欄に入力されている装飾用タグを解析し、
+実際のチャット画面に近い形で表示します。
+</p>
 
-ゲームや端末、ブラウザなどの環境によっては、
-意図した表示にならない場合があります。
-
+<p>
+色、上付き、下付きなどの状態を確認しながら
+文字を編集できます。
 </p>
 
 
-<p>
+<h2>
+    注意事項
+</h2>
 
+<div class="notice">
+
+<p>
+このツールは個人で作成した補助ツールです。
+</p>
+
+<p>
+ゲーム側の仕様変更などによって、
+装飾機能が正常に動作しなくなる可能性があります。
+</p>
+
+<p>
 また、このツールを使用したことによって
-発生した問題や不具合などについては、
-作者では責任を負いかねますので、
+発生した問題について、開発者は責任を負いかねます。
 あらかじめご了承ください。
-
 </p>
-
 
 <p>
-
-……とはいえ、
-基本的には気軽に遊ぶためのツールなので、
-
-「こんな感じになるかな？」
-
-くらいの気持ちで
-楽しんでもらえればと思います
-ヽ(=´▽`=)ﾉ
-
+ゲーム内で使用する際は、
+ゲーム側のルールや利用規約などもご確認ください。
 </p>
 
-<br />
-<p>しろねこ24</p>
+</div>
 
-<!-- =====================================================
-     戻る
-     ===================================================== -->
+
+<h2>
+    仕様について
+</h2>
+
+<p>
+本ページに記載している仕様は、
+<strong>2026年9月30日時点</strong>の情報です。
+</p>
+
+<p>
+今後のアップデートによって、
+画面構成や機能、ゲーム側の仕様などが
+変更される場合があります。
+</p>
+
+
+<h2>
+    最後に
+</h2>
+
+<p>
+ここまで読んでいただきありがとうございます。
+</p>
+
+<p>
+ちょっとしたチャット装飾のお供として、
+気軽に使ってもらえたらうれしいです。
+</p>
+
+<p>
+それでは、楽しいチャットライフをヽ(=´▽`=)ﾉ
+</p>
+
+
+<div class="back-area">
 
 <a
-    class="back-link"
-    href="index.html">
+    href="index.html"
+    class="back-button">
 
     ← ツールに戻る
 
 </a>
 
+</div>
+
 
 <div class="footer">
 
-    Chat Input Helper<br>
-
-    2026年9月30日時点<br>
-    Produced by しろねこ24
+Produced by しろねこ24
 
 </div>
 
 
 </div>
-
 
 </body>
 
