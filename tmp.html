@@ -1,0 +1,3994 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<link rel="icon"
+      type="image/png"
+      href="cat-icon.png">
+
+<link rel="apple-touch-icon"
+      href="cat-icon.png">
+
+<title>Chat Input Helper</title>
+
+
+<style>
+
+/* =========================================================
+   基本
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+html,
+body {
+
+    margin: 0;
+    padding: 0;
+
+    background: #2b2b2b;
+    color: white;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+}
+
+
+body {
+
+    padding: 16px;
+    padding-bottom: 30px;
+
+    overflow-x: hidden;
+}
+
+
+.app {
+
+    width: 100%;
+    max-width: 700px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   共通
+========================================================= */
+
+.section-title {
+
+    font-size: 15px;
+    font-weight: bold;
+
+    margin: 0 0 8px 0;
+}
+
+
+button {
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    min-height: 30px;
+
+    touch-action: manipulation;
+
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+
+button:active {
+
+    opacity: 0.7;
+
+    transform:
+        scale(0.98);
+}
+
+
+/* =========================================================
+   入力
+========================================================= */
+
+textarea {
+
+    width: 100%;
+    height: 90px;
+
+    resize: none;
+
+    padding: 10px;
+
+    border:
+        1px solid #555;
+
+    border-radius: 8px;
+
+    background: #333333;
+    color: white;
+
+    font-size: 16px;
+    line-height: 1.4;
+
+    outline: none;
+
+    -webkit-appearance: none;
+}
+
+
+textarea:focus {
+
+    border-color: #777;
+}
+
+
+/* =========================================================
+   カラーボタン
+========================================================= */
+
+.color-buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(10, 1fr);
+
+    gap: 5px;
+
+    width: 100%;
+
+    margin-top: 10px;
+}
+
+
+.color-button {
+
+    width: 100%;
+    min-width: 0;
+
+    height: 30px;
+
+    padding: 0 2px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.18);
+}
+
+
+/* =========================================================
+   固定操作
+   up / up off / dn / dn off
+========================================================= */
+
+.main-format {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 5px;
+
+    width: 100%;
+
+    margin-top: 8px;
+}
+
+
+.format-button {
+
+    width: 100%;
+
+    background: #3a3a3a;
+    color: white;
+}
+
+
+/* =========================================================
+   横スクロール操作群
+========================================================= */
+
+.operation-scroll {
+
+    width: 100%;
+
+    margin-top: 8px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: none;
+
+    overscroll-behavior-x: contain;
+}
+
+
+.operation-scroll::-webkit-scrollbar {
+
+    display: none;
+}
+
+
+.operation-buttons {
+
+    display: flex;
+
+    gap: 5px;
+
+    width: max-content;
+
+    min-width: 100%;
+}
+
+
+.operation-button {
+
+    flex: 0 0 auto;
+
+    width: 120px;
+    height: 20px;
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.25);
+
+    text-shadow:
+        0 1px 2px
+        rgba(0,0,0,0.7);
+}
+
+
+/* -------------------------
+   gradation
+------------------------- */
+
+.gradation-button {
+
+    background:
+        linear-gradient(
+            90deg,
+            #0099FF,
+            #66CCFF,
+            #0099FF
+        );
+}
+
+
+/* -------------------------
+   rainbow
+------------------------- */
+
+.rainbow-button {
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff0000,
+            #ffff00,
+            #00ff00,
+            #00ffff,
+            #0000ff,
+            #ff00ff,
+            #ff0000
+        );
+}
+
+
+/* -------------------------
+   random
+------------------------- */
+
+.random-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #6b4cff,
+            #ff3cac,
+            #ff8a00
+        );
+}
+
+
+/* -------------------------
+   up / dn
+------------------------- */
+
+.random-updown-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #555,
+            #383838
+        );
+}
+
+
+.random-color-updown-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #0099ff,
+            #7b3cff,
+            #ff3cac
+        );
+}
+
+
+/* =========================================================
+   copy / undo / clear
+========================================================= */
+
+.fixed-actions {
+
+    display: grid;
+
+    grid-template-columns:
+        2.35fr 1fr 1fr;
+
+    gap: 5px;
+
+    width: 100%;
+
+    margin-top: 8px;
+}
+
+
+/* -------------------------
+   copy
+------------------------- */
+
+.copy-button {
+
+    width: 100%;
+    height: 45px;
+
+    min-height: 45px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3d3d3d,
+            #292929
+        );
+
+    color: white;
+
+    border:
+        1px solid #666;
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,0.08);
+
+    font-size: 16px;
+    font-weight: 600;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    overflow: hidden;
+}
+
+
+.copy-cat {
+
+    width: 28px;
+    height: 28px;
+
+    object-fit: contain;
+
+    display: block;
+
+    transition:
+        transform
+        0.18s ease;
+}
+
+
+.copy-cat.copied {
+
+    animation:
+        catCopy
+        0.45s
+        ease;
+}
+
+
+@keyframes catCopy {
+
+    0% {
+
+        transform:
+            scale(1);
+    }
+
+    45% {
+
+        transform:
+            scale(1.28);
+    }
+
+    100% {
+
+        transform:
+            scale(1);
+    }
+}
+
+
+/* -------------------------
+   undo
+------------------------- */
+
+.undo-button {
+
+    width: 100%;
+    height: 45px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4b4540,
+            #36322f
+        );
+
+    color: #ffd9a0;
+
+    border:
+        1px solid #766a60;
+
+    font-weight: 600;
+}
+
+
+/* -------------------------
+   clear
+------------------------- */
+
+.clear-button {
+
+    width: 100%;
+    height: 45px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #493737,
+            #332727
+        );
+
+    color: #ffb0b0;
+
+    border:
+        1px solid #765555;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   プレビュー
+========================================================= */
+
+.preview-title {
+
+    margin-top: 14px;
+}
+
+
+.preview {
+
+    width: 100%;
+    height: 70px;
+
+    padding: 10px;
+
+    border:
+        1px solid #555;
+
+    border-radius: 8px;
+
+    background: #333333;
+
+    overflow: auto;
+
+    white-space: pre-wrap;
+    word-break: break-all;
+
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+
+.preview-char {
+
+    display: inline-block;
+
+    white-space: pre;
+}
+
+
+/* =========================================================
+   カラージェネレーター
+========================================================= */
+
+.generator-title {
+
+    margin-top: 16px;
+}
+
+
+.color-generator {
+
+    width: 100%;
+
+    padding: 10px;
+
+    border:
+        1px solid #555;
+
+    border-radius: 8px;
+
+    background: #333333;
+
+    /*
+     * 将来的に開閉アニメーションを
+     * 追加しやすい独立コンテナ
+     */
+    overflow: hidden;
+}
+
+
+.rgb-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 8px;
+}
+
+
+.rgb-row:last-child {
+
+    margin-bottom: 0;
+}
+
+
+.rgb-label {
+
+    width: 20px;
+    flex: 0 0 20px;
+
+    font-weight: bold;
+
+    text-align: center;
+}
+
+
+.rgb-slider {
+
+    flex: 1;
+
+    min-width: 0;
+
+    accent-color: #0099FF;
+}
+
+
+.rgb-value {
+
+    width: 38px;
+    flex: 0 0 38px;
+
+    text-align: right;
+
+    font-size: 13px;
+}
+
+
+.color-result {
+
+    margin-top: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.color-preview {
+
+    width: 55px;
+    height: 36px;
+
+    border-radius: 6px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.3);
+
+    flex: 0 0 55px;
+}
+
+
+.hex-code {
+
+    font-family: monospace;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   定型文
+========================================================= */
+
+.template-title {
+
+    margin-top: 16px;
+}
+
+
+.template-buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 5px;
+
+    width: 100%;
+}
+
+
+.template-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.template-save,
+.template-load {
+
+    width: 100%;
+
+    height: 32px;
+
+    font-size: 12px;
+}
+
+
+.template-save {
+
+    background: #444;
+    color: #ddd;
+
+    border:
+        1px solid #666;
+}
+
+
+.template-load {
+
+    background: #353535;
+    color: #fff;
+
+    border:
+        1px solid #555;
+}
+
+
+/* =========================================================
+   使い方
+========================================================= */
+
+.help-area {
+
+    width: 100%;
+
+    text-align: center;
+
+    margin-top: 18px;
+}
+
+
+.help-button {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 150px;
+    height: 38px;
+
+    padding: 0 24px;
+
+    background: #3a3a3a;
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    border:
+        1px solid #555;
+}
+
+
+.help-button:active {
+
+    opacity: 0.7;
+
+    transform:
+        scale(0.98);
+}
+
+
+/* =========================================================
+   フッター
+========================================================= */
+
+.footer {
+
+    margin-top: 18px;
+
+    text-align: center;
+
+    color: #999;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   小さいiPhone
+========================================================= */
+
+@media (max-width: 390px) {
+
+    body {
+
+        padding: 12px;
+    }
+
+
+    .color-buttons {
+
+        gap: 3px;
+    }
+
+
+    .color-button {
+
+        font-size: 9px;
+    }
+
+
+    .main-format {
+
+        gap: 3px;
+    }
+
+
+    .operation-buttons {
+
+        gap: 3px;
+    }
+
+
+    .operation-button {
+
+        width: 112px;
+
+        font-size: 13px;
+    }
+
+
+    .fixed-actions {
+
+        gap: 3px;
+    }
+
+
+    .copy-cat {
+
+        width: 25px;
+        height: 25px;
+    }
+
+
+    .template-buttons {
+
+        gap: 3px;
+    }
+
+
+    .template-save,
+    .template-load {
+
+        font-size: 11px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     テキスト入力
+====================================================== -->
+
+<div class="section-title">
+    テキスト入力
+</div>
+
+
+<textarea
+    id="inputText"
+    spellcheck="false"
+    autocorrect="off"
+    autocomplete="off"
+    autocapitalize="off"
+    placeholder="">
+</textarea>
+
+
+<!-- =====================================================
+     カラーボタン
+====================================================== -->
+
+<div class="color-buttons">
+
+
+<button
+    class="color-button"
+    data-color="FFFFFF"
+    style="
+        background:#FFFFFF;
+        color:#000000;
+    ">
+    白
+</button>
+
+
+<button
+    class="color-button"
+    data-color="808080"
+    style="
+        background:#808080;
+        color:#FFFFFF;
+    ">
+    灰
+</button>
+
+
+<button
+    class="color-button"
+    data-color="0099FF"
+    style="
+        background:#0099FF;
+        color:#FFFFFF;
+    ">
+    青
+</button>
+
+
+<button
+    class="color-button"
+    data-color="FF0000"
+    style="
+        background:#FF0000;
+        color:#FFFFFF;
+    ">
+    赤
+</button>
+
+
+<button
+    class="color-button"
+    data-color="00AA00"
+    style="
+        background:#00AA00;
+        color:#FFFFFF;
+    ">
+    緑
+</button>
+
+
+<button
+    class="color-button"
+    data-color="FFD700"
+    style="
+        background:#FFD700;
+        color:#000000;
+    ">
+    黄
+</button>
+
+
+<button
+    class="color-button"
+    data-color="00CED1"
+    style="
+        background:#00CED1;
+        color:#000000;
+    ">
+    水
+</button>
+
+
+<button
+    class="color-button"
+    data-color="FF69B4"
+    style="
+        background:#FF69B4;
+        color:#000000;
+    ">
+    桃
+</button>
+
+
+<button
+    class="color-button"
+    data-color="FF8C00"
+    style="
+        background:#FF8C00;
+        color:#000000;
+    ">
+    橙
+</button>
+
+
+<button
+    id="customColorButton"
+    class="color-button"
+    style="
+        background:#0099FF;
+        color:#FFFFFF;
+    ">
+    カスタム
+</button>
+
+
+</div>
+
+
+<!-- =====================================================
+     up / dn
+====================================================== -->
+
+<div class="main-format">
+
+
+<button
+    id="supButton"
+    class="format-button">
+    up
+</button>
+
+
+<button
+    id="supOffButton"
+    class="format-button">
+    up off
+</button>
+
+
+<button
+    id="subButton"
+    class="format-button">
+    dn
+</button>
+
+
+<button
+    id="subOffButton"
+    class="format-button">
+    dn off
+</button>
+
+
+</div>
+
+
+<!-- =====================================================
+     横スクロール操作群
+====================================================== -->
+
+<div
+    class="operation-scroll"
+    id="operationScroll">
+
+
+<div class="operation-buttons">
+
+
+<button
+    id="gradationButton"
+    class="operation-button gradation-button">
+    gradation
+</button>
+
+
+<button
+    id="rainbowButton"
+    class="operation-button rainbow-button">
+    rainbow
+</button>
+
+
+<button
+    id="randomButton"
+    class="operation-button random-button">
+    random
+</button>
+
+
+<button
+    id="randomUpDownButton"
+    class="operation-button random-updown-button">
+    up/dn
+</button>
+
+
+<button
+    id="randomColorUpDownButton"
+    class="operation-button random-color-updown-button">
+    rnd+up/dn
+</button>
+
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     copy / undo / clear
+====================================================== -->
+
+<div class="fixed-actions">
+
+
+<button
+    id="copyButton"
+    class="copy-button">
+
+
+<img
+    id="copyCatLeft"
+    class="copy-cat"
+    src="cat-icon.png"
+    alt="">
+
+
+<span>
+    copy
+</span>
+
+
+<img
+    id="copyCatRight"
+    class="copy-cat"
+    src="cat-icon.png"
+    alt="">
+
+
+</button>
+
+
+<button
+    id="undoButton"
+    class="undo-button">
+    undo
+</button>
+
+
+<button
+    id="clearButton"
+    class="clear-button">
+    clear
+</button>
+
+
+</div>
+
+
+<!-- =====================================================
+     プレビュー
+====================================================== -->
+
+<div class="section-title preview-title">
+    プレビュー
+</div>
+
+
+<div
+    id="preview"
+    class="preview">
+</div>
+
+
+<!-- =====================================================
+     カラージェネレーター
+====================================================== -->
+
+<div class="section-title generator-title">
+    カラージェネレーター
+</div>
+
+
+<div
+    id="colorGenerator"
+    class="color-generator">
+
+
+<div class="rgb-row">
+
+
+<span class="rgb-label">
+    R
+</span>
+
+
+<input
+    id="redSlider"
+    class="rgb-slider"
+    type="range"
+    min="0"
+    max="255"
+    value="0">
+
+
+<span
+    id="redValue"
+    class="rgb-value">
+    0
+</span>
+
+
+</div>
+
+
+<div class="rgb-row">
+
+
+<span class="rgb-label">
+    G
+</span>
+
+
+<input
+    id="greenSlider"
+    class="rgb-slider"
+    type="range"
+    min="0"
+    max="255"
+    value="153">
+
+
+<span
+    id="greenValue"
+    class="rgb-value">
+    153
+</span>
+
+
+</div>
+
+
+<div class="rgb-row">
+
+
+<span class="rgb-label">
+    B
+</span>
+
+
+<input
+    id="blueSlider"
+    class="rgb-slider"
+    type="range"
+    min="0"
+    max="255"
+    value="255">
+
+
+<span
+    id="blueValue"
+    class="rgb-value">
+    255
+</span>
+
+
+</div>
+
+
+<div class="color-result">
+
+
+<div
+    id="generatedColor"
+    class="color-preview">
+</div>
+
+
+<div
+    id="generatedHex"
+    class="hex-code">
+    #0099FF
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     定型文
+====================================================== -->
+
+<div class="section-title template-title">
+    定型文
+</div>
+
+
+<div class="template-buttons">
+
+
+<div class="template-group">
+
+<button
+    id="saveA"
+    class="template-save">
+    A 保存
+</button>
+
+
+<button
+    id="loadA"
+    class="template-load">
+    A 呼出
+</button>
+
+</div>
+
+
+<div class="template-group">
+
+<button
+    id="saveB"
+    class="template-save">
+    B 保存
+</button>
+
+
+<button
+    id="loadB"
+    class="template-load">
+    B 呼出
+</button>
+
+</div>
+
+
+<div class="template-group">
+
+<button
+    id="saveC"
+    class="template-save">
+    C 保存
+</button>
+
+
+<button
+    id="loadC"
+    class="template-load">
+    C 呼出
+</button>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     使い方
+====================================================== -->
+
+<div class="help-area">
+
+<a
+    href="help.html"
+    class="help-button">
+    使い方
+</a>
+
+</div>
+
+
+<!-- =====================================================
+     フッター
+====================================================== -->
+
+<div class="footer">
+    Produced by しろねこ24
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   基本設定
+========================================================= */
+
+const inputText =
+    document.getElementById(
+        "inputText"
+    );
+
+
+const preview =
+    document.getElementById(
+        "preview"
+    );
+
+
+const MAX_HISTORY = 50;
+
+
+let history = [];
+
+
+/*
+ * Undo時に選択範囲も戻すため、
+ * 文字列だけでなくselectionも保存する
+ */
+function getCurrentState() {
+
+    return {
+
+        text:
+            inputText.value,
+
+        selectionStart:
+            inputText.selectionStart ?? 0,
+
+        selectionEnd:
+            inputText.selectionEnd ?? 0
+
+    };
+
+}
+
+
+function saveHistory() {
+
+    const current =
+        getCurrentState();
+
+
+    const last =
+        history[
+            history.length - 1
+        ];
+
+
+    if (
+
+        !last ||
+
+        last.text !==
+            current.text ||
+
+        last.selectionStart !==
+            current.selectionStart ||
+
+        last.selectionEnd !==
+            current.selectionEnd
+
+    ) {
+
+        history.push(
+            current
+        );
+
+
+        if (
+            history.length >
+            MAX_HISTORY
+        ) {
+
+            history.shift();
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   Undo
+========================================================= */
+
+function undo() {
+
+    if (
+        history.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    const previous =
+        history.pop();
+
+
+    inputText.value =
+        previous.text;
+
+
+    updatePreview();
+
+
+    /*
+     * 文字列だけでなく、
+     * 以前の選択範囲を復元する
+     */
+    requestAnimationFrame(
+        () => {
+
+            try {
+
+                inputText.focus();
+
+                inputText.setSelectionRange(
+                    previous.selectionStart,
+                    previous.selectionEnd
+                );
+
+            } catch (e) {
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   選択範囲
+========================================================= */
+
+function getSelection() {
+
+    const start =
+        inputText.selectionStart ?? 0;
+
+
+    const end =
+        inputText.selectionEnd ?? start;
+
+
+    return {
+
+        start,
+        end,
+
+        selected:
+            inputText.value.substring(
+                start,
+                end
+            )
+
+    };
+
+}
+
+
+/* =========================================================
+   対象範囲
+========================================================= */
+
+/*
+ * ボタン操作の基本ルール
+ *
+ * 1. 選択範囲がある
+ *      → 選択範囲を対象
+ *
+ * 2. 選択範囲がない
+ *      → 全文を対象
+ *
+ * これにより、
+ * フォーカスが外れていても
+ * ボタン操作が可能になる。
+ */
+
+function getOperationTarget() {
+
+    const {
+        start,
+        end,
+        selected
+    } =
+        getSelection();
+
+
+    if (
+        start !== end
+    ) {
+
+        return {
+
+            mode: "selection",
+
+            start,
+            end,
+
+            text: selected
+
+        };
+
+    }
+
+
+    return {
+
+        mode: "all",
+
+        start: 0,
+
+        end:
+            inputText.value.length,
+
+        text:
+            inputText.value
+
+    };
+
+}
+
+
+/* =========================================================
+   選択範囲置換
+========================================================= */
+
+function replaceSelection(
+    replacement
+) {
+
+    saveHistory();
+
+
+    const start =
+        inputText.selectionStart ?? 0;
+
+
+    const end =
+        inputText.selectionEnd ?? start;
+
+
+    const text =
+        inputText.value;
+
+
+    inputText.value =
+
+        text.substring(
+            0,
+            start
+        ) +
+
+        replacement +
+
+        text.substring(
+            end
+        );
+
+
+    const newPos =
+        start +
+        replacement.length;
+
+
+    try {
+
+        inputText.setSelectionRange(
+            newPos,
+            newPos
+        );
+
+    } catch (e) {
+    }
+
+
+    updatePreview();
+
+
+    inputText.focus();
+
+}
+
+
+/* =========================================================
+   対象範囲を置換
+========================================================= */
+
+function replaceOperationTarget(
+    replacement
+) {
+
+    const target =
+        getOperationTarget();
+
+
+    if (
+        target.text.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    saveHistory();
+
+
+    inputText.value =
+
+        inputText.value.substring(
+            0,
+            target.start
+        ) +
+
+        replacement +
+
+        inputText.value.substring(
+            target.end
+        );
+
+
+    /*
+     * 選択範囲を維持する。
+     *
+     * 装飾後も、
+     * 装飾された文字列全体を選択状態にする。
+     */
+    try {
+
+        inputText.setSelectionRange(
+            target.start,
+            target.start +
+            replacement.length
+        );
+
+    } catch (e) {
+    }
+
+
+    updatePreview();
+
+
+    inputText.focus();
+
+}
+
+
+/* =========================================================
+   選択範囲をタグで囲む
+========================================================= */
+
+function wrapSelection(
+    openTag,
+    closeTag
+) {
+
+    const target =
+        getOperationTarget();
+
+
+    if (
+        target.text.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+     * 全文対象の場合
+     * 全文をタグで囲む
+     */
+    const replacement =
+
+        openTag +
+        target.text +
+        closeTag;
+
+
+    replaceOperationTarget(
+        replacement
+    );
+
+}
+
+
+/* =========================================================
+   色タグ
+========================================================= */
+
+function toChatColorTag(
+    hex
+) {
+
+    let s =
+        (hex || "")
+        .replace("#", "")
+        .trim()
+        .toUpperCase();
+
+
+    if (
+        s.length !== 6
+    ) {
+
+        return "";
+
+    }
+
+
+    return (
+
+        "[" +
+        s[0] +
+        "[[#C0]-]" +
+        s.substring(1) +
+        "]"
+
+    );
+
+}
+
+
+/* =========================================================
+   カラーボタン
+========================================================= */
+
+/*
+ * カラーボタンは、
+ * 選択範囲には作用しない。
+ *
+ * 現在のカーソル位置へ
+ * カラーコードを挿入する。
+ *
+ * ボタンを押したことで
+ * textareaのfocusが外れても、
+ * 最後のカーソル位置を利用する。
+ */
+
+let lastCursorStart = 0;
+let lastCursorEnd = 0;
+
+
+function rememberCursor() {
+
+    if (
+        document.activeElement ===
+        inputText
+    ) {
+
+        lastCursorStart =
+            inputText.selectionStart ?? 0;
+
+        lastCursorEnd =
+            inputText.selectionEnd ?? 0;
+
+    }
+
+}
+
+
+inputText.addEventListener(
+    "keyup",
+    rememberCursor
+);
+
+
+inputText.addEventListener(
+    "click",
+    rememberCursor
+);
+
+
+inputText.addEventListener(
+    "select",
+    rememberCursor
+);
+
+
+inputText.addEventListener(
+    "focus",
+    rememberCursor
+);
+
+
+document
+    .querySelectorAll(
+        ".color-button[data-color]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const hex =
+                        button.dataset.color;
+
+
+                    const tag =
+                        toChatColorTag(
+                            hex
+                        );
+
+
+                    if (!tag) {
+                        return;
+                    }
+
+
+                    /*
+                     * 現在のカーソル位置を取得
+                     */
+                    const start =
+                        inputText.selectionStart ?? 0;
+
+
+                    const end =
+                        inputText.selectionEnd ?? start;
+
+
+                    const text =
+                        inputText.value;
+
+
+                    /*
+                     * Undo用に保存
+                     */
+                    saveHistory();
+
+
+                    /*
+                     * カラーコードを
+                     * 現在位置に挿入
+                     */
+                    inputText.value =
+
+                        text.substring(
+                            0,
+                            start
+                        ) +
+
+                        tag +
+
+                        text.substring(
+                            end
+                        );
+
+
+                    /*
+                     * カラーコードの直後ではなく、
+                     * 1文字右へカーソルを移動
+                     */
+                    const newPos =
+                        Math.min(
+                            start + tag.length + 1,
+                            inputText.value.length
+                        );
+
+
+                    inputText.setSelectionRange(
+                        newPos,
+                        newPos
+                    );
+
+
+                    updatePreview();
+
+
+                    inputText.focus();
+
+                }
+            );
+
+        }
+				);
+
+
+/* =========================================================
+   カスタムカラー
+========================================================= */
+
+let customHex =
+    "#0099FF";
+
+
+document
+    .getElementById(
+        "customColorButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            const tag =
+                toChatColorTag(
+                    customHex
+                );
+
+
+            if (!tag) {
+
+                return;
+
+            }
+
+
+            saveHistory();
+
+
+            const text =
+                inputText.value;
+
+
+            const start =
+                Math.min(
+                    lastCursorStart,
+                    text.length
+                );
+
+
+            const end =
+                Math.min(
+                    lastCursorEnd,
+                    text.length
+                );
+
+
+            inputText.value =
+
+                text.substring(
+                    0,
+                    start
+                ) +
+
+                tag +
+
+                text.substring(
+                    end
+                );
+
+
+            const newPos =
+                start +
+                tag.length;
+
+
+            inputText.focus();
+
+
+            inputText.setSelectionRange(
+                newPos,
+                newPos
+            );
+
+
+            lastCursorStart =
+                newPos;
+
+            lastCursorEnd =
+                newPos;
+
+
+            updatePreview();
+
+        }
+    );
+
+
+/* =========================================================
+   Up / Down
+========================================================= */
+
+document
+    .getElementById(
+        "supButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            wrapSelection(
+                "[SUP]",
+                "[/SUP]"
+            );
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "supOffButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            replaceOperationTarget(
+                "[/SUP]"
+            );
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "subButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            wrapSelection(
+                "[SUB]",
+                "[/SUB]"
+            );
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "subOffButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            replaceOperationTarget(
+                "[/SUB]"
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   Clear
+========================================================= */
+
+document
+    .getElementById(
+        "clearButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            if (
+                inputText.value.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            saveHistory();
+
+
+            inputText.value =
+                "";
+
+
+            updatePreview();
+
+
+            inputText.focus();
+
+
+            lastCursorStart = 0;
+            lastCursorEnd = 0;
+
+        }
+    );
+
+
+/* =========================================================
+   Copy
+========================================================= */
+
+const copyButton =
+    document.getElementById(
+        "copyButton"
+    );
+
+
+const copyCatLeft =
+    document.getElementById(
+        "copyCatLeft"
+    );
+
+
+const copyCatRight =
+    document.getElementById(
+        "copyCatRight"
+    );
+
+
+function showCopyAnimation() {
+
+    copyCatLeft.classList.remove(
+        "copied"
+    );
+
+
+    copyCatRight.classList.remove(
+        "copied"
+    );
+
+
+    void copyCatLeft.offsetWidth;
+    void copyCatRight.offsetWidth;
+
+
+    copyCatLeft.classList.add(
+        "copied"
+    );
+
+
+    copyCatRight.classList.add(
+        "copied"
+    );
+
+}
+
+
+copyCatLeft.addEventListener(
+    "animationend",
+    () => {
+
+        copyCatLeft.classList.remove(
+            "copied"
+        );
+
+    }
+);
+
+
+copyCatRight.addEventListener(
+    "animationend",
+    () => {
+
+        copyCatRight.classList.remove(
+            "copied"
+        );
+
+    }
+);
+
+
+copyButton.addEventListener(
+    "click",
+    async () => {
+
+        const text =
+            inputText.value || "";
+
+
+        let copied = false;
+
+
+        try {
+
+            await navigator.clipboard.writeText(
+                text
+            );
+
+            copied = true;
+
+        } catch (e) {
+
+            inputText.focus();
+
+            inputText.select();
+
+
+            try {
+
+                copied =
+                    document.execCommand(
+                        "copy"
+                    );
+
+            } catch (err) {
+
+                copied = false;
+
+            }
+
+
+            try {
+
+                inputText.setSelectionRange(
+                    text.length,
+                    text.length
+                );
+
+            } catch (err) {
+            }
+
+        }
+
+
+        if (copied) {
+
+            showCopyAnimation();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ランダムカラー
+========================================================= */
+
+/*
+ * 完全ランダムではなく、
+ * 「見やすい色」をランダム生成する。
+ *
+ * HSLを使用し、
+ * 彩度と明度に下限・上限を設ける。
+ */
+
+function randomHex() {
+
+    const hue =
+        Math.floor(
+            Math.random() * 360
+        );
+
+
+    /*
+     * 彩度
+     * 70～100%
+     */
+    const saturation =
+        70 +
+        Math.floor(
+            Math.random() * 31
+        );
+
+
+    /*
+     * 明度
+     * 45～65%
+     */
+    const lightness =
+        45 +
+        Math.floor(
+            Math.random() * 21
+        );
+
+
+    const rgb =
+        hslToRgb(
+            hue,
+            saturation,
+            lightness
+        );
+
+
+    return rgbToHex(
+        rgb.r,
+        rgb.g,
+        rgb.b
+    )
+    .replace("#", "");
+
+}
+
+
+/* =========================================================
+   ランダムカラー文字列
+========================================================= */
+
+function randomColorText(
+    text
+) {
+
+    let result = "";
+
+
+    for (
+        const ch of text
+    ) {
+
+        if (
+            ch === "\n"
+        ) {
+
+            result +=
+                "\n";
+
+        } else {
+
+            result +=
+
+                toChatColorTag(
+                    randomHex()
+                ) +
+
+                ch;
+
+        }
+
+    }
+
+
+    return result;
+
+}
+
+
+document
+    .getElementById(
+        "randomButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            const target =
+                getOperationTarget();
+
+
+            if (
+                target.text.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            replaceOperationTarget(
+                randomColorText(
+                    target.text
+                )
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   Up / Down 交互
+========================================================= */
+
+function upDownText(
+    text
+) {
+
+    let result = "";
+
+    let index = 0;
+
+
+    for (
+        const ch of text
+    ) {
+
+        if (
+            ch === "\n"
+        ) {
+
+            result +=
+                "\n";
+
+            continue;
+
+        }
+
+
+        if (
+            index % 2 === 0
+        ) {
+
+            result +=
+
+                "[SUP]" +
+                ch +
+                "[/SUP]";
+
+        } else {
+
+            result +=
+
+                "[SUB]" +
+                ch +
+                "[/SUB]";
+
+        }
+
+
+        index++;
+
+    }
+
+
+    return result;
+
+}
+
+
+document
+    .getElementById(
+        "randomUpDownButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            const target =
+                getOperationTarget();
+
+
+            if (
+                target.text.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            replaceOperationTarget(
+                upDownText(
+                    target.text
+                )
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   ランダムカラー + Up / Down
+========================================================= */
+
+function randomColorUpDownText(
+    text
+) {
+
+    let result = "";
+
+    let index = 0;
+
+
+    for (
+        const ch of text
+    ) {
+
+        if (
+            ch === "\n"
+        ) {
+
+            result +=
+                "\n";
+
+            continue;
+
+        }
+
+
+        const color =
+            toChatColorTag(
+                randomHex()
+            );
+
+
+        if (
+            index % 2 === 0
+        ) {
+
+            result +=
+
+                color +
+                "[SUP]" +
+                ch +
+                "[/SUP]";
+
+        } else {
+
+            result +=
+
+                color +
+                "[SUB]" +
+                ch +
+                "[/SUB]";
+
+        }
+
+
+        index++;
+
+    }
+
+
+    return result;
+
+}
+
+
+document
+    .getElementById(
+        "randomColorUpDownButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            const target =
+                getOperationTarget();
+
+
+            if (
+                target.text.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            replaceOperationTarget(
+                randomColorUpDownText(
+                    target.text
+                )
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   色変換
+========================================================= */
+
+function hexToRgb(
+    hex
+) {
+
+    let h =
+        hex
+        .replace("#", "")
+        .trim();
+
+
+    if (
+        h.length !== 6
+    ) {
+
+        return {
+            r: 0,
+            g: 0,
+            b: 0
+        };
+
+    }
+
+
+    return {
+
+        r:
+            parseInt(
+                h.substring(0, 2),
+                16
+            ),
+
+        g:
+            parseInt(
+                h.substring(2, 4),
+                16
+            ),
+
+        b:
+            parseInt(
+                h.substring(4, 6),
+                16
+            )
+
+    };
+
+}
+
+
+/* =========================================================
+   RGB → HEX
+========================================================= */
+
+function rgbToHex(
+    r,
+    g,
+    b
+) {
+
+    return (
+
+        "#" +
+
+        Number(r)
+            .toString(16)
+            .padStart(2, "0") +
+
+        Number(g)
+            .toString(16)
+            .padStart(2, "0") +
+
+        Number(b)
+            .toString(16)
+            .padStart(2, "0")
+
+    ).toUpperCase();
+
+}
+
+
+/* =========================================================
+   RGB → HSL
+========================================================= */
+
+function rgbToHsl(
+    r,
+    g,
+    b
+) {
+
+    r /= 255;
+    g /= 255;
+    b /= 255;
+
+
+    const max =
+        Math.max(
+            r,
+            g,
+            b
+        );
+
+
+    const min =
+        Math.min(
+            r,
+            g,
+            b
+        );
+
+
+    let h = 0;
+    let s = 0;
+
+
+    const l =
+        (max + min) / 2;
+
+
+    if (
+        max !== min
+    ) {
+
+        const d =
+            max - min;
+
+
+        s =
+            l > 0.5
+                ? d /
+                    (2 - max - min)
+                : d /
+                    (max + min);
+
+
+        switch (max) {
+
+            case r:
+
+                h =
+                    (g - b) / d +
+                    (g < b ? 6 : 0);
+
+                break;
+
+
+            case g:
+
+                h =
+                    (b - r) / d +
+                    2;
+
+                break;
+
+
+            case b:
+
+                h =
+                    (r - g) / d +
+                    4;
+
+                break;
+
+        }
+
+
+        h /= 6;
+
+    }
+
+
+    return {
+
+        h:
+            h * 360,
+
+        s:
+            s * 100,
+
+        l:
+            l * 100
+
+    };
+
+}
+
+
+/* =========================================================
+   HSL → RGB
+========================================================= */
+
+function hslToRgb(
+    h,
+    s,
+    l
+) {
+
+    h =
+        ((h % 360) + 360) % 360;
+
+
+    s /= 100;
+    l /= 100;
+
+
+    if (
+        s === 0
+    ) {
+
+        const value =
+            Math.round(
+                l * 255
+            );
+
+
+        return {
+
+            r: value,
+            g: value,
+            b: value
+
+        };
+
+    }
+
+
+    const hue2rgb =
+        function (
+            p,
+            q,
+            t
+        ) {
+
+            if (t < 0) {
+                t += 1;
+            }
+
+            if (t > 1) {
+                t -= 1;
+            }
+
+            if (t < 1 / 6) {
+
+                return p +
+                    (q - p) *
+                    6 *
+                    t;
+
+            }
+
+            if (t < 1 / 2) {
+
+                return q;
+
+            }
+
+            if (t < 2 / 3) {
+
+                return p +
+                    (q - p) *
+                    (2 / 3 - t) *
+                    6;
+
+            }
+
+            return p;
+
+        };
+
+
+    const q =
+        l < 0.5
+            ? l *
+                (1 + s)
+            : l +
+                s -
+                l * s;
+
+
+    const p =
+        2 * l - q;
+
+
+    const hk =
+        h / 360;
+
+
+    const r =
+        hue2rgb(
+            p,
+            q,
+            hk + 1 / 3
+        );
+
+
+    const g =
+        hue2rgb(
+            p,
+            q,
+            hk
+        );
+
+
+    const b =
+        hue2rgb(
+            p,
+            q,
+            hk - 1 / 3
+        );
+
+
+    return {
+
+        r:
+            Math.round(
+                r * 255
+            ),
+
+        g:
+            Math.round(
+                g * 255
+            ),
+
+        b:
+            Math.round(
+                b * 255
+            )
+
+    };
+
+}
+
+
+/* =========================================================
+   同系色グラデーション
+========================================================= */
+
+function sameColorGradient(
+    text
+) {
+
+    const base =
+        hexToRgb(
+            customHex
+        );
+
+
+    const hsl =
+        rgbToHsl(
+            base.r,
+            base.g,
+            base.b
+        );
+
+
+    let result = "";
+
+    let index = 0;
+
+
+    /*
+     * 24文字で1周期
+     */
+    const cycle = 24;
+
+
+    for (
+        const ch of text
+    ) {
+
+        if (
+            ch === "\n"
+        ) {
+
+            result +=
+                "\n";
+
+            continue;
+
+        }
+
+
+        const phase =
+            (index % cycle) /
+            cycle;
+
+
+        const wave =
+            Math.sin(
+                phase *
+                Math.PI *
+                2
+            );
+
+
+        const lightness =
+            Math.max(
+                8,
+                Math.min(
+                    92,
+                    hsl.l +
+                    wave * 18
+                )
+            );
+
+
+        const rgb =
+            hslToRgb(
+                hsl.h,
+                hsl.s,
+                lightness
+            );
+
+
+        const hex =
+            rgbToHex(
+                rgb.r,
+                rgb.g,
+                rgb.b
+            );
+
+
+        result +=
+
+            toChatColorTag(
+                hex
+            ) +
+
+            ch;
+
+
+        index++;
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   虹色グラデーション
+========================================================= */
+
+function rainbowGradient(
+    text
+) {
+
+    const base =
+        hexToRgb(
+            customHex
+        );
+
+
+    const hsl =
+        rgbToHsl(
+            base.r,
+            base.g,
+            base.b
+        );
+
+
+    let result = "";
+
+    let index = 0;
+
+
+    /*
+     * 36文字で360度
+     */
+    const cycle = 36;
+
+
+    for (
+        const ch of text
+    ) {
+
+        if (
+            ch === "\n"
+        ) {
+
+            result +=
+                "\n";
+
+            continue;
+
+        }
+
+
+        const hue =
+            hsl.h +
+            (
+                index % cycle
+            ) *
+            (
+                360 / cycle
+            );
+
+
+        const rgb =
+            hslToRgb(
+                hue,
+                Math.max(
+                    hsl.s,
+                    70
+                ),
+                hsl.l
+            );
+
+
+        const hex =
+            rgbToHex(
+                rgb.r,
+                rgb.g,
+                rgb.b
+            );
+
+
+        result +=
+
+            toChatColorTag(
+                hex
+            ) +
+
+            ch;
+
+
+        index++;
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   gradation
+========================================================= */
+
+document
+    .getElementById(
+        "gradationButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            const target =
+                getOperationTarget();
+
+
+            if (
+                target.text.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            replaceOperationTarget(
+                sameColorGradient(
+                    target.text
+                )
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   rainbow
+========================================================= */
+
+document
+    .getElementById(
+        "rainbowButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            const target =
+                getOperationTarget();
+
+
+            if (
+                target.text.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            replaceOperationTarget(
+                rainbowGradient(
+                    target.text
+                )
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   カラージェネレーター
+========================================================= */
+
+const redSlider =
+    document.getElementById(
+        "redSlider"
+    );
+
+
+const greenSlider =
+    document.getElementById(
+        "greenSlider"
+    );
+
+
+const blueSlider =
+    document.getElementById(
+        "blueSlider"
+    );
+
+
+const redValue =
+    document.getElementById(
+        "redValue"
+    );
+
+
+const greenValue =
+    document.getElementById(
+        "greenValue"
+    );
+
+
+const blueValue =
+    document.getElementById(
+        "blueValue"
+    );
+
+
+const generatedColor =
+    document.getElementById(
+        "generatedColor"
+    );
+
+
+const generatedHex =
+    document.getElementById(
+        "generatedHex"
+    );
+
+
+const customColorButton =
+    document.getElementById(
+        "customColorButton"
+    );
+
+
+/* =========================================================
+   背景色に応じた文字色
+========================================================= */
+
+function getTextColorForBackground(
+    r,
+    g,
+    b
+) {
+
+    const brightness =
+
+        (
+            r * 299 +
+            g * 587 +
+            b * 114
+        ) / 1000;
+
+
+    return brightness > 155
+
+        ? "#000000"
+
+        : "#FFFFFF";
+
+}
+
+
+/* =========================================================
+   RGB更新
+========================================================= */
+
+function updateColorGenerator() {
+
+    const r =
+        Number(
+            redSlider.value
+        );
+
+
+    const g =
+        Number(
+            greenSlider.value
+        );
+
+
+    const b =
+        Number(
+            blueSlider.value
+        );
+
+
+    customHex =
+        rgbToHex(
+            r,
+            g,
+            b
+        );
+
+
+    redValue.textContent =
+        r;
+
+
+    greenValue.textContent =
+        g;
+
+
+    blueValue.textContent =
+        b;
+
+
+    generatedColor.style.backgroundColor =
+        customHex;
+
+
+    generatedHex.textContent =
+        customHex;
+
+
+    customColorButton.style.backgroundColor =
+        customHex;
+
+
+    customColorButton.style.color =
+        getTextColorForBackground(
+            r,
+            g,
+            b
+        );
+
+}
+
+
+redSlider.addEventListener(
+    "input",
+    updateColorGenerator
+);
+
+
+greenSlider.addEventListener(
+    "input",
+    updateColorGenerator
+);
+
+
+blueSlider.addEventListener(
+    "input",
+    updateColorGenerator
+);
+
+
+/* =========================================================
+   プレビュー用カラータグ解析
+========================================================= */
+
+function parseColorTag(
+    text,
+    index
+) {
+
+    if (
+        index + 15 >=
+        text.length
+    ) {
+
+        return null;
+
+    }
+
+
+    if (
+        text[index] !== "["
+    ) {
+
+        return null;
+
+    }
+
+
+    if (
+
+        text.substring(
+            index + 2,
+            index + 8
+        ) !==
+        "[[#C0]"
+
+    ) {
+
+        return null;
+
+    }
+
+
+    if (
+
+        text.substring(
+            index + 8,
+            index + 10
+        ) !==
+        "-]"
+
+    ) {
+
+        return null;
+
+    }
+
+
+    if (
+        text[index + 15] !== "]"
+    ) {
+
+        return null;
+
+    }
+
+
+    const first =
+        text[index + 1];
+
+
+    const lastFive =
+        text.substring(
+            index + 10,
+            index + 15
+        );
+
+
+    const hex =
+        first +
+        lastFive;
+
+
+    if (
+        !/^[0-9A-Fa-f]{6}$/
+            .test(hex)
+    ) {
+
+        return null;
+
+    }
+
+
+    return {
+
+        hex:
+            "#" +
+            hex.toUpperCase(),
+
+        length: 16
+
+    };
+
+}
+
+
+/* =========================================================
+   プレビュー
+========================================================= */
+
+function updatePreview() {
+
+    const text =
+        inputText.value || "";
+
+
+    preview.innerHTML = "";
+
+
+    let color =
+        "#FFFFFF";
+
+
+    let supDepth = 0;
+    let subDepth = 0;
+
+
+    let i = 0;
+
+
+    while (
+        i < text.length
+    ) {
+
+
+        /* -------------------------
+           SUP
+        ------------------------- */
+
+        if (
+
+            text.startsWith(
+                "[SUP]",
+                i
+            )
+
+        ) {
+
+            supDepth++;
+
+            i += 5;
+
+            continue;
+
+        }
+
+
+        if (
+
+            text.startsWith(
+                "[/SUP]",
+                i
+            )
+
+        ) {
+
+            supDepth =
+                Math.max(
+                    0,
+                    supDepth - 1
+                );
+
+            i += 6;
+
+            continue;
+
+        }
+
+
+        /* -------------------------
+           SUB
+        ------------------------- */
+
+        if (
+
+            text.startsWith(
+                "[SUB]",
+                i
+            )
+
+        ) {
+
+            subDepth++;
+
+            i += 5;
+
+            continue;
+
+        }
+
+
+        if (
+
+            text.startsWith(
+                "[/SUB]",
+                i
+            )
+
+        ) {
+
+            subDepth =
+                Math.max(
+                    0,
+                    subDepth - 1
+                );
+
+            i += 6;
+
+            continue;
+
+        }
+
+
+        /* -------------------------
+           COLOR
+        ------------------------- */
+
+        const colorTag =
+            parseColorTag(
+                text,
+                i
+            );
+
+
+        if (colorTag) {
+
+            color =
+                colorTag.hex;
+
+
+            i +=
+                colorTag.length;
+
+
+            continue;
+
+        }
+
+
+        /* -------------------------
+           改行
+        ------------------------- */
+
+        const ch =
+            text[i];
+
+
+        if (
+            ch === "\n"
+        ) {
+
+            preview.appendChild(
+                document.createElement(
+                    "br"
+                )
+            );
+
+
+            i++;
+
+            continue;
+
+        }
+
+
+        /* -------------------------
+           文字
+        ------------------------- */
+
+        const span =
+            document.createElement(
+                "span"
+            );
+
+
+        span.className =
+            "preview-char";
+
+
+        span.textContent =
+            ch;
+
+
+        span.style.color =
+            color;
+
+
+        /* -------------------------
+           上付き
+        ------------------------- */
+
+        if (
+            supDepth > 0
+        ) {
+
+            span.style.fontSize =
+                "12px";
+
+
+            span.style.position =
+                "relative";
+
+
+            span.style.top =
+                "-5px";
+
+        }
+
+
+        /* -------------------------
+           下付き
+        ------------------------- */
+
+        else if (
+            subDepth > 0
+        ) {
+
+            span.style.fontSize =
+                "12px";
+
+
+            span.style.position =
+                "relative";
+
+
+            span.style.top =
+                "4px";
+
+        }
+
+
+        /* -------------------------
+           通常
+        ------------------------- */
+
+        else {
+
+            span.style.fontSize =
+                "16px";
+
+        }
+
+
+        preview.appendChild(
+            span
+        );
+
+
+        i++;
+
+    }
+
+}
+
+
+/* =========================================================
+   入力変更
+========================================================= */
+
+inputText.addEventListener(
+    "input",
+    () => {
+
+        rememberCursor();
+
+        updatePreview();
+
+    }
+);
+
+
+/* =========================================================
+   定型文 A / B / C
+========================================================= */
+
+function saveTemplate(
+    slot
+) {
+
+    const key =
+        "chatInputHelper_template_" +
+        slot;
+
+
+    localStorage.setItem(
+        key,
+        inputText.value
+    );
+
+
+    /*
+     * 保存したことを
+     * 控えめにボタン表示
+     */
+    const button =
+        document.getElementById(
+            "save" + slot
+        );
+
+
+    const original =
+        button.textContent;
+
+
+    button.textContent =
+        "保存しました";
+
+
+    setTimeout(
+        () => {
+
+            button.textContent =
+                original;
+
+        },
+        900
+    );
+
+}
+
+
+function loadTemplate(
+    slot
+) {
+
+    const key =
+        "chatInputHelper_template_" +
+        slot;
+
+
+    const saved =
+        localStorage.getItem(
+            key
+        );
+
+
+    if (
+        saved === null
+    ) {
+
+        return;
+
+    }
+
+
+    saveHistory();
+
+
+    inputText.value =
+        saved;
+
+
+    updatePreview();
+
+
+    inputText.focus();
+
+
+    const pos =
+        inputText.value.length;
+
+
+    inputText.setSelectionRange(
+        pos,
+        pos
+    );
+
+
+    lastCursorStart =
+        pos;
+
+    lastCursorEnd =
+        pos;
+
+}
+
+
+["A", "B", "C"]
+.forEach(
+    slot => {
+
+        document
+            .getElementById(
+                "save" + slot
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    saveTemplate(
+                        slot
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "load" + slot
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    loadTemplate(
+                        slot
+                    );
+
+                }
+            );
+
+    }
+);
+
+
+/* =========================================================
+   Undo
+========================================================= */
+
+document
+    .getElementById(
+        "undoButton"
+    )
+    .addEventListener(
+        "click",
+        undo
+    );
+
+
+/* =========================================================
+   初期化
+========================================================= */
+
+updateColorGenerator();
+
+updatePreview();
+
+
+/*
+ * 初期カーソル位置
+ */
+inputText.focus();
+
+inputText.setSelectionRange(
+    0,
+    0
+);
+
+
+lastCursorStart = 0;
+lastCursorEnd = 0;
+
+</script>
+
+
+</body>
+
+</html>
