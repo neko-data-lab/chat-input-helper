@@ -111,6 +111,59 @@ button:active {
 
 
 /* =========================================================
+   テキスト入力ヘッダー
+========================================================= */
+
+.input-header {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+
+    margin-bottom: 8px;
+}
+
+
+.input-header .section-title {
+
+    margin: 0;
+}
+
+
+.input-help-link {
+
+    color: #cccccc;
+
+    font-size: 13px;
+
+    text-decoration: none;
+
+    padding: 4px 8px;
+
+    border:
+        1px solid #555;
+
+    border-radius: 6px;
+
+    background: #3a3a3a;
+
+    white-space: nowrap;
+}
+
+
+.input-help-link:active {
+
+    opacity: 0.7;
+
+    transform: scale(0.98);
+	}
+
+
+
+/* =========================================================
    入力
 ========================================================= */
 
@@ -236,34 +289,6 @@ textarea:focus {
 
 
 /* =========================================================
-   固定操作
-========================================================= */
-
-.main-format {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 5px;
-
-    width: 100%;
-
-    margin-top: 8px;
-}
-
-
-.format-button {
-
-    width: 100%;
-
-    background: #3a3a3a;
-    color: white;
-}
-
-
-/* =========================================================
    横スクロール操作群
 ========================================================= */
 
@@ -306,12 +331,12 @@ textarea:focus {
 
     flex: 0 0 auto;
 
-    width: 120px;
+    width: 90px;
     height: 30px;
 
     color: white;
 
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
 
     border:
@@ -321,6 +346,19 @@ textarea:focus {
     text-shadow:
         0 1px 2px
         rgba(0,0,0,0.7);
+}
+
+
+/* -------------------------
+   up / dn
+------------------------- */
+
+.format-operation-button {
+
+    background: #3a3a3a;
+    color: white;
+
+    text-shadow: none;
 }
 
 
@@ -390,6 +428,10 @@ textarea:focus {
 }
 
 
+/* -------------------------
+   random color + up / dn
+------------------------- */
+
 .random-color-updown-button {
 
     background:
@@ -411,7 +453,7 @@ textarea:focus {
     display: grid;
 
     grid-template-columns:
-        2.35fr 1fr 1fr;
+        3.5fr 1fr 1fr;
 
     gap: 5px;
 
@@ -824,9 +866,39 @@ textarea:focus {
    定型文
 ========================================================= */
 
+.template-area {
+
+    margin-top: 14px;
+
+    padding: 10px;
+
+    border:
+        1px solid #555;
+
+    border-radius: 8px;
+
+    background: #333333;
+}
+
+
 .template-title {
 
-    margin-top: 16px;
+    font-size: 14px;
+    font-weight: bold;
+
+    margin-bottom: 8px;
+}
+
+
+.template-description {
+
+    font-size: 12px;
+
+    color: #aaa;
+
+    line-height: 1.5;
+
+    margin-bottom: 10px;
 }
 
 
@@ -977,12 +1049,6 @@ textarea:focus {
     }
 
 
-    .main-format {
-
-        gap: 3px;
-    }
-
-
     .operation-buttons {
 
         gap: 3px;
@@ -991,9 +1057,9 @@ textarea:focus {
 
     .operation-button {
 
-        width: 112px;
+        width: 80px;
 
-        font-size: 13px;
+        font-size: 12px;
     }
 
 
@@ -1077,9 +1143,17 @@ textarea:focus {
      テキスト入力
 ====================================================== -->
 
-<div class="section-title">
-    テキスト入力
-</div>
+<div class="input-header">
+    <div class="section-title">
+        テキスト入力
+    </div>
+
+    <a
+        href="help.html"
+        class="input-help-link">
+        使い方
+    </a>
+	</div>
 
 
 <textarea
@@ -1214,45 +1288,7 @@ textarea:focus {
 
 
 <!-- =====================================================
-     up / dn
-====================================================== -->
-
-<div class="main-format">
-
-
-<button
-    id="supButton"
-    class="format-button">
-    up
-</button>
-
-
-<button
-    id="supOffButton"
-    class="format-button">
-    up off
-</button>
-
-
-<button
-    id="subButton"
-    class="format-button">
-    dn
-</button>
-
-
-<button
-    id="subOffButton"
-    class="format-button">
-    dn off
-</button>
-
-
-</div>
-
-
-<!-- =====================================================
-     横スクロール操作群
+     範囲選択系操作
 ====================================================== -->
 
 <div
@@ -1263,12 +1299,34 @@ textarea:focus {
 <div class="operation-buttons">
 
 
+<!-- up -->
+
+<button
+    id="supButton"
+    class="operation-button format-operation-button">
+    up
+</button>
+
+
+<!-- dn -->
+
+<button
+    id="subButton"
+    class="operation-button format-operation-button">
+    dn
+</button>
+
+
+<!-- gradation -->
+
 <button
     id="gradationButton"
     class="operation-button gradation-button">
     gradation
 </button>
 
+
+<!-- rainbow -->
 
 <button
     id="rainbowButton"
@@ -1277,6 +1335,8 @@ textarea:focus {
 </button>
 
 
+<!-- random -->
+
 <button
     id="randomButton"
     class="operation-button random-button">
@@ -1284,12 +1344,16 @@ textarea:focus {
 </button>
 
 
+<!-- up / dn -->
+
 <button
     id="randomUpDownButton"
     class="operation-button random-updown-button">
     up/dn
 </button>
 
+
+<!-- random color + up / dn -->
 
 <button
     id="randomColorUpDownButton"
@@ -1511,8 +1575,17 @@ textarea:focus {
      定型文
 ====================================================== -->
 
-<div class="section-title template-title">
+<div class="template-area">
+
+
+<div class="template-title">
     定型文
+</div>
+
+
+<div class="template-description">
+    よく使う文章をA・B・Cの3種類まで端末内に保存できます。
+    保存した文章は、いつでも呼び出して再利用できます。
 </div>
 
 
@@ -1576,19 +1649,8 @@ textarea:focus {
 </div>
 
 
-<!-- =====================================================
-     使い方
-====================================================== -->
-
-<div class="help-area">
-
-<a
-    href="help.html"
-    class="help-button">
-    使い方
-</a>
-
 </div>
+
 
 
 <!-- =====================================================
@@ -2401,22 +2463,6 @@ document
 
 document
     .getElementById(
-        "supOffButton"
-    )
-    .addEventListener(
-        "click",
-        () => {
-
-            replaceOperationTarget(
-                "[/SUP]"
-            );
-
-        }
-    );
-
-
-document
-    .getElementById(
         "subButton"
     )
     .addEventListener(
@@ -2425,22 +2471,6 @@ document
 
             wrapSelection(
                 "[SUB]",
-                "[/SUB]"
-            );
-
-        }
-    );
-
-
-document
-    .getElementById(
-        "subOffButton"
-    )
-    .addEventListener(
-        "click",
-        () => {
-
-            replaceOperationTarget(
                 "[/SUB]"
             );
 
@@ -3845,11 +3875,6 @@ function resetColorSettings() {
     updateGradientDisplay();
 
 
-    /*
-     * 保存済み設定も削除。
-     * 次回起動時もデフォルトになる。
-     */
-
     try {
 
         localStorage.removeItem(
@@ -4451,11 +4476,6 @@ document
 /* =========================================================
    初期化
 ========================================================= */
-
-/*
- * 保存済み設定があれば読み込む。
- * なければデフォルト値を使用。
- */
 
 loadColorSettings();
 
