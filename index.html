@@ -55,6 +55,8 @@ body {
 
     padding: 16px;
     padding-bottom: 30px;
+
+    overflow-x: hidden;
 }
 
 
@@ -93,6 +95,9 @@ button {
     min-height: 30px;
 
     touch-action: manipulation;
+
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 
@@ -100,8 +105,62 @@ button:active {
 
     opacity: 0.7;
 
-    transform: scale(0.98);
+    transform:
+        scale(0.98);
 }
+
+
+/* =========================================================
+   テキスト入力ヘッダー
+========================================================= */
+
+.input-header {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+
+    margin-bottom: 8px;
+}
+
+
+.input-header .section-title {
+
+    margin: 0;
+}
+
+
+.input-help-link {
+
+    color: #cccccc;
+
+    font-size: 13px;
+
+    text-decoration: none;
+
+    padding: 4px 8px;
+
+    border:
+        1px solid #555;
+
+    border-radius: 6px;
+
+    background: #3a3a3a;
+
+    white-space: nowrap;
+}
+
+
+.input-help-link:active {
+
+    opacity: 0.7;
+
+    transform: scale(0.98);
+	}
+
 
 
 /* =========================================================
@@ -117,7 +176,9 @@ textarea {
 
     padding: 10px;
 
-    border: 1px solid #555;
+    border:
+        1px solid #555;
+
     border-radius: 8px;
 
     background: #333333;
@@ -176,58 +237,128 @@ textarea:focus {
 
 
 /* =========================================================
-   メイン操作ボタン
+   カスタムカラーピッカー
 ========================================================= */
 
-.main-format {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 5px;
+.custom-color-picker {
 
     width: 100%;
+    min-width: 0;
 
-    margin-top: 8px;
+    height: 30px;
+
+    padding: 0;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.18);
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    -webkit-appearance: none;
+    appearance: none;
+
+    overflow: hidden;
 }
 
 
-.format-button {
+.custom-color-picker::-webkit-color-swatch-wrapper {
 
-    width: 100%;
+    padding: 0;
+}
 
-    background: #3a3a3a;
-    color: white;
+
+.custom-color-picker::-webkit-color-swatch {
+
+    border: none;
+
+    border-radius: 7px;
+}
+
+
+.custom-color-picker::-moz-color-swatch {
+
+    border: none;
+
+    border-radius: 7px;
 }
 
 
 /* =========================================================
-   特殊ボタンエリア
-
-   ┌──────────┬──────────────┬──────────┐
-   │ gradation│              │   undo   │
-   ├──────────┤     copy     ├──────────┤
-   │ rainbow  │              │  clear   │
-   └──────────┴──────────────┴──────────┘
+   横スクロール操作群
 ========================================================= */
 
-.special-layout {
-
-    display: grid;
-
-    grid-template-columns:
-        1fr 2.35fr 1fr;
-
-    grid-template-rows:
-        1fr 1fr;
-
-    gap: 5px;
+.operation-scroll {
 
     width: 100%;
 
     margin-top: 8px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: none;
+
+    overscroll-behavior-x: contain;
+}
+
+
+.operation-scroll::-webkit-scrollbar {
+
+    display: none;
+}
+
+
+.operation-buttons {
+
+    display: flex;
+
+    gap: 5px;
+
+    width: max-content;
+
+    min-width: 100%;
+}
+
+
+.operation-button {
+
+    flex: 0 0 auto;
+
+    width: 90px;
+    height: 30px;
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.25);
+
+    text-shadow:
+        0 1px 2px
+        rgba(0,0,0,0.7);
+}
+
+
+/* -------------------------
+   up / dn
+------------------------- */
+
+.format-operation-button {
+
+    background: #3a3a3a;
+    color: white;
+
+    text-shadow: none;
 }
 
 
@@ -237,30 +368,12 @@ textarea:focus {
 
 .gradation-button {
 
-    grid-column: 1;
-    grid-row: 1;
-
-    width: 100%;
-    height: 100%;
-
     background:
         linear-gradient(
             90deg,
             #0099FF,
-            #66CCFF,
-            #0099FF
+            #FF00AA
         );
-
-    color: white;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.35);
-
-    font-weight: 600;
-
-    text-shadow:
-        0 1px 2px rgba(0,0,0,0.7);
 }
 
 
@@ -269,12 +382,6 @@ textarea:focus {
 ------------------------- */
 
 .rainbow-button {
-
-    grid-column: 1;
-    grid-row: 2;
-
-    width: 100%;
-    height: 100%;
 
     background:
         linear-gradient(
@@ -287,33 +394,81 @@ textarea:focus {
             #ff00ff,
             #ff0000
         );
-
-    color: white;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.35);
-
-    font-weight: 600;
-
-    text-shadow:
-        0 1px 2px rgba(0,0,0,0.8);
 }
 
 
 /* -------------------------
-   copy
+   random
 ------------------------- */
+
+.random-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #6b4cff,
+            #ff3cac,
+            #ff8a00
+        );
+}
+
+
+/* -------------------------
+   up / dn
+------------------------- */
+
+.random-updown-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #555,
+            #383838
+        );
+}
+
+
+/* -------------------------
+   random color + up / dn
+------------------------- */
+
+.random-color-updown-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #0099ff,
+            #7b3cff,
+            #ff3cac
+        );
+}
+
+
+/* =========================================================
+   copy / undo / clear
+========================================================= */
+
+.fixed-actions {
+
+    display: grid;
+
+    grid-template-columns:
+        3.5fr 1fr 1fr;
+
+    gap: 5px;
+
+    width: 100%;
+
+    margin-top: 8px;
+}
+
 
 .copy-button {
 
-    grid-column: 2;
-    grid-row: 1 / span 2;
-
     width: 100%;
-    height: 100%;
+    height: 45px;
 
-    min-height: 70px;
+    min-height: 45px;
 
     background:
         linear-gradient(
@@ -339,15 +494,11 @@ textarea:focus {
     align-items: center;
     justify-content: center;
 
-    gap: 7px;
+    gap: 9px;
 
     overflow: hidden;
 }
 
-
-/* -------------------------
-   copy猫
-------------------------- */
 
 .copy-cat {
 
@@ -364,12 +515,6 @@ textarea:focus {
 }
 
 
-/*
- * コピー成功時
- *
- * 左右の猫を同時に
- * 一瞬だけ大きくする
- */
 .copy-cat.copied {
 
     animation:
@@ -382,36 +527,23 @@ textarea:focus {
 @keyframes catCopy {
 
     0% {
-
-        transform:
-            scale(1);
+        transform: scale(1);
     }
 
     45% {
-
-        transform:
-            scale(1.28);
+        transform: scale(1.28);
     }
 
     100% {
-
-        transform:
-            scale(1);
+        transform: scale(1);
     }
 }
 
 
-/* -------------------------
-   undo
-------------------------- */
-
 .undo-button {
 
-    grid-column: 3;
-    grid-row: 1;
-
     width: 100%;
-    height: 100%;
+    height: 45px;
 
     background:
         linear-gradient(
@@ -429,17 +561,10 @@ textarea:focus {
 }
 
 
-/* -------------------------
-   clear
-------------------------- */
-
 .clear-button {
 
-    grid-column: 3;
-    grid-row: 2;
-
     width: 100%;
-    height: 100%;
+    height: 45px;
 
     background:
         linear-gradient(
@@ -470,7 +595,7 @@ textarea:focus {
 .preview {
 
     width: 100%;
-    height: 140px;
+    height: 70px;
 
     padding: 10px;
 
@@ -500,41 +625,7 @@ textarea:focus {
 
 
 /* =========================================================
-   おまけ
-========================================================= */
-
-.extra-title {
-
-    margin-top: 14px;
-}
-
-
-.extra-buttons {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 5px;
-
-    width: 100%;
-}
-
-
-.extra-button {
-
-    width: 100%;
-
-    background: #3a3a3a;
-    color: white;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   カラージェネレーター
+   グラデーション設定
 ========================================================= */
 
 .generator-title {
@@ -555,94 +646,313 @@ textarea:focus {
     border-radius: 8px;
 
     background: #333333;
+
+    overflow: hidden;
 }
 
 
-.rgb-row {
+.gradient-setting-title {
 
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
+    font-size: 14px;
+    font-weight: bold;
 
     margin-bottom: 8px;
 }
 
 
-.rgb-row:last-child {
+.gradient-colors {
 
-    margin-bottom: 0;
+    display: grid;
+
+    grid-template-columns:
+        1fr 42px 1fr;
+
+    gap: 6px;
+
+    align-items: center;
+
+    margin-bottom: 4px;
 }
 
 
-.rgb-label {
+.gradient-color-box {
 
-    width: 20px;
-    flex: 0 0 20px;
+    min-width: 0;
 
-    font-weight: bold;
+    padding: 8px;
+
+    border:
+        1px solid #555;
+
+    border-radius: 8px;
+
+    background: #292929;
+}
+
+
+.gradient-color-label {
+
+    font-size: 12px;
+
+    color: #ddd;
+
+    margin-bottom: 6px;
 
     text-align: center;
 }
 
 
-.rgb-slider {
-
-    flex: 1;
-
-    min-width: 0;
-
-    accent-color: #0099FF;
-}
-
-
-.rgb-value {
-
-    width: 38px;
-    flex: 0 0 38px;
-
-    text-align: right;
-
-    font-size: 13px;
-}
-
-
-.color-result {
-
-    margin-top: 12px;
+.gradient-color-control {
 
     display: flex;
 
     align-items: center;
 
-    gap: 10px;
+    gap: 6px;
 }
 
 
-.color-preview {
+.gradient-color-input {
 
-    width: 55px;
-    height: 36px;
+    width: 42px;
+    height: 32px;
 
-    border-radius: 6px;
+    padding: 0;
 
-    border:
-        1px solid
-        rgba(255,255,255,0.3);
+    border: none;
 
-    flex: 0 0 55px;
+    background: transparent;
+
+    flex: 0 0 42px;
+
+    cursor: pointer;
 }
 
 
-.hex-code {
+.gradient-hex {
+
+    flex: 1;
+
+    min-width: 0;
 
     font-family: monospace;
 
-    font-size: 18px;
+    font-size: 13px;
+
     font-weight: bold;
 
-    letter-spacing: 0.5px;
+    text-align: center;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+}
+
+
+.gradient-swap {
+
+    width: 42px;
+    height: 42px;
+
+    min-height: 42px;
+
+    background: #444;
+
+    color: white;
+
+    border:
+        1px solid #666;
+
+    font-size: 18px;
+}
+
+
+.gradient-description {
+
+    font-size: 12px;
+
+    color: #aaa;
+
+    line-height: 1.5;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================================
+   カラー設定保存・リセット
+========================================================= */
+
+.color-save-area {
+
+    margin-top: 14px;
+
+    padding: 10px;
+
+    border:
+        1px solid #555;
+
+    border-radius: 8px;
+
+    background: #333333;
+}
+
+
+.color-save-title {
+
+    font-size: 14px;
+    font-weight: bold;
+
+    margin-bottom: 8px;
+}
+
+
+.color-save-description {
+
+    font-size: 12px;
+
+    color: #aaa;
+
+    line-height: 1.5;
+
+    margin-bottom: 10px;
+}
+
+
+.color-save-buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 5px;
+}
+
+
+.color-save-button {
+
+    width: 100%;
+
+    min-height: 36px;
+
+    background: #444;
+
+    color: white;
+
+    border:
+        1px solid #666;
+
+    font-size: 12px;
+}
+
+
+.color-save-button.reset {
+
+    background:
+        linear-gradient(
+            135deg,
+            #493737,
+            #332727
+        );
+
+    color: #ffb0b0;
+
+    border-color: #765555;
+}
+
+
+/* =========================================================
+   定型文
+========================================================= */
+
+.template-area {
+
+    margin-top: 14px;
+
+    padding: 10px;
+
+    border:
+        1px solid #555;
+
+    border-radius: 8px;
+
+    background: #333333;
+}
+
+
+.template-title {
+
+    font-size: 14px;
+    font-weight: bold;
+
+    margin-bottom: 8px;
+}
+
+
+.template-description {
+
+    font-size: 12px;
+
+    color: #aaa;
+
+    line-height: 1.5;
+
+    margin-bottom: 10px;
+}
+
+
+.template-buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 5px;
+
+    width: 100%;
+}
+
+
+.template-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.template-save,
+.template-load {
+
+    width: 100%;
+
+    height: 32px;
+
+    font-size: 12px;
+}
+
+
+.template-save {
+
+    background: #444;
+    color: #ddd;
+
+    border:
+        1px solid #666;
+}
+
+
+.template-load {
+
+    background: #353535;
+    color: #fff;
+
+    border:
+        1px solid #555;
 }
 
 
@@ -733,30 +1043,29 @@ textarea:focus {
     }
 
 
-    .main-format {
+    .custom-color-picker {
+
+        height: 30px;
+    }
+
+
+    .operation-buttons {
 
         gap: 3px;
     }
 
 
-    .special-layout {
+    .operation-button {
 
-        gap: 3px;
-
-        grid-template-columns:
-            1fr 2.35fr 1fr;
-    }
-
-
-    .extra-buttons {
-
-        gap: 3px;
-    }
-
-
-    .extra-button {
+        width: 80px;
 
         font-size: 12px;
+    }
+
+
+    .fixed-actions {
+
+        gap: 3px;
     }
 
 
@@ -764,6 +1073,57 @@ textarea:focus {
 
         width: 25px;
         height: 25px;
+    }
+
+
+    .template-buttons {
+
+        gap: 3px;
+    }
+
+
+    .template-save,
+    .template-load {
+
+        font-size: 11px;
+    }
+
+
+    .gradient-colors {
+
+        grid-template-columns:
+            1fr 38px 1fr;
+
+        gap: 4px;
+    }
+
+
+    .gradient-color-box {
+
+        padding: 6px;
+    }
+
+
+    .gradient-color-input {
+
+        width: 36px;
+
+        flex-basis: 36px;
+    }
+
+
+    .gradient-swap {
+
+        width: 38px;
+        height: 38px;
+
+        min-height: 38px;
+    }
+
+
+    .color-save-buttons {
+
+        gap: 3px;
     }
 
 }
@@ -780,12 +1140,20 @@ textarea:focus {
 
 
 <!-- =====================================================
-     入力
+     テキスト入力
 ====================================================== -->
 
-<div class="section-title">
-    テキスト入力
-</div>
+<div class="input-header">
+    <div class="section-title">
+        テキスト入力
+    </div>
+
+    <a
+        href="help.html"
+        class="input-help-link">
+        使い方
+    </a>
+	</div>
 
 
 <textarea
@@ -893,109 +1261,142 @@ textarea:focus {
 </button>
 
 
-<button
-    class="color-button"
-    data-color="FF8C00"
-    style="
-        background:#FF8C00;
-        color:#000000;
-    ">
-    橙
-</button>
-
+<!-- カスタム＝挿入 -->
 
 <button
     id="customColorButton"
     class="color-button"
     style="
-        background:#0099FF;
-        color:#FFFFFF;
+        background:#FF8C00;
+        color:#000000;
     ">
     カスタム
 </button>
 
 
+<!-- 色見本＝カラーピッカー -->
+
+<input
+    id="customColorPicker"
+    class="custom-color-picker"
+    type="color"
+    value="#FF8C00"
+    title="カスタムカラーを選択">
+
+
 </div>
 
 
 <!-- =====================================================
-     up / dn
+     範囲選択系操作
 ====================================================== -->
 
-<div class="main-format">
+<div
+    class="operation-scroll"
+    id="operationScroll">
 
+
+<div class="operation-buttons">
+
+
+<!-- up -->
 
 <button
     id="supButton"
-    class="format-button">
+    class="operation-button format-operation-button">
     up
 </button>
 
 
-<button
-    id="supOffButton"
-    class="format-button">
-    up off
-</button>
-
+<!-- dn -->
 
 <button
     id="subButton"
-    class="format-button">
+    class="operation-button format-operation-button">
     dn
 </button>
 
 
+<!-- gradation -->
+
 <button
-    id="subOffButton"
-    class="format-button">
-    dn off
+    id="gradationButton"
+    class="operation-button gradation-button">
+    gradation
+</button>
+
+
+<!-- rainbow -->
+
+<button
+    id="rainbowButton"
+    class="operation-button rainbow-button">
+    rainbow
+</button>
+
+
+<!-- random -->
+
+<button
+    id="randomButton"
+    class="operation-button random-button">
+    random
+</button>
+
+
+<!-- up / dn -->
+
+<button
+    id="randomUpDownButton"
+    class="operation-button random-updown-button">
+    up/dn
+</button>
+
+
+<!-- random color + up / dn -->
+
+<button
+    id="randomColorUpDownButton"
+    class="operation-button random-color-updown-button">
+    rnd+up/dn
 </button>
 
 
 </div>
 
+</div>
+
 
 <!-- =====================================================
-     特殊操作
+     copy / undo / clear
 ====================================================== -->
 
-<div class="special-layout">
-
-
-<button
-    id="gradationButton"
-    class="gradation-button">
-    gradation
-</button>
-
-
-<button
-    id="rainbowButton"
-    class="rainbow-button">
-    rainbow
-</button>
+<div class="fixed-actions">
 
 
 <button
     id="copyButton"
     class="copy-button">
 
-    <img
-        id="copyCat"
-        class="copy-cat"
-        src="cat-icon.png"
-        alt="">
 
-    <span>
-        copy
-    </span>
+<img
+    id="copyCatLeft"
+    class="copy-cat"
+    src="cat-icon.png"
+    alt="">
 
-    <img
-        id="copyCatRight"
-        class="copy-cat"
-        src="cat-icon.png"
-        alt="">
+
+<span>
+    copy
+</span>
+
+
+<img
+    id="copyCatRight"
+    class="copy-cat"
+    src="cat-icon.png"
+    alt="">
+
 
 </button>
 
@@ -1033,140 +1434,51 @@ textarea:focus {
 
 
 <!-- =====================================================
-     おまけ
-====================================================== -->
-
-<div class="section-title extra-title">
-    おまけ
-</div>
-
-
-<div class="extra-buttons">
-
-
-<button
-    id="randomButton"
-    class="extra-button">
-    random
-</button>
-
-
-<button
-    id="randomUpDownButton"
-    class="extra-button">
-    up/dn
-</button>
-
-
-<button
-    id="randomColorUpDownButton"
-    class="extra-button">
-    rnd+up/dn
-</button>
-
-
-</div>
-
-
-<!-- =====================================================
-     カラージェネレーター
+     グラデーション設定
 ====================================================== -->
 
 <div class="section-title generator-title">
-    カラージェネレーター
-</div>
-
-
-<div class="color-generator">
-
-
-<div class="rgb-row">
-
-<span class="rgb-label">
-    R
-</span>
-
-
-<input
-    id="redSlider"
-    class="rgb-slider"
-    type="range"
-    min="0"
-    max="255"
-    value="0">
-
-
-<span
-    id="redValue"
-    class="rgb-value">
-    0
-</span>
-
-</div>
-
-
-<div class="rgb-row">
-
-<span class="rgb-label">
-    G
-</span>
-
-
-<input
-    id="greenSlider"
-    class="rgb-slider"
-    type="range"
-    min="0"
-    max="255"
-    value="153">
-
-
-<span
-    id="greenValue"
-    class="rgb-value">
-    153
-</span>
-
-</div>
-
-
-<div class="rgb-row">
-
-<span class="rgb-label">
-    B
-</span>
-
-
-<input
-    id="blueSlider"
-    class="rgb-slider"
-    type="range"
-    min="0"
-    max="255"
-    value="255">
-
-
-<span
-    id="blueValue"
-    class="rgb-value">
-    255
-</span>
-
-</div>
-
-
-<div class="color-result">
-
-
-<div
-    id="generatedColor"
-    class="color-preview">
+    設定
 </div>
 
 
 <div
-    id="generatedHex"
-    class="hex-code">
+    id="colorGenerator"
+    class="color-generator">
+
+
+<div class="gradient-setting-title">
+    グラデーション設定
+</div>
+
+
+<div class="gradient-description">
+    gradationで使用する開始色と終了色を指定します。
+</div>
+
+
+<div class="gradient-colors">
+
+
+<div class="gradient-color-box">
+
+<div class="gradient-color-label">
+    開始色
+</div>
+
+
+<div class="gradient-color-control">
+
+<input
+    id="gradientStartColor"
+    class="gradient-color-input"
+    type="color"
+    value="#0099FF">
+
+
+<div
+    id="gradientStartHex"
+    class="gradient-hex">
     #0099FF
 </div>
 
@@ -1176,19 +1488,169 @@ textarea:focus {
 </div>
 
 
-<!-- =====================================================
-     使い方
-====================================================== -->
+<button
+    id="gradientSwapButton"
+    class="gradient-swap"
+    title="開始色と終了色を入れ替える">
+    ⇄
+</button>
 
-<div class="help-area">
 
-<a
-    href="help.html"
-    class="help-button">
-    使い方
-</a>
+<div class="gradient-color-box">
+
+<div class="gradient-color-label">
+    終了色
+</div>
+
+
+<div class="gradient-color-control">
+
+<input
+    id="gradientEndColor"
+    class="gradient-color-input"
+    type="color"
+    value="#FF00AA">
+
+
+<div
+    id="gradientEndHex"
+    class="gradient-hex">
+    #FF00AA
+</div>
+
 
 </div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     カラー設定保存・リセット
+====================================================== -->
+
+<div class="color-save-area">
+
+
+<div class="color-save-title">
+    カラー設定保存・リセット
+</div>
+
+
+<div class="color-save-description">
+    カスタムカラーとグラデーションカラーを端末内に保存できます。
+    サーバーには送信されません。
+</div>
+
+
+<div class="color-save-buttons">
+
+
+<button
+    id="saveColorSettings"
+    class="color-save-button">
+    現在の設定を保存
+</button>
+
+
+<button
+    id="resetColorSettings"
+    class="color-save-button reset">
+    デフォルトに戻す
+</button>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     定型文
+====================================================== -->
+
+<div class="template-area">
+
+
+<div class="template-title">
+    定型文
+</div>
+
+
+<div class="template-description">
+    よく使う文章をA・B・Cの3種類まで端末内に保存できます。
+    保存した文章は、いつでも呼び出して再利用できます。
+</div>
+
+
+<div class="template-buttons">
+
+
+<div class="template-group">
+
+<button
+    id="saveA"
+    class="template-save">
+    A 保存
+</button>
+
+
+<button
+    id="loadA"
+    class="template-load">
+    A 呼出
+</button>
+
+</div>
+
+
+<div class="template-group">
+
+<button
+    id="saveB"
+    class="template-save">
+    B 保存
+</button>
+
+
+<button
+    id="loadB"
+    class="template-load">
+    B 呼出
+</button>
+
+</div>
+
+
+<div class="template-group">
+
+<button
+    id="saveC"
+    class="template-save">
+    C 保存
+</button>
+
+
+<button
+    id="loadC"
+    class="template-load">
+    C 呼出
+</button>
+
+</div>
+
+
+</div>
+
+
+</div>
+
 
 
 <!-- =====================================================
@@ -1228,23 +1690,77 @@ let history = [];
 
 
 /* =========================================================
-   Undo
+   デフォルトカラー設定
 ========================================================= */
+
+const DEFAULT_CUSTOM_COLOR =
+    "#FF8C00";
+
+
+const DEFAULT_GRADIENT_START =
+    "#0099FF";
+
+
+const DEFAULT_GRADIENT_END =
+    "#FF00AA";
+
+
+const COLOR_SETTINGS_KEY =
+    "chatInputHelper_colorSettings";
+
+
+/* =========================================================
+   状態保存
+========================================================= */
+
+function getCurrentState() {
+
+    return {
+
+        text:
+            inputText.value,
+
+        selectionStart:
+            inputText.selectionStart ?? 0,
+
+        selectionEnd:
+            inputText.selectionEnd ?? 0
+
+    };
+
+}
+
 
 function saveHistory() {
 
     const current =
-        inputText.value;
+        getCurrentState();
+
+
+    const last =
+        history[
+            history.length - 1
+        ];
 
 
     if (
-        history.length === 0 ||
-        history[
-            history.length - 1
-        ] !== current
+
+        !last ||
+
+        last.text !==
+            current.text ||
+
+        last.selectionStart !==
+            current.selectionStart ||
+
+        last.selectionEnd !==
+            current.selectionEnd
+
     ) {
 
-        history.push(current);
+        history.push(
+            current
+        );
 
 
         if (
@@ -1260,6 +1776,10 @@ function saveHistory() {
 
 }
 
+
+/* =========================================================
+   Undo
+========================================================= */
 
 function undo() {
 
@@ -1277,27 +1797,29 @@ function undo() {
 
 
     inputText.value =
-        previous;
+        previous.text;
 
 
     updatePreview();
 
 
-    inputText.focus();
+    requestAnimationFrame(
+        () => {
 
+            try {
 
-    try {
+                inputText.focus();
 
-        const pos =
-            inputText.value.length;
+                inputText.setSelectionRange(
+                    previous.selectionStart,
+                    previous.selectionEnd
+                );
 
-        inputText.setSelectionRange(
-            pos,
-            pos
-        );
+            } catch (e) {
+            }
 
-    } catch (e) {
-    }
+        }
+    );
 
 }
 
@@ -1333,52 +1855,98 @@ function getSelection() {
 
 
 /* =========================================================
-   選択範囲置換
+   対象範囲
 ========================================================= */
 
-function replaceSelection(
+function getOperationTarget() {
+
+    const {
+        start,
+        end,
+        selected
+    } =
+        getSelection();
+
+
+    if (
+        start !== end
+    ) {
+
+        return {
+
+            mode: "selection",
+
+            start,
+            end,
+
+            text: selected
+
+        };
+
+    }
+
+
+    return {
+
+        mode: "all",
+
+        start: 0,
+
+        end:
+            inputText.value.length,
+
+        text:
+            inputText.value
+
+    };
+
+}
+
+
+/* =========================================================
+   対象範囲置換
+========================================================= */
+
+function replaceOperationTarget(
     replacement
 ) {
+
+    const target =
+        getOperationTarget();
+
+
+    if (
+        target.text.length === 0
+    ) {
+
+        return;
+
+    }
+
 
     saveHistory();
 
 
-    const start =
-        inputText.selectionStart ?? 0;
-
-
-    const end =
-        inputText.selectionEnd ?? start;
-
-
-    const text =
-        inputText.value;
-
-
     inputText.value =
 
-        text.substring(
+        inputText.value.substring(
             0,
-            start
+            target.start
         ) +
 
         replacement +
 
-        text.substring(
-            end
+        inputText.value.substring(
+            target.end
         );
-
-
-    const newPos =
-        start +
-        replacement.length;
 
 
     try {
 
         inputText.setSelectionRange(
-            newPos,
-            newPos
+            target.start,
+            target.start +
+            replacement.length
         );
 
     } catch (e) {
@@ -1402,75 +1970,29 @@ function wrapSelection(
     closeTag
 ) {
 
-    const {
-        start,
-        end,
-        selected
-    } =
-        getSelection();
+    const target =
+        getOperationTarget();
 
 
     if (
-        start === end
+        target.text.length === 0
     ) {
-
-        replaceSelection(
-            openTag
-        );
 
         return;
 
     }
 
 
-    saveHistory();
-
-
     const replacement =
 
         openTag +
-        selected +
+        target.text +
         closeTag;
 
 
-    const text =
-        inputText.value;
-
-
-    inputText.value =
-
-        text.substring(
-            0,
-            start
-        ) +
-
-        replacement +
-
-        text.substring(
-            end
-        );
-
-
-    const newPos =
-        start +
-        replacement.length;
-
-
-    try {
-
-        inputText.setSelectionRange(
-            newPos,
-            newPos
-        );
-
-    } catch (e) {
-    }
-
-
-    updatePreview();
-
-
-    inputText.focus();
+    replaceOperationTarget(
+        replacement
+    );
 
 }
 
@@ -1513,7 +2035,57 @@ function toChatColorTag(
 
 
 /* =========================================================
-   カラーボタン
+   カーソル位置
+========================================================= */
+
+let lastCursorStart = 0;
+let lastCursorEnd = 0;
+
+
+function rememberCursor() {
+
+    if (
+        document.activeElement ===
+        inputText
+    ) {
+
+        lastCursorStart =
+            inputText.selectionStart ?? 0;
+
+        lastCursorEnd =
+            inputText.selectionEnd ?? 0;
+
+    }
+
+}
+
+
+inputText.addEventListener(
+    "keyup",
+    rememberCursor
+);
+
+
+inputText.addEventListener(
+    "click",
+    rememberCursor
+);
+
+
+inputText.addEventListener(
+    "select",
+    rememberCursor
+);
+
+
+inputText.addEventListener(
+    "focus",
+    rememberCursor
+);
+
+
+/* =========================================================
+   通常カラーボタン
 ========================================================= */
 
 document
@@ -1537,13 +2109,67 @@ document
                         );
 
 
-                    if (tag) {
+                    if (!tag) {
 
-                        replaceSelection(
-                            tag
-                        );
+                        return;
 
                     }
+
+
+                    const start =
+                        inputText.selectionStart ?? 0;
+
+
+                    const end =
+                        inputText.selectionEnd ?? start;
+
+
+                    const text =
+                        inputText.value;
+
+
+                    saveHistory();
+
+
+                    inputText.value =
+
+                        text.substring(
+                            0,
+                            start
+                        ) +
+
+                        tag +
+
+                        text.substring(
+                            end
+                        );
+
+
+                    const newPos =
+                        Math.min(
+                            start +
+                            tag.length,
+                            inputText.value.length
+                        );
+
+
+                    inputText.setSelectionRange(
+                        newPos,
+                        newPos
+                    );
+
+
+                    updatePreview();
+
+
+                    lastCursorStart =
+                        newPos;
+
+                    lastCursorEnd =
+                        newPos;
+
+
+                    inputText.focus();
 
                 }
             );
@@ -1553,40 +2179,265 @@ document
 
 
 /* =========================================================
-   カスタムカラー
+   色変換
 ========================================================= */
 
-let customHex =
-    "#0099FF";
+function hexToRgb(
+    hex
+) {
+
+    let h =
+        String(hex || "")
+        .replace("#", "")
+        .trim();
 
 
-function insertCustomColor() {
+    if (
+        h.length !== 6
+    ) {
 
-    const tag =
-        toChatColorTag(
-            customHex
-        );
+        return {
 
+            r: 0,
+            g: 0,
+            b: 0
 
-    if (tag) {
-
-        replaceSelection(
-            tag
-        );
+        };
 
     }
+
+
+    return {
+
+        r:
+            parseInt(
+                h.substring(0, 2),
+                16
+            ),
+
+        g:
+            parseInt(
+                h.substring(2, 4),
+                16
+            ),
+
+        b:
+            parseInt(
+                h.substring(4, 6),
+                16
+            )
+
+    };
 
 }
 
 
-document
-    .getElementById(
+/* =========================================================
+   HEX正規化
+========================================================= */
+
+function normalizeHex(
+    hex
+) {
+
+    const value =
+        String(hex || "")
+        .trim()
+        .toUpperCase();
+
+
+    if (
+        /^#[0-9A-F]{6}$/.test(
+            value
+        )
+    ) {
+
+        return value;
+
+    }
+
+
+    return "#000000";
+
+}
+
+
+/* =========================================================
+   背景色に応じた文字色
+========================================================= */
+
+function getTextColorForBackground(
+    r,
+    g,
+    b
+) {
+
+    const brightness =
+
+        (
+            r * 299 +
+            g * 587 +
+            b * 114
+        ) / 1000;
+
+
+    return brightness > 155
+
+        ? "#000000"
+
+        : "#FFFFFF";
+
+}
+
+
+/* =========================================================
+   カスタムカラー
+========================================================= */
+
+let customHex =
+    DEFAULT_CUSTOM_COLOR;
+
+
+const customColorButton =
+    document.getElementById(
         "customColorButton"
-    )
-    .addEventListener(
-        "click",
-        insertCustomColor
     );
+
+
+const customColorPicker =
+    document.getElementById(
+        "customColorPicker"
+    );
+
+
+function updateCustomColorDisplay() {
+
+    customColorButton.style.backgroundColor =
+        customHex;
+
+
+    const rgb =
+        hexToRgb(
+            customHex
+        );
+
+
+    customColorButton.style.color =
+        getTextColorForBackground(
+            rgb.r,
+            rgb.g,
+            rgb.b
+        );
+
+
+    customColorPicker.value =
+        customHex;
+
+}
+
+
+/* =========================================================
+   カラーピッカー
+========================================================= */
+
+customColorPicker.addEventListener(
+    "input",
+    () => {
+
+        customHex =
+            normalizeHex(
+                customColorPicker.value
+            );
+
+
+        updateCustomColorDisplay();
+
+    }
+);
+
+
+/* =========================================================
+   カスタムカラー挿入
+========================================================= */
+
+customColorButton.addEventListener(
+    "click",
+    () => {
+
+        const tag =
+            toChatColorTag(
+                customHex
+            );
+
+
+        if (!tag) {
+
+            return;
+
+        }
+
+
+        saveHistory();
+
+
+        const text =
+            inputText.value;
+
+
+        const start =
+            Math.min(
+                lastCursorStart,
+                text.length
+            );
+
+
+        const end =
+            Math.min(
+                lastCursorEnd,
+                text.length
+            );
+
+
+        inputText.value =
+
+            text.substring(
+                0,
+                start
+            ) +
+
+            tag +
+
+            text.substring(
+                end
+            );
+
+
+        const newPos =
+            start +
+            tag.length;
+
+
+        inputText.focus();
+
+
+        inputText.setSelectionRange(
+            newPos,
+            newPos
+        );
+
+
+        lastCursorStart =
+            newPos;
+
+
+        lastCursorEnd =
+            newPos;
+
+
+        updatePreview();
+
+    }
+);
 
 
 /* =========================================================
@@ -1612,22 +2463,6 @@ document
 
 document
     .getElementById(
-        "supOffButton"
-    )
-    .addEventListener(
-        "click",
-        () => {
-
-            replaceSelection(
-                "[/SUP]"
-            );
-
-        }
-    );
-
-
-document
-    .getElementById(
         "subButton"
     )
     .addEventListener(
@@ -1636,22 +2471,6 @@ document
 
             wrapSelection(
                 "[SUB]",
-                "[/SUB]"
-            );
-
-        }
-    );
-
-
-document
-    .getElementById(
-        "subOffButton"
-    )
-    .addEventListener(
-        "click",
-        () => {
-
-            replaceSelection(
                 "[/SUB]"
             );
 
@@ -1692,6 +2511,10 @@ document
 
             inputText.focus();
 
+
+            lastCursorStart = 0;
+            lastCursorEnd = 0;
+
         }
     );
 
@@ -1706,9 +2529,9 @@ const copyButton =
     );
 
 
-const copyCat =
+const copyCatLeft =
     document.getElementById(
-        "copyCat"
+        "copyCatLeft"
     );
 
 
@@ -1718,55 +2541,39 @@ const copyCatRight =
     );
 
 
-/*
- * 左右の猫を同時に
- * コピー成功アニメーション
- */
 function showCopyAnimation() {
 
-    const cats = [
-        copyCat,
-        copyCatRight
-    ];
-
-
-    cats.forEach(
-        cat => {
-
-            cat.classList.remove(
-                "copied"
-            );
-
-        }
+    copyCatLeft.classList.remove(
+        "copied"
     );
 
 
-    /*
-     * 再描画させることで、
-     * 連続タップでもアニメーションを
-     * 再実行できるようにする
-     */
-    void copyCat.offsetWidth;
+    copyCatRight.classList.remove(
+        "copied"
+    );
 
 
-    cats.forEach(
-        cat => {
+    void copyCatLeft.offsetWidth;
+    void copyCatRight.offsetWidth;
 
-            cat.classList.add(
-                "copied"
-            );
 
-        }
+    copyCatLeft.classList.add(
+        "copied"
+    );
+
+
+    copyCatRight.classList.add(
+        "copied"
     );
 
 }
 
 
-copyCat.addEventListener(
+copyCatLeft.addEventListener(
     "animationend",
     () => {
 
-        copyCat.classList.remove(
+        copyCatLeft.classList.remove(
             "copied"
         );
 
@@ -1797,9 +2604,6 @@ copyButton.addEventListener(
         let copied = false;
 
 
-        /*
-         * Clipboard API
-         */
         try {
 
             await navigator.clipboard.writeText(
@@ -1810,9 +2614,6 @@ copyButton.addEventListener(
 
         } catch (e) {
 
-            /*
-             * Safari等のフォールバック
-             */
             inputText.focus();
 
             inputText.select();
@@ -1845,10 +2646,6 @@ copyButton.addEventListener(
         }
 
 
-        /*
-         * コピー成功時だけ
-         * 左右の猫を一瞬拡大
-         */
         if (copied) {
 
             showCopyAnimation();
@@ -1865,17 +2662,40 @@ copyButton.addEventListener(
 
 function randomHex() {
 
-    const value =
+    const hue =
         Math.floor(
-            Math.random() *
-            0x1000000
+            Math.random() * 360
         );
 
 
-    return value
-        .toString(16)
-        .padStart(6, "0")
-        .toUpperCase();
+    const saturation =
+        70 +
+        Math.floor(
+            Math.random() * 31
+        );
+
+
+    const lightness =
+        45 +
+        Math.floor(
+            Math.random() * 21
+        );
+
+
+    const rgb =
+        hslToRgb(
+            hue,
+            saturation,
+            lightness
+        );
+
+
+    return rgbToHex(
+        rgb.r,
+        rgb.g,
+        rgb.b
+    )
+    .replace("#", "");
 
 }
 
@@ -1899,8 +2719,7 @@ function randomColorText(
             ch === "\n"
         ) {
 
-            result +=
-                "\n";
+            result += "\n";
 
         } else {
 
@@ -1930,16 +2749,12 @@ document
         "click",
         () => {
 
-            const {
-                start,
-                end,
-                selected
-            } =
-                getSelection();
+            const target =
+                getOperationTarget();
 
 
             if (
-                start === end
+                target.text.length === 0
             ) {
 
                 return;
@@ -1947,9 +2762,9 @@ document
             }
 
 
-            replaceSelection(
+            replaceOperationTarget(
                 randomColorText(
-                    selected
+                    target.text
                 )
             );
 
@@ -1978,8 +2793,7 @@ function upDownText(
             ch === "\n"
         ) {
 
-            result +=
-                "\n";
+            result += "\n";
 
             continue;
 
@@ -2025,16 +2839,12 @@ document
         "click",
         () => {
 
-            const {
-                start,
-                end,
-                selected
-            } =
-                getSelection();
+            const target =
+                getOperationTarget();
 
 
             if (
-                start === end
+                target.text.length === 0
             ) {
 
                 return;
@@ -2042,9 +2852,9 @@ document
             }
 
 
-            replaceSelection(
+            replaceOperationTarget(
                 upDownText(
-                    selected
+                    target.text
                 )
             );
 
@@ -2073,8 +2883,7 @@ function randomColorUpDownText(
             ch === "\n"
         ) {
 
-            result +=
-                "\n";
+            result += "\n";
 
             continue;
 
@@ -2128,16 +2937,12 @@ document
         "click",
         () => {
 
-            const {
-                start,
-                end,
-                selected
-            } =
-                getSelection();
+            const target =
+                getOperationTarget();
 
 
             if (
-                start === end
+                target.text.length === 0
             ) {
 
                 return;
@@ -2145,66 +2950,14 @@ document
             }
 
 
-            replaceSelection(
+            replaceOperationTarget(
                 randomColorUpDownText(
-                    selected
+                    target.text
                 )
             );
 
         }
     );
-
-
-/* =========================================================
-   色変換
-========================================================= */
-
-function hexToRgb(
-    hex
-) {
-
-    let h =
-        hex
-        .replace("#", "")
-        .trim();
-
-
-    if (
-        h.length !== 6
-    ) {
-
-        return {
-            r: 0,
-            g: 0,
-            b: 0
-        };
-
-    }
-
-
-    return {
-
-        r:
-            parseInt(
-                h.substring(0, 2),
-                16
-            ),
-
-        g:
-            parseInt(
-                h.substring(2, 4),
-                16
-            ),
-
-        b:
-            parseInt(
-                h.substring(4, 6),
-                16
-            )
-
-    };
-
-}
 
 
 /* =========================================================
@@ -2287,8 +3040,10 @@ function rgbToHsl(
 
         s =
             l > 0.5
+
                 ? d /
                     (2 - max - min)
+
                 : d /
                     (max + min);
 
@@ -2330,9 +3085,16 @@ function rgbToHsl(
 
 
     return {
-        h: h * 360,
-        s: s * 100,
-        l: l * 100
+
+        h:
+            h * 360,
+
+        s:
+            s * 100,
+
+        l:
+            l * 100
+
     };
 
 }
@@ -2351,6 +3113,7 @@ function hslToRgb(
     h =
         ((h % 360) + 360) % 360;
 
+
     s /= 100;
     l /= 100;
 
@@ -2364,10 +3127,13 @@ function hslToRgb(
                 l * 255
             );
 
+
         return {
+
             r: value,
             g: value,
             b: value
+
         };
 
     }
@@ -2389,21 +3155,27 @@ function hslToRgb(
             }
 
             if (t < 1 / 6) {
+
                 return p +
                     (q - p) *
                     6 *
                     t;
+
             }
 
             if (t < 1 / 2) {
+
                 return q;
+
             }
 
             if (t < 2 / 3) {
+
                 return p +
                     (q - p) *
                     (2 / 3 - t) *
                     6;
+
             }
 
             return p;
@@ -2413,8 +3185,10 @@ function hslToRgb(
 
     const q =
         l < 0.5
+
             ? l *
                 (1 + s)
+
             : l +
                 s -
                 l * s;
@@ -2475,46 +3249,237 @@ function hslToRgb(
 
 
 /* =========================================================
-   グラデーション
+   グラデーション設定
 ========================================================= */
 
-/*
- * 同系色グラデーション
- *
- * カラージェネレーターの色を起点にして、
- * 明るさを上下させながら循環。
- *
- * 文字数が多くても同じ周期を繰り返すため、
- * グラデーションが破綻しない。
- */
+let gradientStartHex =
+    DEFAULT_GRADIENT_START;
+
+
+let gradientEndHex =
+    DEFAULT_GRADIENT_END;
+
+
+const gradientStartColor =
+    document.getElementById(
+        "gradientStartColor"
+    );
+
+
+const gradientEndColor =
+    document.getElementById(
+        "gradientEndColor"
+    );
+
+
+const gradientStartHexDisplay =
+    document.getElementById(
+        "gradientStartHex"
+    );
+
+
+const gradientEndHexDisplay =
+    document.getElementById(
+        "gradientEndHex"
+    );
+
+
+const gradientSwapButton =
+    document.getElementById(
+        "gradientSwapButton"
+    );
+
+
+function updateGradientDisplay() {
+
+    gradientStartHexDisplay.textContent =
+        gradientStartHex;
+
+
+    gradientEndHexDisplay.textContent =
+        gradientEndHex;
+
+
+    gradientStartColor.value =
+        gradientStartHex;
+
+
+    gradientEndColor.value =
+        gradientEndHex;
+
+
+    document
+        .getElementById(
+            "gradationButton"
+        )
+        .style.background =
+            "linear-gradient(90deg, " +
+            gradientStartHex +
+            ", " +
+            gradientEndHex +
+            ")";
+
+}
+
+
+gradientStartColor.addEventListener(
+    "input",
+    () => {
+
+        gradientStartHex =
+            normalizeHex(
+                gradientStartColor.value
+            );
+
+
+        updateGradientDisplay();
+
+    }
+);
+
+
+gradientEndColor.addEventListener(
+    "input",
+    () => {
+
+        gradientEndHex =
+            normalizeHex(
+                gradientEndColor.value
+            );
+
+
+        updateGradientDisplay();
+
+    }
+);
+
+
+gradientSwapButton.addEventListener(
+    "click",
+    () => {
+
+        const temp =
+            gradientStartHex;
+
+
+        gradientStartHex =
+            gradientEndHex;
+
+
+        gradientEndHex =
+            temp;
+
+
+        updateGradientDisplay();
+
+    }
+);
+
+
+/* =========================================================
+   グラデーション色補間
+========================================================= */
+
+function interpolateColor(
+    startHex,
+    endHex,
+    ratio
+) {
+
+    const start =
+        hexToRgb(
+            startHex
+        );
+
+
+    const end =
+        hexToRgb(
+            endHex
+        );
+
+
+    const r =
+        Math.round(
+            start.r +
+            (
+                end.r -
+                start.r
+            ) *
+            ratio
+        );
+
+
+    const g =
+        Math.round(
+            start.g +
+            (
+                end.g -
+                start.g
+            ) *
+            ratio
+        );
+
+
+    const b =
+        Math.round(
+            start.b +
+            (
+                end.b -
+                start.b
+            ) *
+            ratio
+        );
+
+
+    return rgbToHex(
+        r,
+        g,
+        b
+    );
+
+}
+
 
 function sameColorGradient(
     text
 ) {
 
-    const base =
-        hexToRgb(
-            customHex
-        );
+    const characters = [];
 
 
-    const hsl =
-        rgbToHsl(
-            base.r,
-            base.g,
-            base.b
-        );
+    for (
+        const ch of text
+    ) {
+
+        if (
+            ch !== "\n"
+        ) {
+
+            characters.push(
+                ch
+            );
+
+        }
+
+    }
+
+
+    const count =
+        characters.length;
+
+
+    if (
+        count === 0
+    ) {
+
+        return text;
+
+    }
 
 
     let result = "";
 
     let index = 0;
-
-
-    /*
-     * 24文字を1周期とする
-     */
-    const cycle = 24;
 
 
     for (
@@ -2525,58 +3490,27 @@ function sameColorGradient(
             ch === "\n"
         ) {
 
-            result +=
-                "\n";
+            result += "\n";
 
             continue;
 
         }
 
 
-        const phase =
-            (index % cycle) /
-            cycle;
+        const ratio =
+            count === 1
 
+                ? 0
 
-        /*
-         * -1 ～ +1 の波形
-         */
-        const wave =
-            Math.sin(
-                phase *
-                Math.PI *
-                2
-            );
-
-
-        /*
-         * 元の明るさを中心に
-         * ±18%程度変化
-         */
-        const lightness =
-            Math.max(
-                8,
-                Math.min(
-                    92,
-                    hsl.l +
-                    wave * 18
-                )
-            );
-
-
-        const rgb =
-            hslToRgb(
-                hsl.h,
-                hsl.s,
-                lightness
-            );
+                : index /
+                    (count - 1);
 
 
         const hex =
-            rgbToHex(
-                rgb.r,
-                rgb.g,
-                rgb.b
+            interpolateColor(
+                gradientStartHex,
+                gradientEndHex,
+                ratio
             );
 
 
@@ -2600,18 +3534,43 @@ function sameColorGradient(
 
 
 /* =========================================================
-   虹色グラデーション
+   gradation
 ========================================================= */
 
-/*
- * 虹色方向グラデーション
- *
- * 現在のカラージェネレーター色を起点として、
- * 色相を徐々に回転させる。
- *
- * 36文字で360度。
- * 文字数が増えても循環する。
- */
+document
+    .getElementById(
+        "gradationButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            const target =
+                getOperationTarget();
+
+
+            if (
+                target.text.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            replaceOperationTarget(
+                sameColorGradient(
+                    target.text
+                )
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   虹色グラデーション
+========================================================= */
 
 function rainbowGradient(
     text
@@ -2636,9 +3595,6 @@ function rainbowGradient(
     let index = 0;
 
 
-    /*
-     * 36文字で一周
-     */
     const cycle = 36;
 
 
@@ -2650,8 +3606,7 @@ function rainbowGradient(
             ch === "\n"
         ) {
 
-            result +=
-                "\n";
+            result += "\n";
 
             continue;
 
@@ -2706,49 +3661,6 @@ function rainbowGradient(
 }
 
 
-/* =========================================================
-   gradationボタン
-========================================================= */
-
-document
-    .getElementById(
-        "gradationButton"
-    )
-    .addEventListener(
-        "click",
-        () => {
-
-            const {
-                start,
-                end,
-                selected
-            } =
-                getSelection();
-
-
-            if (
-                start === end
-            ) {
-
-                return;
-
-            }
-
-
-            replaceSelection(
-                sameColorGradient(
-                    selected
-                )
-            );
-
-        }
-    );
-
-
-/* =========================================================
-   rainbowボタン
-========================================================= */
-
 document
     .getElementById(
         "rainbowButton"
@@ -2757,16 +3669,12 @@ document
         "click",
         () => {
 
-            const {
-                start,
-                end,
-                selected
-            } =
-                getSelection();
+            const target =
+                getOperationTarget();
 
 
             if (
-                start === end
+                target.text.length === 0
             ) {
 
                 return;
@@ -2774,9 +3682,9 @@ document
             }
 
 
-            replaceSelection(
+            replaceOperationTarget(
                 rainbowGradient(
-                    selected
+                    target.text
                 )
             );
 
@@ -2785,177 +3693,247 @@ document
 
 
 /* =========================================================
-   カラージェネレーター
+   カラー設定保存
 ========================================================= */
 
-const redSlider =
-    document.getElementById(
-        "redSlider"
-    );
+function saveColorSettings() {
+
+    const settings = {
+
+        custom:
+            customHex,
+
+        gradientStart:
+            gradientStartHex,
+
+        gradientEnd:
+            gradientEndHex
+
+    };
 
 
-const greenSlider =
-    document.getElementById(
-        "greenSlider"
-    );
+    try {
+
+        localStorage.setItem(
+            COLOR_SETTINGS_KEY,
+            JSON.stringify(
+                settings
+            )
+        );
 
 
-const blueSlider =
-    document.getElementById(
-        "blueSlider"
-    );
+        showColorSaveMessage(
+            "カラー設定を保存しました"
+        );
 
+    } catch (e) {
 
-const redValue =
-    document.getElementById(
-        "redValue"
-    );
+        showColorSaveMessage(
+            "保存できませんでした"
+        );
 
+    }
 
-const greenValue =
-    document.getElementById(
-        "greenValue"
-    );
-
-
-const blueValue =
-    document.getElementById(
-        "blueValue"
-    );
-
-
-const generatedColor =
-    document.getElementById(
-        "generatedColor"
-    );
-
-
-const generatedHex =
-    document.getElementById(
-        "generatedHex"
-    );
-
-
-const customColorButton =
-    document.getElementById(
-        "customColorButton"
-    );
+}
 
 
 /* =========================================================
-   背景色に応じた文字色
+   保存メッセージ
 ========================================================= */
 
-function getTextColorForBackground(
-    r,
-    g,
-    b
+function showColorSaveMessage(
+    message
 ) {
 
-    const brightness =
-
-        (
-            r * 299 +
-            g * 587 +
-            b * 114
-        ) / 1000;
+    const button =
+        document.getElementById(
+            "saveColorSettings"
+        );
 
 
-    return brightness > 155
+    const original =
+        button.textContent;
 
-        ? "#000000"
 
-        : "#FFFFFF";
+    button.textContent =
+        message;
+
+
+    setTimeout(
+        () => {
+
+            button.textContent =
+                original;
+
+        },
+        1000
+    );
 
 }
 
 
 /* =========================================================
-   RGB更新
+   保存済みカラー設定読み込み
 ========================================================= */
 
-function updateColorGenerator() {
+function loadColorSettings() {
 
-    const r =
-        Number(
-            redSlider.value
-        );
+    let saved = null;
 
 
-    const g =
-        Number(
-            greenSlider.value
-        );
+    try {
+
+        const raw =
+            localStorage.getItem(
+                COLOR_SETTINGS_KEY
+            );
 
 
-    const b =
-        Number(
-            blueSlider.value
-        );
+        if (raw) {
 
+            saved =
+                JSON.parse(
+                    raw
+                );
+
+        }
+
+    } catch (e) {
+
+        saved = null;
+
+    }
+
+
+    if (
+        !saved
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        /^#[0-9A-F]{6}$/i.test(
+            saved.custom || ""
+        )
+    ) {
+
+        customHex =
+            saved.custom.toUpperCase();
+
+    }
+
+
+    if (
+        /^#[0-9A-F]{6}$/i.test(
+            saved.gradientStart || ""
+        )
+    ) {
+
+        gradientStartHex =
+            saved.gradientStart.toUpperCase();
+
+    }
+
+
+    if (
+        /^#[0-9A-F]{6}$/i.test(
+            saved.gradientEnd || ""
+        )
+    ) {
+
+        gradientEndHex =
+            saved.gradientEnd.toUpperCase();
+
+    }
+
+}
+
+
+/* =========================================================
+   デフォルトに戻す
+========================================================= */
+
+function resetColorSettings() {
 
     customHex =
-        rgbToHex(
-            r,
-            g,
-            b
+        DEFAULT_CUSTOM_COLOR;
+
+
+    gradientStartHex =
+        DEFAULT_GRADIENT_START;
+
+
+    gradientEndHex =
+        DEFAULT_GRADIENT_END;
+
+
+    updateCustomColorDisplay();
+
+    updateGradientDisplay();
+
+
+    try {
+
+        localStorage.removeItem(
+            COLOR_SETTINGS_KEY
+        );
+
+    } catch (e) {
+    }
+
+
+    const button =
+        document.getElementById(
+            "resetColorSettings"
         );
 
 
-    redValue.textContent =
-        r;
+    const original =
+        button.textContent;
 
 
-    greenValue.textContent =
-        g;
+    button.textContent =
+        "デフォルトに戻しました";
 
 
-    blueValue.textContent =
-        b;
+    setTimeout(
+        () => {
 
+            button.textContent =
+                original;
 
-    generatedColor.style.backgroundColor =
-        customHex;
-
-
-    generatedHex.textContent =
-        customHex;
-
-
-    customColorButton.style.backgroundColor =
-        customHex;
-
-
-    customColorButton.style.color =
-        getTextColorForBackground(
-            r,
-            g,
-            b
-        );
+        },
+        1000
+    );
 
 }
 
 
 /* =========================================================
-   RGBスライダー
+   保存・リセットボタン
 ========================================================= */
 
-redSlider.addEventListener(
-    "input",
-    updateColorGenerator
-);
+document
+    .getElementById(
+        "saveColorSettings"
+    )
+    .addEventListener(
+        "click",
+        saveColorSettings
+    );
 
 
-greenSlider.addEventListener(
-    "input",
-    updateColorGenerator
-);
-
-
-blueSlider.addEventListener(
-    "input",
-    updateColorGenerator
-);
+document
+    .getElementById(
+        "resetColorSettings"
+    )
+    .addEventListener(
+        "click",
+        resetColorSettings
+    );
 
 
 /* =========================================================
@@ -3329,12 +4307,160 @@ function updatePreview() {
 
 inputText.addEventListener(
     "input",
-    updatePreview
+    () => {
+
+        rememberCursor();
+
+        updatePreview();
+
+    }
 );
 
 
 /* =========================================================
-   Undoボタン
+   定型文 A / B / C
+========================================================= */
+
+function saveTemplate(
+    slot
+) {
+
+    const key =
+        "chatInputHelper_template_" +
+        slot;
+
+
+    localStorage.setItem(
+        key,
+        inputText.value
+    );
+
+
+    const button =
+        document.getElementById(
+            "save" + slot
+        );
+
+
+    const original =
+        button.textContent;
+
+
+    button.textContent =
+        "保存しました";
+
+
+    setTimeout(
+        () => {
+
+            button.textContent =
+                original;
+
+        },
+        900
+    );
+
+}
+
+
+function loadTemplate(
+    slot
+) {
+
+    const key =
+        "chatInputHelper_template_" +
+        slot;
+
+
+    const saved =
+        localStorage.getItem(
+            key
+        );
+
+
+    if (
+        saved === null
+    ) {
+
+        return;
+
+    }
+
+
+    saveHistory();
+
+
+    inputText.value =
+        saved;
+
+
+    updatePreview();
+
+
+    inputText.focus();
+
+
+    const pos =
+        inputText.value.length;
+
+
+    inputText.setSelectionRange(
+        pos,
+        pos
+    );
+
+
+    lastCursorStart =
+        pos;
+
+
+    lastCursorEnd =
+        pos;
+
+}
+
+
+["A", "B", "C"]
+.forEach(
+    slot => {
+
+        document
+            .getElementById(
+                "save" + slot
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    saveTemplate(
+                        slot
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "load" + slot
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    loadTemplate(
+                        slot
+                    );
+
+                }
+            );
+
+    }
+);
+
+
+/* =========================================================
+   Undo
 ========================================================= */
 
 document
@@ -3351,9 +4477,31 @@ document
    初期化
 ========================================================= */
 
-updateColorGenerator();
+loadColorSettings();
+
+
+updateCustomColorDisplay();
+
+updateGradientDisplay();
 
 updatePreview();
+
+
+/*
+ * 初期カーソル位置
+ */
+
+inputText.focus();
+
+
+inputText.setSelectionRange(
+    0,
+    0
+);
+
+
+lastCursorStart = 0;
+lastCursorEnd = 0;
 
 </script>
 

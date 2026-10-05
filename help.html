@@ -20,6 +20,7 @@
 
 <title>Chat Input Helper - 使い方</title>
 
+
 <style>
 
 * {
@@ -55,29 +56,35 @@ body {
 }
 
 
-/* -------------------------
+/* =========================
    タイトル
-------------------------- */
+========================= */
 
 h1 {
     font-size: 22px;
+    line-height: 1.4;
+
     margin: 0 0 20px 0;
 }
 
 h2 {
     font-size: 17px;
-    margin: 24px 0 10px 0;
+    line-height: 1.4;
+
+    margin: 28px 0 10px 0;
 }
 
 h3 {
     font-size: 15px;
+    line-height: 1.4;
+
     margin: 18px 0 8px 0;
 }
 
 
-/* -------------------------
+/* =========================
    本文
-------------------------- */
+========================= */
 
 p,
 li {
@@ -85,29 +92,34 @@ li {
     line-height: 1.7;
 }
 
+p {
+    margin: 8px 0;
+}
+
 ul {
     padding-left: 22px;
 }
 
 
-/* -------------------------
-   ボタン説明
-------------------------- */
+/* =========================
+   機能説明ボックス
+========================= */
 
 .feature {
     background: #333333;
 
-    border: 1px solid #555;
+    border: 1px solid #555555;
 
     border-radius: 8px;
 
     padding: 10px 12px;
 
-    margin-bottom: 8px;
+    margin: 8px 0;
 }
 
 .feature-title {
     font-weight: bold;
+
     font-size: 15px;
 
     margin-bottom: 4px;
@@ -115,18 +127,21 @@ ul {
 
 .feature-description {
     font-size: 13px;
+
     line-height: 1.6;
+
+    color: #eeeeee;
 }
 
 
-/* -------------------------
-   注意書き
-------------------------- */
+/* =========================
+   注意・補足
+========================= */
 
 .notice {
     background: #333333;
 
-    border: 1px solid #666;
+    border: 1px solid #666666;
 
     border-radius: 8px;
 
@@ -135,18 +150,89 @@ ul {
     margin-top: 12px;
 
     font-size: 13px;
+
     line-height: 1.7;
 }
 
+.notice p {
+    font-size: 13px;
+}
 
-/* -------------------------
+
+/* =========================
+   ボタン一覧
+========================= */
+
+.button-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    margin: 10px 0 14px 0;
+}
+
+.button-label {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 32px;
+
+    padding: 0 12px;
+
+    background: #3a3a3a;
+
+    border: 1px solid #555555;
+
+    border-radius: 6px;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================
+   範囲選択系の説明
+========================= */
+
+.scroll-example {
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    padding-bottom: 6px;
+
+    margin: 10px 0;
+}
+
+.scroll-example-inner {
+    display: flex;
+
+    width: max-content;
+
+    gap: 6px;
+}
+
+.scroll-example .button-label {
+    flex-shrink: 0;
+}
+
+
+/* =========================
    戻るボタン
-------------------------- */
+========================= */
 
 .back-area {
     text-align: center;
 
-    margin-top: 28px;
+    margin-top: 30px;
 }
 
 .back-button {
@@ -156,38 +242,50 @@ ul {
     justify-content: center;
 
     min-width: 150px;
+
     height: 38px;
 
     padding: 0 24px;
 
     background: #3a3a3a;
+
     color: white;
 
     text-decoration: none;
 
     border-radius: 8px;
 
-    border: 1px solid #555;
+    border: 1px solid #555555;
 }
 
 .back-button:active {
     opacity: 0.7;
+
     transform: scale(0.98);
 }
 
 
-/* -------------------------
+/* =========================
    フッター
-------------------------- */
+========================= */
 
 .footer {
     margin-top: 22px;
 
     text-align: center;
 
-    color: #999;
+    color: #999999;
 
     font-size: 12px;
+}
+
+
+/* =========================
+   リンク
+========================= */
+
+a {
+    color: #66ccff;
 }
 
 </style>
@@ -200,135 +298,263 @@ ul {
 <div class="page">
 
 
+<!-- =========================
+     タイトル
+========================= -->
+
 <h1>
     Chat Input Helper
 </h1>
 
 
+<!-- =========================
+     概要
+========================= -->
+
 <h2>
-    概要
+    このツールについて
 </h2>
 
 <p>
-このツールは、
+Chat Input Helperは、
 「パズルアンドサバイバル」のチャット欄で使える
-文字装飾を楽にしてくれるかもしれないツールです。
+文字装飾を、少し楽にするための補助ツールです。
 </p>
 
 <p>
-文字に色を付けたり、上付き・下付きにしたり、
-選択した文字をランダムカラーやグラデーションにしたりできます。
+文字に色を付けたり、
+選択した文字をグラデーションやランダムカラーにしたり、
+上付き・下付きの装飾を加えたりできます。
 </p>
 
 <p>
-このツールに入力したチャット内容が、
-どこかのサーバーなどに収集・保存されることはありません。
-安心してお使いくださいヽ(=´▽`=)ﾉ
+難しい操作はできるだけ減らして、
+iPhoneから気軽に使えるように作っています。
+</p>
+
+<div class="notice">
+
+<strong>プライバシーについて</strong>
+
+<p>
+このツールに入力したチャット内容を、
+サーバーなどへ送信して収集・保存する仕組みはありません。
 </p>
 
 <p>
-現在は<strong>iPhoneでのみ動作確認</strong>しています。
+定型文などの設定も、基本的にこの端末のブラウザ内に保存されます。
 </p>
 
+</div>
+
+
+<!-- =========================
+     基本的な使い方
+========================= -->
 
 <h2>
     基本的な使い方
 </h2>
 
 <p>
-上部の「テキスト入力」欄に文字を入力します。
+まず、画面上部の
+「テキスト入力」欄に文字を入力します。
 </p>
 
 <p>
-文字の一部を装飾したい場合は、
-iPhoneの操作で文字を選択してからボタンを押してください。
+文字の一部だけを装飾したい場合は、
+iPhoneの通常の操作で文字を選択してから、
+目的のボタンを押してください。
 </p>
 
 <p>
-選択範囲がない状態で一部のボタンを押した場合は、
-カーソル位置にタグを挿入します。
+たとえば、
 </p>
 
+<div class="feature">
+<div class="feature-title">
+文字を選択 → 色を選ぶ
+</div>
+
+<div class="feature-description">
+選択した文字の位置にカラーコードを追加できます。
+</div>
+</div>
+
+<p>
+範囲選択に対応した装飾ボタンでは、
+選択した文字をまとめて装飾できます。
+</p>
+
+<p>
+テキスト入力欄をタップしてカーソルを置けば、
+その位置にカラーコードなどを追加することもできます。
+</p>
+
+
+<!-- =========================
+     カラーボタン
+========================= -->
 
 <h2>
     カラーボタン
 </h2>
 
-<div class="feature">
-<div class="feature-title">白</div>
-<div class="feature-description">
-選択した文字を白色にします。
-</div>
+<p>
+カラーボタンは、
+文字に色を付けるためのカラーコードを
+カーソル位置へ追加するボタンです。
+</p>
+
+<div class="button-list">
+
+<div class="button-label">白</div>
+<div class="button-label">灰</div>
+<div class="button-label">青</div>
+<div class="button-label">赤</div>
+<div class="button-label">緑</div>
+<div class="button-label">黄</div>
+<div class="button-label">水</div>
+<div class="button-label">桃</div>
+<div class="button-label">橙</div>
+<div class="button-label">カスタム</div>
+
 </div>
 
-<div class="feature">
-<div class="feature-title">灰</div>
-<div class="feature-description">
-選択した文字を灰色にします。
-</div>
-</div>
 
 <div class="feature">
-<div class="feature-title">青</div>
+
+<div class="feature-title">
+白・灰・青・赤・緑・黄・水・桃・橙
+</div>
+
 <div class="feature-description">
-選択した文字を青色にします。
+それぞれ決められた色のカラーコードを、
+カーソル位置へ追加します。
 </div>
+
 </div>
+
 
 <div class="feature">
-<div class="feature-title">赤</div>
-<div class="feature-description">
-選択した文字を赤色にします。
-</div>
+
+<div class="feature-title">
+カスタム
 </div>
 
-<div class="feature">
-<div class="feature-title">緑</div>
 <div class="feature-description">
-選択した文字を緑色にします。
-</div>
+自分で設定したカスタムカラーの
+カラーコードをカーソル位置へ追加します。
 </div>
 
-<div class="feature">
-<div class="feature-title">黄</div>
-<div class="feature-description">
-選択した文字を黄色にします。
-</div>
 </div>
 
-<div class="feature">
-<div class="feature-title">水</div>
-<div class="feature-description">
-選択した文字を水色にします。
-</div>
-</div>
 
-<div class="feature">
-<div class="feature-title">桃</div>
-<div class="feature-description">
-選択した文字を桃色にします。
-</div>
-</div>
+<p>
+カラーボタンを押すと、
+カラーコードを追加したあと、
+カーソルは自動的に1文字分右へ移動します。
+</p>
 
-<div class="feature">
-<div class="feature-title">橙</div>
-<div class="feature-description">
-選択した文字を橙色にします。
-</div>
-</div>
+<p>
+そのため、
+続けて別の色を追加したり、
+そのまま文字を入力したりできます。
+</p>
 
-<div class="feature">
-<div class="feature-title">カスタム</div>
-<div class="feature-description">
-カラージェネレーターで作成した色を、
-選択範囲に適用します。
-</div>
-</div>
+<p>
+カラーボタンは文字そのものを置き換えるのではなく、
+現在のカーソル位置へカラーコードを追加する仕組みです。
+</p>
 
+
+<!-- =========================
+     カラー設定
+========================= -->
 
 <h2>
-    上付き・下付き
+    カラー設定保存・リセット
 </h2>
+
+<div class="feature">
+
+<div class="feature-title">
+カラー設定保存
+</div>
+
+<div class="feature-description">
+現在設定しているカラー関連の設定を、
+この端末のブラウザに保存します。
+</div>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-title">
+カラー設定リセット
+</div>
+
+<div class="feature-description">
+保存しているカラー設定をリセットし、
+初期状態に戻します。
+</div>
+
+</div>
+
+
+<p>
+よく使う色の設定を残しておきたい場合に便利です。
+</p>
+
+<p>
+保存された設定は、基本的にこの端末のブラウザ内で管理されます。
+</p>
+
+
+<!-- =========================
+     範囲選択系
+========================= -->
+
+<h2>
+    範囲選択系ボタン
+</h2>
+
+<p>
+文字を選択してから使うことを想定した
+装飾・カラー操作のボタンです。
+</p>
+
+<p>
+ボタンが横一列に並んでいるため、
+画面の幅に収まらない場合は
+左右へスワイプして目的のボタンを表示してください。
+</p>
+
+
+<div class="scroll-example">
+
+<div class="scroll-example-inner">
+
+<div class="button-label">up</div>
+
+<div class="button-label">dn</div>
+
+<div class="button-label">gradation</div>
+
+<div class="button-label">rainbow</div>
+
+<div class="button-label">random</div>
+
+<div class="button-label">up/dn</div>
+
+<div class="button-label">rnd+up/dn</div>
+
+</div>
+
+</div>
+
 
 <div class="feature">
 
@@ -337,20 +563,7 @@ up
 </div>
 
 <div class="feature-description">
-選択範囲を上付き文字にします。
-</div>
-
-</div>
-
-
-<div class="feature">
-
-<div class="feature-title">
-up off
-</div>
-
-<div class="feature-description">
-上付き文字の終了タグを挿入します。
+選択した文字を上付き文字にします。
 </div>
 
 </div>
@@ -363,7 +576,7 @@ dn
 </div>
 
 <div class="feature-description">
-選択範囲を下付き文字にします。
+選択した文字を下付き文字にします。
 </div>
 
 </div>
@@ -372,56 +585,29 @@ dn
 <div class="feature">
 
 <div class="feature-title">
-dn off
+gradation
 </div>
 
 <div class="feature-description">
-下付き文字の終了タグを挿入します。
+選択した文字を1文字ずつ異なる色にし、
+設定した色を起点とした同系色のグラデーションにします。
 </div>
 
 </div>
 
 
-<h2>
-    copy
-</h2>
+<div class="feature">
 
-<p>
-入力欄に入っている完成した文字列を
-クリップボードへコピーします。
-</p>
+<div class="feature-title">
+rainbow
+</div>
 
-<p>
-コピーした内容を、そのままゲームのチャット欄などへ
-貼り付けることができます。
-</p>
+<div class="feature-description">
+選択した文字の色相を少しずつ変化させ、
+虹色のようなグラデーションにします。
+</div>
 
-
-<h2>
-    clear
-</h2>
-
-<p>
-入力欄の文字をすべて消去します。
-</p>
-
-
-<h2>
-    undo
-</h2>
-
-<p>
-直前の編集操作を取り消します。
-</p>
-
-<p>
-最大50回分まで履歴を保持します。
-</p>
-
-
-<h2>
-    おまけ
-</h2>
+</div>
 
 
 <div class="feature">
@@ -431,7 +617,7 @@ random
 </div>
 
 <div class="feature-description">
-選択範囲の文字を1文字ずつ、
+選択した文字を1文字ずつ
 ランダムな色にします。
 </div>
 
@@ -445,9 +631,9 @@ up/dn
 </div>
 
 <div class="feature-description">
-選択範囲を1文字ずつ、
+選択した文字を1文字ずつ、
 上付き・下付き・上付き・下付き……
-と交互にします。
+というように交互にします。
 </div>
 
 </div>
@@ -460,83 +646,304 @@ rnd+up/dn
 </div>
 
 <div class="feature-description">
-1文字ずつランダムな色を付けながら、
+文字を1文字ずつランダムな色にしながら、
 上付き・下付きを交互にします。
 </div>
 
 </div>
 
 
-<div class="feature">
+<div class="notice">
 
-<div class="feature-title">
-gradation
-</div>
-
-<div class="feature-description">
-カラージェネレーターで指定した色を起点として、
-同系色方向へ少しずつ色を変化させます。
-選択範囲の各文字に異なる色を設定します。
-文字数が多い場合も色の変化が循環します。
-</div>
+範囲選択系ボタンを使うときは、
+先に装飾したい文字を選択しておくのがおすすめです。
 
 </div>
 
 
-<div class="feature">
-
-<div class="feature-title">
-gradation 🌈
-</div>
-
-<div class="feature-description">
-カラージェネレーターで指定した色を起点として、
-色相を変化させながら虹色方向へ
-グラデーションさせます。
-文字数が多い場合も色の変化が循環します。
-</div>
-
-</div>
-
+<!-- =========================
+     copy
+========================= -->
 
 <h2>
-    カラージェネレーター
+    copy
+</h2>
+
+<div class="feature">
+
+<div class="feature-title">
+copy
+</div>
+
+<div class="feature-description">
+入力欄に入っている完成した文字列を
+クリップボードへコピーします。
+</div>
+
+</div>
+
+<p>
+コピーした文字列を、
+ゲームのチャット欄などへ貼り付けて使用できます。
+</p>
+
+<p>
+コピーが成功すると、
+ボタン内の猫が一瞬少し大きくなります。
+</p>
+
+
+<!-- =========================
+     undo
+========================= -->
+
+<h2>
+    undo
+</h2>
+
+<div class="feature">
+
+<div class="feature-title">
+undo
+</div>
+
+<div class="feature-description">
+直前の編集操作を取り消します。
+</div>
+
+</div>
+
+<p>
+最大50回分まで編集履歴を保持します。
+</p>
+
+<p>
+文字を選択して装飾した場合は、
+可能な範囲で装飾前の選択範囲も復元します。
+</p>
+
+<p>
+そのため、
+</p>
+
+<div class="feature">
+
+<div class="feature-description">
+文字を選択<br>
+↓<br>
+装飾する<br>
+↓<br>
+undo<br>
+↓<br>
+別の装飾を試す
+</div>
+
+</div>
+
+<p>
+という使い方もしやすくなっています。
+</p>
+
+
+<!-- =========================
+     clear
+========================= -->
+
+<h2>
+    clear
+</h2>
+
+<div class="feature">
+
+<div class="feature-title">
+clear
+</div>
+
+<div class="feature-description">
+入力欄の文字をすべて消去します。
+</div>
+
+</div>
+
+<p>
+clearによる削除もUndoの対象です。
+</p>
+
+<p>
+間違えて消してしまった場合は、
+undoで直前の状態へ戻すことができます。
+</p>
+
+
+<!-- =========================
+     定型文
+========================= -->
+
+<h2>
+    定型文
 </h2>
 
 <p>
-R・G・Bの3本のスライダーを動かして、
-好きな色を作ることができます。
+よく使う文章を保存しておき、
+必要なときに呼び出せる機能です。
+</p>
+
+
+<div class="feature">
+
+<div class="feature-title">
+定型文A
+</div>
+
+<div class="feature-description">
+定型文Aを保存・呼び出しするためのスロットです。
+</div>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-title">
+定型文B
+</div>
+
+<div class="feature-description">
+定型文Bを保存・呼び出しするためのスロットです。
+</div>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-title">
+定型文C
+</div>
+
+<div class="feature-description">
+定型文Cを保存・呼び出しするためのスロットです。
+</div>
+
+</div>
+
+
+<p>
+定型文は、
+この端末のブラウザ内に保存されます。
 </p>
 
 <p>
-スライダーを動かすと、
-色見本とHEXカラーコードがリアルタイムで変化します。
+そのため、
+定型文として保存した文章が
+このツールからサーバーへ送信されることはありません。
 </p>
 
-<p>
-作成した色は「カスタム」ボタンから
-文字へ適用できます。
-</p>
 
+<div class="notice">
+
+ブラウザのデータを削除した場合や、
+ブラウザ側の設定などによって保存データが消去された場合は、
+保存していた定型文も失われる可能性があります。
+
+</div>
+
+
+<!-- =========================
+     プレビュー
+========================= -->
 
 <h2>
     プレビュー
 </h2>
 
-<p>
+<div class="feature">
+
+<div class="feature-title">
+プレビュー
+</div>
+
+<div class="feature-description">
 入力欄に入力されている装飾用タグを解析し、
 実際のチャット画面に近い形で表示します。
+</div>
+
+</div>
+
+<p>
+色や上付き・下付きなどが
+どのように表示されるかを確認しながら編集できます。
+</p>
+
+
+<!-- =========================
+     スマートフォン操作
+========================= -->
+
+<h2>
+    スマートフォンでの操作
+</h2>
+
+<p>
+このツールは、
+iPhoneで文字を選択して装飾する使い方を
+特に意識して作っています。
 </p>
 
 <p>
-色、上付き、下付きなどの状態を確認しながら
-文字を編集できます。
+画面の幅に入りきらない操作ボタンは、
+無理に小さくするのではなく、
+横方向へスクロールして使えるようにしています。
 </p>
 
+<p>
+たとえば範囲選択系のボタンは、
+</p>
+
+
+<div class="scroll-example">
+
+<div class="scroll-example-inner">
+
+<div class="button-label">up</div>
+<div class="button-label">dn</div>
+<div class="button-label">gradation</div>
+<div class="button-label">rainbow</div>
+<div class="button-label">random</div>
+<div class="button-label">up/dn</div>
+<div class="button-label">rnd+up/dn</div>
+
+</div>
+
+</div>
+
+
+<p>
+この列を左右へスワイプすると、
+隠れているボタンを表示できます。
+</p>
+
+
+<div class="notice">
+
+文字を選択した状態でボタンを押すと、
+iPhone側の動作によって選択範囲が解除されることがあります。
+
+このツールでは、
+undoを使ったときに可能な限り
+操作前の選択範囲を復元するようにしています。
+
+</div>
+
+
+<!-- =========================
+     注意事項
+========================= -->
 
 <h2>
     注意事項
 </h2>
+
 
 <div class="notice">
 
@@ -550,8 +957,8 @@ R・G・Bの3本のスライダーを動かして、
 </p>
 
 <p>
-また、このツールを使用したことによって
-発生した問題について、開発者は責任を負いかねます。
+また、このツールを使用したことによって発生した問題について、
+開発者は責任を負いかねます。
 あらかじめご了承ください。
 </p>
 
@@ -563,13 +970,17 @@ R・G・Bの3本のスライダーを動かして、
 </div>
 
 
+<!-- =========================
+     仕様について
+========================= -->
+
 <h2>
     仕様について
 </h2>
 
 <p>
-本ページに記載している仕様は、
-<strong>2026年9月30日時点</strong>の情報です。
+本ページに記載している内容は、
+<strong>2026年10月現在</strong>の仕様をもとにしています。
 </p>
 
 <p>
@@ -578,6 +989,10 @@ R・G・Bの3本のスライダーを動かして、
 変更される場合があります。
 </p>
 
+
+<!-- =========================
+     最後に
+========================= -->
 
 <h2>
     最後に
@@ -593,9 +1008,14 @@ R・G・Bの3本のスライダーを動かして、
 </p>
 
 <p>
-それでは、楽しいチャットライフをヽ(=´▽`=)ﾉ
+それでは、楽しいチャットライフを
+ヽ(=´▽`=)ﾉ
 </p>
 
+
+<!-- =========================
+     戻る
+========================= -->
 
 <div class="back-area">
 
@@ -609,6 +1029,10 @@ R・G・Bの3本のスライダーを動かして、
 
 </div>
 
+
+<!-- =========================
+     フッター
+========================= -->
 
 <div class="footer">
 
