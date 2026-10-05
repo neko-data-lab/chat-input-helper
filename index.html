@@ -2148,7 +2148,7 @@ document
                     const newPos =
                         Math.min(
                             start +
-                            tag.length,
+                            tag.length + 1,
                             inputText.value.length
                         );
 
@@ -2412,9 +2412,13 @@ customColorButton.addEventListener(
             );
 
 
-        const newPos =
-            start +
-            tag.length;
+					const newPos =
+					    Math.min(
+					        start +
+					        tag.length +
+					        1,
+					        inputText.value.length
+									);
 
 
         inputText.focus();
