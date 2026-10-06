@@ -331,7 +331,7 @@ textarea:focus {
 
     flex: 0 0 auto;
 
-    width: 90px;
+    width: 52px;
     height: 30px;
 
     color: white;
@@ -1057,7 +1057,7 @@ textarea:focus {
 
     .operation-button {
 
-        width: 80px;
+        width: 52px;
 
         font-size: 12px;
     }
@@ -1314,6 +1314,24 @@ textarea:focus {
     id="subButton"
     class="operation-button format-operation-button">
     dn
+</button>
+
+
+<!-- S -->
+
+<button
+    id="strikeButton"
+    class="operation-button format-operation-button">
+    S
+</button>
+
+
+<!-- U -->
+
+<button
+    id="underlineButton"
+    class="operation-button format-operation-button">
+    U
 </button>
 
 
@@ -2412,13 +2430,9 @@ customColorButton.addEventListener(
             );
 
 
-					const newPos =
-					    Math.min(
-					        start +
-					        tag.length +
-					        1,
-					        inputText.value.length
-									);
+        const newPos =
+            start +
+            tag.length + 1;
 
 
         inputText.focus();
@@ -2864,6 +2878,19 @@ document
 
         }
     );
+
+
+/* =========================================================
+   取り消し線・下線
+========================================================= */
+
+document.getElementById("strikeButton").addEventListener("click", () => {
+    wrapSelection("[S]", "[/S]");
+});
+
+document.getElementById("underlineButton").addEventListener("click", () => {
+    wrapSelection("[U]", "[/U]");
+});
 
 
 /* =========================================================
@@ -4065,6 +4092,8 @@ function updatePreview() {
 
     let supDepth = 0;
     let subDepth = 0;
+    let strikeDepth = 0;
+    let underlineDepth = 0;
 
 
     let i = 0;
@@ -4160,6 +4189,35 @@ function updatePreview() {
 
             continue;
 
+        }
+
+
+        /* -------------------------
+           S / U
+        ------------------------- */
+
+        if (text.startsWith("[S]", i)) {
+            strikeDepth++;
+            i += 3;
+            continue;
+        }
+
+        if (text.startsWith("[/S]", i)) {
+            strikeDepth = Math.max(0, strikeDepth - 1);
+            i += 4;
+            continue;
+        }
+
+        if (text.startsWith("[U]", i)) {
+            underlineDepth++;
+            i += 3;
+            continue;
+        }
+
+        if (text.startsWith("[/U]", i)) {
+            underlineDepth = Math.max(0, underlineDepth - 1);
+            i += 4;
+            continue;
         }
 
 
@@ -4289,6 +4347,32 @@ function updatePreview() {
 
             span.style.fontSize =
                 "16px";
+
+        }
+
+
+        /* -------------------------
+           取り消し線・下線
+
+           SとUが重なった場合は
+           取り消し線を優先
+        ------------------------- */
+
+        if (
+            strikeDepth > 0
+        ) {
+
+            span.style.textDecoration =
+                "line-through";
+
+        }
+
+        else if (
+            underlineDepth > 0
+        ) {
+
+            span.style.textDecoration =
+                "underline";
 
         }
 
