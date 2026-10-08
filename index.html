@@ -159,8 +159,7 @@ button:active {
     opacity: 0.7;
 
     transform: scale(0.98);
-	}
-
+}
 
 
 /* =========================================================
@@ -453,13 +452,45 @@ textarea:focus {
     display: grid;
 
     grid-template-columns:
-        3.5fr 1fr 1fr;
+        1.8fr 3.5fr 1fr 1fr;
 
     gap: 5px;
 
     width: 100%;
 
     margin-top: 8px;
+}
+
+
+/* -------------------------
+   preset
+------------------------- */
+
+.kaomoji-open-button {
+
+    width: 100%;
+    height: 45px;
+
+    min-height: 45px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3d3d3d,
+            #292929
+        );
+
+    color: white;
+
+    border:
+        1px solid #666;
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,0.08);
+
+    font-size: 14px;
+    font-weight: 600;
 }
 
 
@@ -621,6 +652,294 @@ textarea:focus {
     display: inline-block;
 
     white-space: pre;
+}
+
+
+/* =========================================================
+   preset フローティングウィンドウ
+========================================================= */
+
+.kaomoji-modal {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1000;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(0,0,0,0.55);
+}
+
+
+.kaomoji-modal.show {
+
+    display: flex;
+}
+
+
+.kaomoji-window {
+
+    width: 100%;
+    max-width: 360px;
+
+    max-height: calc(100vh - 40px);
+
+    overflow-y: auto;
+
+    padding: 14px;
+
+    background: #333333;
+
+    border:
+        1px solid #666;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 8px 30px
+        rgba(0,0,0,0.5);
+
+    animation:
+        kaomojiWindowIn
+        0.15s
+        ease-out;
+}
+
+
+@keyframes kaomojiWindowIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(0.95);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+.kaomoji-window-header {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 12px;
+}
+
+
+.kaomoji-window-title {
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    color: white;
+}
+
+
+.kaomoji-close-button {
+
+    width: 34px;
+    height: 34px;
+
+    min-height: 34px;
+
+    padding: 0;
+
+    background: #444444;
+
+    color: #cccccc;
+
+    border:
+        1px solid #666;
+
+    border-radius: 8px;
+
+    font-size: 20px;
+
+    line-height: 1;
+}
+
+
+.kaomoji-window-description {
+
+    font-size: 12px;
+
+    color: #aaa;
+
+    line-height: 1.5;
+
+    margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   preset内 共通見出し
+========================================================= */
+
+.preset-section {
+
+    margin-top: 14px;
+
+    padding-top: 12px;
+
+    border-top:
+        1px solid #555;
+}
+
+
+.preset-section:first-of-type {
+
+    margin-top: 0;
+
+    padding-top: 0;
+
+    border-top: none;
+}
+
+
+.preset-section-title {
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+}
+
+
+.preset-section-description {
+
+    font-size: 12px;
+
+    color: #aaa;
+
+    line-height: 1.5;
+
+    margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   顔文字ボタン
+========================================================= */
+
+.kaomoji-buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 6px;
+
+    width: 100%;
+}
+
+
+.kaomoji-button {
+
+    width: 100%;
+
+    min-height: 42px;
+
+    padding: 6px 4px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3d3d3d,
+            #303030
+        );
+
+    color: white;
+
+    border:
+        1px solid #5c5c5c;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.kaomoji-button:active {
+
+    background: #444;
+}
+
+
+/* =========================================================
+   定型文 呼出ボタン
+========================================================= */
+
+.preset-template-buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 6px;
+
+    width: 100%;
+}
+
+
+.preset-template-button {
+
+    width: 100%;
+
+    min-height: 48px;
+
+    padding: 6px 4px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3d3d3d,
+            #303030
+        );
+
+    color: white;
+
+    border:
+        1px solid #5c5c5c;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.preset-template-button:active {
+
+    background: #444;
 }
 
 
@@ -863,7 +1182,7 @@ textarea:focus {
 
 
 /* =========================================================
-   定型文
+   定型文 保存
 ========================================================= */
 
 .template-area {
@@ -925,34 +1244,19 @@ textarea:focus {
 }
 
 
-.template-save,
-.template-load {
+.template-save {
 
     width: 100%;
 
     height: 32px;
 
     font-size: 12px;
-}
-
-
-.template-save {
 
     background: #444;
     color: #ddd;
 
     border:
         1px solid #666;
-}
-
-
-.template-load {
-
-    background: #353535;
-    color: #fff;
-
-    border:
-        1px solid #555;
 }
 
 
@@ -1069,6 +1373,12 @@ textarea:focus {
     }
 
 
+    .kaomoji-open-button {
+
+        font-size: 12px;
+    }
+
+
     .copy-cat {
 
         width: 25px;
@@ -1082,10 +1392,26 @@ textarea:focus {
     }
 
 
-    .template-save,
-    .template-load {
+    .template-save {
 
         font-size: 11px;
+    }
+
+
+    .preset-template-buttons {
+
+        gap: 4px;
+    }
+
+
+    .preset-template-button {
+
+        font-size: 12px;
+
+        min-height: 44px;
+
+        padding-left: 2px;
+        padding-right: 2px;
     }
 
 
@@ -1126,6 +1452,23 @@ textarea:focus {
         gap: 3px;
     }
 
+
+    .kaomoji-buttons {
+
+        gap: 4px;
+    }
+
+
+    .kaomoji-button {
+
+        font-size: 12px;
+
+        min-height: 40px;
+
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
 }
 
 </style>
@@ -1153,7 +1496,7 @@ textarea:focus {
         class="input-help-link">
         使い方
     </a>
-	</div>
+</div>
 
 
 <textarea
@@ -1261,8 +1604,6 @@ textarea:focus {
 </button>
 
 
-<!-- カスタム＝挿入 -->
-
 <button
     id="customColorButton"
     class="color-button"
@@ -1273,8 +1614,6 @@ textarea:focus {
     カスタム
 </button>
 
-
-<!-- 色見本＝カラーピッカー -->
 
 <input
     id="customColorPicker"
@@ -1299,16 +1638,12 @@ textarea:focus {
 <div class="operation-buttons">
 
 
-<!-- up -->
-
 <button
     id="supButton"
     class="operation-button format-operation-button">
     up
 </button>
 
-
-<!-- dn -->
 
 <button
     id="subButton"
@@ -1317,16 +1652,12 @@ textarea:focus {
 </button>
 
 
-<!-- S -->
-
 <button
     id="strikeButton"
     class="operation-button format-operation-button">
     S
 </button>
 
-
-<!-- U -->
 
 <button
     id="underlineButton"
@@ -1335,16 +1666,12 @@ textarea:focus {
 </button>
 
 
-<!-- gradation -->
-
 <button
     id="gradationButton"
     class="operation-button gradation-button">
     gradation
 </button>
 
-
-<!-- rainbow -->
 
 <button
     id="rainbowButton"
@@ -1353,8 +1680,6 @@ textarea:focus {
 </button>
 
 
-<!-- random -->
-
 <button
     id="randomButton"
     class="operation-button random-button">
@@ -1362,16 +1687,12 @@ textarea:focus {
 </button>
 
 
-<!-- up / dn -->
-
 <button
     id="randomUpDownButton"
     class="operation-button random-updown-button">
     up/dn
 </button>
 
-
-<!-- random color + up / dn -->
 
 <button
     id="randomColorUpDownButton"
@@ -1386,10 +1707,17 @@ textarea:focus {
 
 
 <!-- =====================================================
-     copy / undo / clear
+     preset / copy / undo / clear
 ====================================================== -->
 
 <div class="fixed-actions">
+
+
+<button
+    id="kaomojiOpenButton"
+    class="kaomoji-open-button">
+    preset
+</button>
 
 
 <button
@@ -1448,6 +1776,178 @@ textarea:focus {
 <div
     id="preview"
     class="preview">
+</div>
+
+
+<!-- =====================================================
+     preset フローティングウィンドウ
+====================================================== -->
+
+<div
+    id="kaomojiModal"
+    class="kaomoji-modal">
+
+
+<div
+    class="kaomoji-window">
+
+
+<div class="kaomoji-window-header">
+
+
+<div class="kaomoji-window-title">
+    preset
+</div>
+
+
+<button
+    id="kaomojiCloseButton"
+    class="kaomoji-close-button"
+    type="button"
+    aria-label="閉じる">
+    ×
+</button>
+
+
+</div>
+
+
+<!-- =====================================================
+     ランダム顔文字
+====================================================== -->
+
+<div class="preset-section">
+
+
+<div class="preset-section-title">
+    ランダム顔文字
+</div>
+
+
+<div class="preset-section-description">
+    使いたい場面を選んでください。
+</div>
+
+<div class="kaomoji-buttons">
+
+    <button type="button"
+            class="kaomoji-button"
+            data-kaomoji-mood="fun">
+        たのしい
+    </button>
+
+    <button type="button"
+            class="kaomoji-button"
+            data-kaomoji-mood="greeting">
+        あいさつ
+    </button>
+
+    <button type="button"
+            class="kaomoji-button"
+            data-kaomoji-mood="thanks">
+        ありがとう
+    </button>
+
+    <button type="button"
+            class="kaomoji-button"
+            data-kaomoji-mood="congratulations">
+        おめでとう
+    </button>
+
+    <button type="button"
+            class="kaomoji-button"
+            data-kaomoji-mood="goodjob">
+        おつかれさま
+    </button>
+
+    <button type="button"
+            class="kaomoji-button"
+            data-kaomoji-mood="shock">
+        ガーン
+    </button>
+
+    <button type="button"
+            class="kaomoji-button"
+            data-kaomoji-mood="sleep">
+        おやすみ
+    </button>
+
+    <button type="button"
+            class="kaomoji-button"
+            data-kaomoji-mood="eat">
+        もぐもぐ
+    </button>
+
+    <button type="button"
+            class="kaomoji-button"
+            data-kaomoji-mood="action">
+        うごき
+    </button>
+
+    <button type="button"
+            class="kaomoji-button"
+            data-kaomoji-mood="joke">
+        ネタ
+    </button>
+
+	</div>
+
+</div>
+	
+
+<!-- =====================================================
+     定型文
+====================================================== -->
+
+<div class="preset-section">
+
+
+<div class="preset-section-title">
+    定型文
+</div>
+
+
+<div class="preset-section-description">
+    保存した定型文を選んで呼び出します。
+</div>
+
+
+<div class="preset-template-buttons">
+
+
+<button
+    type="button"
+    id="presetLoadA"
+    class="preset-template-button">
+    A 呼出
+</button>
+
+
+<button
+    type="button"
+    id="presetLoadB"
+    class="preset-template-button">
+    B 呼出
+</button>
+
+
+<button
+    type="button"
+    id="presetLoadC"
+    class="preset-template-button">
+    C 呼出
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
 </div>
 
 
@@ -1590,7 +2090,7 @@ textarea:focus {
 
 
 <!-- =====================================================
-     定型文
+     定型文 保存
 ====================================================== -->
 
 <div class="template-area">
@@ -1603,7 +2103,7 @@ textarea:focus {
 
 <div class="template-description">
     よく使う文章をA・B・Cの3種類まで端末内に保存できます。
-    保存した文章は、いつでも呼び出して再利用できます。
+    保存した文章は、上部のpresetから呼び出せます。
 </div>
 
 
@@ -1618,13 +2118,6 @@ textarea:focus {
     A 保存
 </button>
 
-
-<button
-    id="loadA"
-    class="template-load">
-    A 呼出
-</button>
-
 </div>
 
 
@@ -1634,13 +2127,6 @@ textarea:focus {
     id="saveB"
     class="template-save">
     B 保存
-</button>
-
-
-<button
-    id="loadB"
-    class="template-load">
-    B 呼出
 </button>
 
 </div>
@@ -1654,13 +2140,6 @@ textarea:focus {
     C 保存
 </button>
 
-
-<button
-    id="loadC"
-    class="template-load">
-    C 呼出
-</button>
-
 </div>
 
 
@@ -1668,7 +2147,6 @@ textarea:focus {
 
 
 </div>
-
 
 
 <!-- =====================================================
@@ -3724,6 +4202,495 @@ document
 
 
 /* =========================================================
+   ランダム顔文字
+========================================================= */
+
+const kaomojiSets = {
+  fun: [
+    "(＾▽＾)",
+    "(≧▽≦)",
+    "ヽ(＾Д＾)ﾉ",
+    "(ﾉ´ヮ`)ﾉ",
+    "٩(ˊᗜˋ*)و",
+    "(ﾉ≧∀≦)ﾉ",
+    "(o^▽^o)",
+    "(*≧ω≦)",
+    "(ง •̀ω•́)ง",
+    "(*´∀`*)",
+    "＼(＾O＾)／",
+    "(੭ु˙꒳˙)੭ु⁾⁾",
+    "ヽ(・∀・)ﾉ",
+    "(≧◡≦)",
+    "ヾ(≧▽≦*)o",
+    "(^ω^)",
+    "(*^▽^*)",
+    "(≧∀≦)ゞ",
+    "o(≧▽≦)o",
+    "٩(^‿^)۶"
+  ],
+
+  greeting: [
+    "(＾▽＾)ﾉ",
+    "(・ω・)ﾉ",
+    "(^_^)/",
+    "(o´ω`o)ﾉ",
+    "ヾ(^▽^)",
+    "(´｡• ᵕ •｡)ﾉ",
+    "(￣▽￣)ﾉ",
+    "(^o^)ノ",
+    "ヽ(・∀・)ﾉ",
+    "(｡･ω･｡)ﾉ",
+    "(≧▽≦)ゞ",
+    "(*´︶`*)ﾉ",
+    "(ﾟ▽ﾟ)/",
+    "ヾ(＾∇＾)",
+    "(≧◡≦)ﾉ",
+    "m(_ _)m",
+    "(｀・ω・´)ゞ",
+    "(＾ω＾)ﾉ",
+    "(/・ω・)/",
+    "(•‿•)ﾉ"
+  ],
+
+  thanks: [
+    "m(_ _)m",
+    "(*_ _)人",
+    "(人´∀`*)",
+    "(´▽`ʃ♡ƪ)",
+    "(T人T)",
+    "(*´人`*)",
+    "(｡-人-｡)",
+    "(*´︶`人)",
+    "(人 •͈ᴗ•͈)",
+    "( ˘人˘ )",
+    "(人˘︶˘*)",
+    "(´｡• ᵕ •｡`)",
+    "(*´ω`人)",
+    "(´∀`人)",
+    "(人ω･)",
+    "(；人；)",
+    "(⁎ᴗ͈ˬᴗ͈⁎)",
+    "(⋆ᵕᴗᵕ⋆)",
+    "(*- -)(*_ _)",
+    "(人´3`*)"
+  ],
+
+  congratulations: [
+    "ヽ(＾Д＾)ﾉ",
+    "＼(＾▽＾)／",
+    "＼(^o^)／",
+    "(ﾉ≧∀≦)ﾉ",
+    "(o´∀`o)",
+    "(☆▽☆)",
+    "(*ﾟ▽ﾟ*)",
+    "(´∀｀)b",
+    "٩(๑>∀<๑)۶",
+    "(๑˃̵ᴗ˂̵)و",
+    "(ﾟ∀ﾟ)",
+    "(*≧∀≦*)",
+    "＼(*^▽^*)/",
+    "(*´∀｀*)",
+    "(≧∇≦)b",
+    "(*ﾉ>ᴗ<)ﾉ",
+    "(⌒▽⌒)☆",
+    "(ﾉ´∀｀*)ﾉ",
+    "♪ヽ(´▽｀)/",
+    "(∩´∀`∩)"
+  ],
+
+  goodjob: [
+    "(｀・ω・´)ゞ",
+    "(￣^￣)ゞ",
+    "(ง •̀_•́)ง",
+    "(•̀ᴗ•́)و",
+    "(｀･ω･´)ゞ",
+    "(・∀・)b",
+    "(ﾟ∀ﾟ)b",
+    "(*•̀ㅂ•́)و",
+    "(｡•̀ᴗ-)✧",
+    "(｀◇´)ゞ",
+    "(∩｀-´)⊃━☆",
+    "(￣ー￣)ゞ",
+    "(^_^)ゞ",
+    "( •̀ᄇ• ́)ﻭ✧",
+    "(ง˶•̀ᴗ•́)ง",
+    "(｀・∀・´)ゝ",
+    "(๑•̀ㅂ•́)و✧",
+    "(•̀o•́)ง",
+    "(￣▽￣)ゞ",
+    "(´∀｀)ゞ"
+  ],
+
+  shock: [
+    "(゜ロ゜)",
+    "(°ロ°)",
+    "(⊙_⊙)",
+    "(；ﾟДﾟ)",
+    "(￣□￣;)",
+    "( ; ﾟДﾟ)",
+    "(ﾟдﾟ)",
+    "(O_O)",
+    "(ﾟ∀ﾟ;)",
+    "(´⊙ω⊙`)",
+    "(⊙︿⊙✿)",
+    "(´•ω•`;)",
+    "(￣◇￣;)",
+    "(◎_◎;)",
+    "(；´Д｀)",
+    "(lllﾟДﾟ)",
+    "(°Д°)",
+    "( •̀ㅁ•́;)",
+    "(；・∀・)",
+    "Σ(￣ロ￣lll)"
+  ],
+
+  sleep: [
+    "(-_-)zzz",
+    "( ˘ω˘ )",
+    "(∪｡∪)｡｡｡zzz",
+    "(｡-ω-)",
+    "(´-ω-`)",
+    "(；´д｀)ゞ",
+    "( _ _ ).｡o○",
+    "(~_~;)",
+    "(￣ρ￣)..zzZZ",
+    "(o-ω-o)",
+    "( ᵕᴗᵕ )✩⡱",
+    "(っ˘ω˘ς )",
+    "( ˘ ³˘)~",
+    "(´～｀)ﾓｸﾞ…",
+    "( ¯꒳¯ )ᐝ",
+    "(˘˘)ｽﾔｧ",
+    "( -_-)旦~",
+    "(・∀・)ﾉｼ",
+    "( ´△｀)Zzz",
+    "(つω-｀).｡o○"
+  ],
+
+  eat: [
+    "(๑´ڡ`๑)",
+    "(o´ρ`o)",
+    "(*´﹃`*)",
+    "( ´ڡ` )",
+    "(＾༥＾)",
+    "(｡･ρ･｡)",
+    "(っ˘ڡ˘ς)",
+    "(￣～￣)",
+    "(｡´༥`｡)",
+    "( *´艸｀)",
+    "(＾ω＾)",
+    "(⌒ڡ⌒)",
+    "(๑•̀ㅂ•́)و✧",
+    "(๑˃̵ᴗ˂̵)و",
+    "(・ω・)もぐ",
+    "(*´ч`*)",
+    "(っ˘ڡ˘)っ",
+    "(´～`)ŧ‹”ŧ‹”",
+    "(｡>﹏<｡)",
+    "(￣¬￣)"
+  ],
+
+  action: [
+    "ε=ε=ε=┌(＾o＾)┘",
+    "ε≡≡ﾍ( ´Д`)ﾉ",
+    "三┏( ^o^)┛",
+    "┗(＾0＾)┓",
+    "┗(・ω・)┛",
+    "┏(＾Д＾)┛",
+    "ヽ(｀Д´)ﾉ",
+    "ε=┏( ・_・)┛",
+    "（＾◇＾）ゞ",
+    "(/・ω・)/",
+    "(ง ˙o˙)ว",
+    "└(￣▽￣)┘",
+    "三(　ﾟ∀ﾟ)",
+    "ヽ(・∀・)ﾉ",
+    "(`･ω･´)ゞ",
+    "🏃💨",
+    "≡≡≡ﾍ(*--)ﾉ",
+    "┌(￣◇￣)┘",
+    "ε=ε=┏( ﾟ∀ﾟ)┛",
+    "ᕕ( ᐛ )ᕗ"
+  ],
+
+  joke: [
+    "( ﾟ∀ﾟ)",
+    "(￣▽￣)",
+    "(￣ー￣)ﾆﾔﾘ",
+    "(≖ᴗ≖ )",
+    "(ಡωಡ)",
+    "( ͡° ͜ʖ ͡°)",
+    "(ﾟ∀ﾟ)ｱﾋｬ",
+    "(ﾉ∀`)",
+    "(・∀・)ﾆﾔﾆﾔ",
+    "(´∀｀*)",
+    "(￣∇￣)",
+    "(´･ω･`)",
+    "(ﾟдﾟ)ﾊｯ",
+    "┐(´д｀)┌",
+    "¯\\_(ツ)_/¯",
+    "(థ‿థ)",
+    "(＾艸＾)",
+    "(￣ｍ￣〃)",
+    "Σ(ﾟдﾟ；)",
+    "(・_・)"
+  ]
+};
+
+
+/* =========================================================
+   配列からランダムに1つ選ぶ
+========================================================= */
+
+function getRandomKaomoji(
+    list
+) {
+
+    if (
+        !Array.isArray(list) ||
+        list.length === 0
+    ) {
+
+        return "";
+
+    }
+
+
+    const index =
+        Math.floor(
+            Math.random() *
+            list.length
+        );
+
+
+    return list[index];
+
+}
+
+
+/* =========================================================
+   顔文字をカーソル位置に挿入
+========================================================= */
+
+function insertKaomoji(
+    kaomoji
+) {
+
+    if (
+        !kaomoji
+    ) {
+
+        return;
+
+    }
+
+
+    const text =
+        inputText.value;
+
+
+    const start =
+        Math.min(
+            lastCursorStart,
+            text.length
+        );
+
+
+    const end =
+        Math.min(
+            Math.max(
+                lastCursorEnd,
+                start
+            ),
+            text.length
+        );
+
+
+    saveHistory();
+
+
+    inputText.value =
+
+        text.substring(
+            0,
+            start
+        ) +
+
+        kaomoji +
+
+        text.substring(
+            end
+        );
+
+
+    const newPos =
+        start +
+        kaomoji.length;
+
+
+    inputText.focus();
+
+
+    inputText.setSelectionRange(
+        newPos,
+        newPos
+    );
+
+
+    lastCursorStart =
+        newPos;
+
+
+    lastCursorEnd =
+        newPos;
+
+
+    updatePreview();
+
+}
+
+
+/* =========================================================
+   preset フローティングウィンドウ
+========================================================= */
+
+const kaomojiOpenButton =
+    document.getElementById(
+        "kaomojiOpenButton"
+    );
+
+
+const kaomojiModal =
+    document.getElementById(
+        "kaomojiModal"
+    );
+
+
+const kaomojiCloseButton =
+    document.getElementById(
+        "kaomojiCloseButton"
+    );
+
+
+/* =========================================================
+   ウィンドウを開く
+========================================================= */
+
+function openKaomojiModal() {
+
+    kaomojiModal.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   ウィンドウを閉じる
+========================================================= */
+
+function closeKaomojiModal() {
+
+    kaomojiModal.classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   preset呼び出しボタン
+========================================================= */
+
+kaomojiOpenButton.addEventListener(
+    "click",
+    () => {
+
+        openKaomojiModal();
+
+    }
+);
+
+
+/* =========================================================
+   ×ボタン
+========================================================= */
+
+kaomojiCloseButton.addEventListener(
+    "click",
+    () => {
+
+        closeKaomojiModal();
+
+    }
+);
+
+
+/* =========================================================
+   背景部分をタップしたら閉じる
+========================================================= */
+
+kaomojiModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target ===
+            kaomojiModal
+        ) {
+
+            closeKaomojiModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   顔文字ボタン
+========================================================= */
+
+document
+    .querySelectorAll(
+        ".kaomoji-button[data-kaomoji-mood]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const mood =
+                        button.dataset.kaomojiMood;
+
+
+                    const list =
+                        kaomojiSets[mood];
+
+
+                    const kaomoji =
+                        getRandomKaomoji(
+                            list
+                        );
+
+
+                    insertKaomoji(
+                        kaomoji
+                    );
+
+
+                    closeKaomojiModal();
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
    カラー設定保存
 ========================================================= */
 
@@ -4353,9 +5320,6 @@ function updatePreview() {
 
         /* -------------------------
            取り消し線・下線
-
-           SとUが重なった場合は
-           取り消し線を優先
         ------------------------- */
 
         if (
@@ -4418,10 +5382,18 @@ function saveTemplate(
         slot;
 
 
-    localStorage.setItem(
-        key,
-        inputText.value
-    );
+    try {
+
+        localStorage.setItem(
+            key,
+            inputText.value
+        );
+
+    } catch (e) {
+
+        return;
+
+    }
 
 
     const button =
@@ -4470,7 +5442,7 @@ function loadTemplate(
         saved === null
     ) {
 
-        return;
+        return false;
 
     }
 
@@ -4505,8 +5477,15 @@ function loadTemplate(
     lastCursorEnd =
         pos;
 
+
+    return true;
+
 }
 
+
+/* =========================================================
+   定型文 保存ボタン
+========================================================= */
 
 ["A", "B", "C"]
 .forEach(
@@ -4527,18 +5506,39 @@ function loadTemplate(
                 }
             );
 
+    }
+);
+
+
+/* =========================================================
+   preset内 定型文呼出ボタン
+========================================================= */
+
+["A", "B", "C"]
+.forEach(
+    slot => {
 
         document
             .getElementById(
-                "load" + slot
+                "presetLoad" + slot
             )
             .addEventListener(
                 "click",
                 () => {
 
-                    loadTemplate(
-                        slot
-                    );
+                    const loaded =
+                        loadTemplate(
+                            slot
+                        );
+
+
+                    if (
+                        loaded
+                    ) {
+
+                        closeKaomojiModal();
+
+                    }
 
                 }
             );
