@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#2b2b2b">
+<link rel="icon" type="image/png" href="cat-icon.png">
+<link rel="apple-touch-icon" href="cat-icon.png">
+<title>Chat Input Helper</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:#2b2b2b;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+body{padding:16px 16px 30px;overflow-x:hidden}.app{width:100%;max-width:700px;margin:0 auto}
+.section-title{font-size:15px;font-weight:bold;margin:0 0 8px}
+button{border:0;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;min-height:30px;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+button:active{opacity:.7;transform:scale(.98)}
+.input-header{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:8px}.input-header .section-title{margin:0}
+.input-help-link{color:#ccc;font-size:13px;text-decoration:none;padding:4px 8px;border:1px solid #555;border-radius:6px;background:#3a3a3a;white-space:nowrap}
+textarea{width:100%;height:90px;resize:none;padding:10px;border:1px solid #555;border-radius:8px;background:#333;color:#fff;font-size:16px;line-height:1.4;outline:none;-webkit-appearance:none}
+textarea:focus{border-color:#777}
+.color-buttons{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;width:100%;margin-top:10px}
+.color-button{width:100%;min-width:0;height:30px;padding:0 2px;font-size:11px;font-weight:600;border:1px solid rgba(255,255,255,.18)}
+.custom-color-picker{width:100%;min-width:0;height:30px;padding:0;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none;overflow:hidden}
+.custom-color-picker::-webkit-color-swatch-wrapper{padding:0}.custom-color-picker::-webkit-color-swatch,.custom-color-picker::-moz-color-swatch{border:0;border-radius:7px}
+.operation-scroll{width:100%;margin-top:8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}.operation-scroll::-webkit-scrollbar{display:none}
+.operation-buttons{display:flex;gap:5px;width:max-content;min-width:100%}
+.operation-button{flex:0 0 auto;width:64px;height:30px;color:#fff;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.25);text-shadow:0 1px 2px rgba(0,0,0,.7)}
+.format-operation-button{background:#3a3a3a;color:#fff;text-shadow:none}
+.gradation-button{background:linear-gradient(90deg,#0099ff,#ff00aa)}
+.rainbow-button{background:linear-gradient(90deg,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)}
+.random-button{background:linear-gradient(135deg,#6b4cff,#ff3cac,#ff8a00)}
+.random-updown-button{background:linear-gradient(135deg,#555,#383838)}
+.random-color-updown-button{background:linear-gradient(135deg,#0099ff,#7b3cff,#ff3cac)}
+.fixed-actions{display:grid;grid-template-columns:1.8fr 3.5fr 1fr 1fr;gap:5px;width:100%;margin-top:8px}
+.kaomoji-open-button,.copy-button{width:100%;height:45px;min-height:45px;background:linear-gradient(135deg,#3d3d3d,#292929);color:#fff;border:1px solid #666;box-shadow:inset 0 1px 0 rgba(255,255,255,.08);font-weight:600}
+.kaomoji-open-button{font-size:12px}.copy-button{font-size:16px;display:flex;align-items:center;justify-content:center;gap:9px;overflow:hidden}
+.copy-cat{width:28px;height:28px;object-fit:contain;display:block;transition:transform .18s ease}.copy-cat.copied{animation:catCopy .45s ease}
+@keyframes catCopy{0%{transform:scale(1)}45%{transform:scale(1.28)}100%{transform:scale(1)}}
+.undo-button,.clear-button{width:100%;height:45px;font-size:12px;font-weight:600}
+.undo-button{background:linear-gradient(135deg,#4b4540,#36322f);color:#ffd9a0;border:1px solid #766a60}
+.clear-button{background:linear-gradient(135deg,#493737,#332727);color:#ffb0b0;border:1px solid #765555}
+.preview-title{margin-top:14px}.preview{width:100%;height:70px;padding:10px;border:1px solid #555;border-radius:8px;background:#333;overflow:auto;white-space:pre-wrap;word-break:break-all;font-size:16px;line-height:1.5}.preview-char{display:inline-block;white-space:pre}
+.kaomoji-modal{position:fixed;inset:0;width:100%;height:100%;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.55)}.kaomoji-modal.show{display:flex}
+.kaomoji-window{width:100%;max-width:360px;max-height:calc(100vh - 40px);overflow-y:auto;padding:14px;background:#333;border:1px solid #666;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.5);animation:windowIn .15s ease-out}
+@keyframes windowIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.kaomoji-window-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.kaomoji-window-title{font-size:15px;font-weight:bold;color:#fff}
+.kaomoji-close-button{width:34px;height:34px;min-height:34px;padding:0;background:#444;color:#ccc;border:1px solid #666;font-size:20px;line-height:1}
+.kaomoji-window-description,.preset-section-description,.gradient-description,.color-save-description,.template-description{font-size:12px;color:#aaa;line-height:1.5;margin-bottom:10px}
+.preset-section{margin-top:14px;padding-top:12px;border-top:1px solid #555}.preset-section:first-of-type{margin-top:0;padding-top:0;border-top:0}
+.preset-section-title{font-size:14px;font-weight:bold;margin-bottom:8px}
+.kaomoji-buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;width:100%}
+.kaomoji-button,.preset-template-button{width:100%;min-height:42px;padding:6px 4px;background:linear-gradient(135deg,#3d3d3d,#303030);color:#fff;border:1px solid #5c5c5c;font-size:13px;font-weight:600}
+.preset-template-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%}.preset-template-button{min-height:48px}
+.generator-title{margin-top:16px}.color-generator{width:100%;padding:10px;border:1px solid #555;border-radius:8px;background:#333;overflow:hidden}
+.gradient-setting-title,.color-save-title,.template-title{font-size:14px;font-weight:bold;margin-bottom:8px}
+.gradient-colors{display:grid;grid-template-columns:1fr 42px 1fr;gap:6px;align-items:center;margin-bottom:4px}
+.gradient-color-box{min-width:0;padding:8px;border:1px solid #555;border-radius:8px;background:#292929}
+.gradient-color-label{font-size:12px;color:#ddd;margin-bottom:6px;text-align:center}
+.gradient-color-control{display:flex;align-items:center;gap:6px}.gradient-color-input{width:42px;height:32px;padding:0;border:0;background:transparent;flex:0 0 42px;cursor:pointer}
+.gradient-hex{flex:1;min-width:0;font-family:monospace;font-size:13px;font-weight:bold;text-align:center;overflow:hidden;white-space:nowrap}
+.gradient-swap{width:42px;height:42px;min-height:42px;background:#444;color:#fff;border:1px solid #666;font-size:18px}
+.color-save-area,.template-area{margin-top:14px;padding:10px;border:1px solid #555;border-radius:8px;background:#333}
+.color-save-buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:5px}.color-save-button{width:100%;min-height:36px;background:#444;color:#fff;border:1px solid #666;font-size:12px}
+.color-save-button.reset{background:linear-gradient(135deg,#493737,#332727);color:#ffb0b0;border-color:#765555}
+.template-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;width:100%}.template-group{display:flex;flex-direction:column;gap:4px}
+.template-save{width:100%;height:32px;font-size:12px;background:#444;color:#ddd;border:1px solid #666}
+.footer{margin-top:18px;text-align:center;color:#999;font-size:12px}
+@media(max-width:390px){
+ body{padding:12px}.color-buttons{gap:3px}.color-button{font-size:9px}.custom-color-picker{height:30px}.operation-buttons{gap:3px}.operation-button{width:61px;font-size:11px}.fixed-actions{gap:3px}.kaomoji-open-button{font-size:11px}.copy-cat{width:25px;height:25px}.template-buttons{gap:3px}.template-save{font-size:11px}.preset-template-buttons{gap:4px}.preset-template-button{font-size:11px;min-height:44px;padding-left:2px;padding-right:2px}.gradient-colors{grid-template-columns:1fr 38px 1fr;gap:4px}.gradient-color-box{padding:6px}.gradient-color-input{width:36px;flex-basis:36px}.gradient-swap{width:38px;height:38px;min-height:38px}.color-save-buttons{gap:3px}.kaomoji-buttons{gap:4px}.kaomoji-button{font-size:12px;min-height:40px;padding-left:2px;padding-right:2px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="input-header">
+    <div class="section-title">Text Input</div>
+
+			<a href="index.html" class="input-help-link">日本語</a>
+			<a href="help_en.html"class="input-help-link">Help</a>
+
+  </div>
+  <textarea id="inputText" spellcheck="false" autocorrect="off" autocomplete="off" autocapitalize="off" aria-label="Text input" placeholder="Type or paste your message here..."></textarea>
+
+  <div class="color-buttons" aria-label="Text color presets">
+    <button class="color-button" data-color="FFFFFF" style="background:#fff;color:#000" aria-label="White">W</button>
+    <button class="color-button" data-color="808080" style="background:#808080;color:#fff" aria-label="Gray">Gy</button>
+    <button class="color-button" data-color="0099FF" style="background:#0099FF;color:#fff" aria-label="Blue">B</button>
+    <button class="color-button" data-color="FF0000" style="background:#f00;color:#fff" aria-label="Red">R</button>
+    <button class="color-button" data-color="00AA00" style="background:#00AA00;color:#fff" aria-label="Green">G</button>
+    <button class="color-button" data-color="FFD700" style="background:#FFD700;color:#000" aria-label="Yellow">Y</button>
+    <button class="color-button" data-color="00CED1" style="background:#00CED1;color:#000" aria-label="Turquoise">Tq</button>
+    <button class="color-button" data-color="FF69B4" style="background:#FF69B4;color:#000" aria-label="Pink">Pk</button>
+    <button id="customColorButton" class="color-button" style="background:#FF8C00;color:#000" aria-label="Insert custom color">Custom</button>
+    <input id="customColorPicker" class="custom-color-picker" type="color" value="#FF8C00" title="Choose custom color" aria-label="Choose custom color">
+  </div>
+
+  <div class="operation-scroll" id="operationScroll">
+    <div class="operation-buttons">
+      <button id="supButton" class="operation-button format-operation-button" title="Superscript">up</button>
+      <button id="subButton" class="operation-button format-operation-button" title="Subscript">dn</button>
+      <button id="strikeButton" class="operation-button format-operation-button" title="Strikethrough">S</button>
+      <button id="underlineButton" class="operation-button format-operation-button" title="Underline">U</button>
+      <button id="gradationButton" class="operation-button gradation-button" title="Apply a gradient">gradient</button>
+      <button id="rainbowButton" class="operation-button rainbow-button" title="Apply rainbow colors">rainbow</button>
+      <button id="randomButton" class="operation-button random-button" title="Apply random colors">random</button>
+      <button id="randomUpDownButton" class="operation-button random-updown-button" title="Alternate superscript and subscript">up/dn</button>
+      <button id="randomColorUpDownButton" class="operation-button random-color-updown-button" title="Random colors plus alternating superscript and subscript">rnd+up/dn</button>
+    </div>
+  </div>
+
+  <div class="fixed-actions">
+    <button id="kaomojiOpenButton" class="kaomoji-open-button">Presets</button>
+    <button id="copyButton" class="copy-button"><img id="copyCatLeft" class="copy-cat" src="cat-icon.png" alt=""><span>Copy</span><img id="copyCatRight" class="copy-cat" src="cat-icon.png" alt=""></button>
+    <button id="undoButton" class="undo-button">Undo</button>
+    <button id="clearButton" class="clear-button">Clear</button>
+  </div>
+
+  <div class="section-title preview-title">Preview</div>
+  <div id="preview" class="preview" aria-label="Formatted text preview"></div>
+
+  <div id="kaomojiModal" class="kaomoji-modal">
+    <div class="kaomoji-window" role="dialog" aria-modal="true" aria-labelledby="presetWindowTitle">
+      <div class="kaomoji-window-header">
+        <div id="presetWindowTitle" class="kaomoji-window-title">Presets</div>
+        <button id="kaomojiCloseButton" class="kaomoji-close-button" type="button" aria-label="Close">×</button>
+      </div>
+      <div class="preset-section">
+        <div class="preset-section-title">Random Emoticons</div>
+        <div class="preset-section-description">Choose a category to insert a random emoticon at the cursor.</div>
+        <div class="kaomoji-buttons">
+          <button type="button" class="kaomoji-button" data-kaomoji-mood="fun">Fun</button>
+          <button type="button" class="kaomoji-button" data-kaomoji-mood="greeting">Greetings</button>
+          <button type="button" class="kaomoji-button" data-kaomoji-mood="thanks">Thanks</button>
+          <button type="button" class="kaomoji-button" data-kaomoji-mood="congratulations">Congrats</button>
+          <button type="button" class="kaomoji-button" data-kaomoji-mood="goodjob">Good Job</button>
+          <button type="button" class="kaomoji-button" data-kaomoji-mood="shock">Shock</button>
+          <button type="button" class="kaomoji-button" data-kaomoji-mood="sleep">Sleepy</button>
+          <button type="button" class="kaomoji-button" data-kaomoji-mood="eat">Eating</button>
+          <button type="button" class="kaomoji-button" data-kaomoji-mood="action">Action</button>
+          <button type="button" class="kaomoji-button" data-kaomoji-mood="joke">Jokes</button>
+        </div>
+      </div>
+      <div class="preset-section">
+        <div class="preset-section-title">Saved Text Templates</div>
+        <div class="preset-section-description">Load a saved template into the text box.</div>
+        <div class="preset-template-buttons">
+          <button type="button" id="presetLoadA" class="preset-template-button">Load A</button>
+          <button type="button" id="presetLoadB" class="preset-template-button">Load B</button>
+          <button type="button" id="presetLoadC" class="preset-template-button">Load C</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title generator-title">Settings</div>
+  <div id="colorGenerator" class="color-generator">
+    <div class="gradient-setting-title">Gradient Settings</div>
+    <div class="gradient-description">Choose the start and end colors used by the Gradient button.</div>
+    <div class="gradient-colors">
+      <div class="gradient-color-box">
+        <div class="gradient-color-label">Start Color</div>
+        <div class="gradient-color-control"><input id="gradientStartColor" class="gradient-color-input" type="color" value="#0099FF" aria-label="Gradient start color"><div id="gradientStartHex" class="gradient-hex">#0099FF</div></div>
+      </div>
+      <button id="gradientSwapButton" class="gradient-swap" title="Swap start and end colors" aria-label="Swap start and end colors">⇄</button>
+      <div class="gradient-color-box">
+        <div class="gradient-color-label">End Color</div>
+        <div class="gradient-color-control"><input id="gradientEndColor" class="gradient-color-input" type="color" value="#FF00AA" aria-label="Gradient end color"><div id="gradientEndHex" class="gradient-hex">#FF00AA</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="color-save-area">
+    <div class="color-save-title">Save / Reset Color Settings</div>
+    <div class="color-save-description">Your custom color and gradient colors are saved on this device only. They are not sent to a server.</div>
+    <div class="color-save-buttons">
+      <button id="saveColorSettings" class="color-save-button">Save Current Settings</button>
+      <button id="resetColorSettings" class="color-save-button reset">Reset to Defaults</button>
+    </div>
+  </div>
+
+  <div class="template-area">
+    <div class="template-title">Text Templates</div>
+    <div class="template-description">Save up to three frequently used messages on this device. Load them from the Presets button above.</div>
+    <div class="template-buttons">
+      <div class="template-group"><button id="saveA" class="template-save">Save A</button></div>
+      <div class="template-group"><button id="saveB" class="template-save">Save B</button></div>
+      <div class="template-group"><button id="saveC" class="template-save">Save C</button></div>
+    </div>
+  </div>
+  <div class="footer">Produced by しろねこ24</div>
+</div>
+
+<script>
+const inputText=document.getElementById("inputText");
+const preview=document.getElementById("preview");
+const MAX_HISTORY=50;
+let history=[];
+const DEFAULT_CUSTOM_COLOR="#FF8C00",DEFAULT_GRADIENT_START="#0099FF",DEFAULT_GRADIENT_END="#FF00AA";
+const COLOR_SETTINGS_KEY="chatInputHelper_colorSettings";
+function getCurrentState(){return{text:inputText.value,selectionStart:inputText.selectionStart??0,selectionEnd:inputText.selectionEnd??0}}
+function saveHistory(){const current=getCurrentState(),last=history[history.length-1];if(!last||last.text!==current.text||last.selectionStart!==current.selectionStart||last.selectionEnd!==current.selectionEnd){history.push(current);if(history.length>MAX_HISTORY)history.shift()}}
+function undo(){if(!history.length)return;const previous=history.pop();inputText.value=previous.text;updatePreview();requestAnimationFrame(()=>{inputText.focus();inputText.setSelectionRange(previous.selectionStart,previous.selectionEnd);rememberCursor()})}
+function getSelection(){const start=inputText.selectionStart??0,end=inputText.selectionEnd??start;return{start,end,selected:inputText.value.substring(start,end)}}
+function getOperationTarget(){const{start,end,selected}=getSelection();return start!==end?{mode:"selection",start,end,text:selected}:{mode:"all",start:0,end:inputText.value.length,text:inputText.value}}
+function replaceOperationTarget(replacement){const target=getOperationTarget();if(!target.text.length)return;saveHistory();inputText.value=inputText.value.substring(0,target.start)+replacement+inputText.value.substring(target.end);try{inputText.setSelectionRange(target.start,target.start+replacement.length)}catch(e){}updatePreview();inputText.focus();rememberCursor()}
+function wrapSelection(openTag,closeTag){const target=getOperationTarget();if(!target.text.length)return;replaceOperationTarget(openTag+target.text+closeTag)}
+function toChatColorTag(hex){const s=(hex||"").replace("#","").trim().toUpperCase();if(s.length!==6||!/^[0-9A-F]{6}$/.test(s))return"";return"["+s[0]+"[[#C0]-]"+s.substring(1)+"]"}
+let lastCursorStart=0,lastCursorEnd=0;
+function rememberCursor(){if(document.activeElement===inputText){lastCursorStart=inputText.selectionStart??0;lastCursorEnd=inputText.selectionEnd??0}}
+["keyup","click","select","focus","input"].forEach(type=>inputText.addEventListener(type,rememberCursor));
+document.querySelectorAll(".color-button[data-color]").forEach(button=>button.addEventListener("click",()=>{const tag=toChatColorTag(button.dataset.color),start=inputText.selectionStart??0,end=inputText.selectionEnd??start,text=inputText.value;if(!tag)return;saveHistory();inputText.value=text.substring(0,start)+tag+text.substring(end);const pos=Math.min(start+tag.length+1,inputText.value.length);inputText.setSelectionRange(pos,pos);updatePreview();lastCursorStart=lastCursorEnd=pos;inputText.focus()}));
+function hexToRgb(hex){const h=String(hex||"").replace("#","").trim();if(h.length!==6)return{r:0,g:0,b:0};return{r:parseInt(h.slice(0,2),16),g:parseInt(h.slice(2,4),16),b:parseInt(h.slice(4,6),16)}}
+function normalizeHex(hex){const value=String(hex||"").trim().toUpperCase();return/^#[0-9A-F]{6}$/.test(value)?value:"#000000"}
+function getTextColorForBackground(r,g,b){return(r*299+g*587+b*114)/1000>155?"#000000":"#FFFFFF"}
+let customHex=DEFAULT_CUSTOM_COLOR;
+const customColorButton=document.getElementById("customColorButton"),customColorPicker=document.getElementById("customColorPicker");
+function updateCustomColorDisplay(){customColorButton.style.backgroundColor=customHex;const rgb=hexToRgb(customHex);customColorButton.style.color=getTextColorForBackground(rgb.r,rgb.g,rgb.b);customColorPicker.value=customHex}
+customColorPicker.addEventListener("input",()=>{customHex=normalizeHex(customColorPicker.value);updateCustomColorDisplay()});
+customColorButton.addEventListener("click",()=>{const tag=toChatColorTag(customHex);if(!tag)return;saveHistory();const text=inputText.value,start=Math.min(lastCursorStart,text.length),end=Math.min(Math.max(lastCursorEnd,start),text.length);inputText.value=text.substring(0,start)+tag+text.substring(end);const pos=Math.min(start+tag.length+1,inputText.value.length);inputText.focus();inputText.setSelectionRange(pos,pos);lastCursorStart=lastCursorEnd=pos;updatePreview()});
+document.getElementById("supButton").addEventListener("click",()=>wrapSelection("[SUP]","[/SUP]"));
+document.getElementById("subButton").addEventListener("click",()=>wrapSelection("[SUB]","[/SUB]"));
+document.getElementById("strikeButton").addEventListener("click",()=>wrapSelection("[S]","[/S]"));
+document.getElementById("underlineButton").addEventListener("click",()=>wrapSelection("[U]","[/U]"));
+document.getElementById("clearButton").addEventListener("click",()=>{if(!inputText.value.length)return;saveHistory();inputText.value="";updatePreview();inputText.focus();lastCursorStart=lastCursorEnd=0});
+const copyButton=document.getElementById("copyButton"),copyCatLeft=document.getElementById("copyCatLeft"),copyCatRight=document.getElementById("copyCatRight");
+function showCopyAnimation(){[copyCatLeft,copyCatRight].forEach(cat=>{cat.classList.remove("copied");void cat.offsetWidth;cat.classList.add("copied")})}
+[copyCatLeft,copyCatRight].forEach(cat=>cat.addEventListener("animationend",()=>cat.classList.remove("copied")));
+copyButton.addEventListener("click",async()=>{const text=inputText.value||"";let copied=false;try{await navigator.clipboard.writeText(text);copied=true}catch(e){inputText.focus();inputText.select();try{copied=document.execCommand("copy")}catch(err){copied=false}try{inputText.setSelectionRange(text.length,text.length)}catch(err){}}if(copied)showCopyAnimation()});
+function rgbToHex(r,g,b){return("#"+Number(r).toString(16).padStart(2,"0")+Number(g).toString(16).padStart(2,"0")+Number(b).toString(16).padStart(2,"0")).toUpperCase()}
+function hslToRgb(h,s,l){h=((h%360)+360)%360;s/=100;l/=100;if(s===0){const v=Math.round(l*255);return{r:v,g:v,b:v}}const hue2rgb=(p,q,t)=>{if(t<0)t+=1;if(t>1)t-=1;if(t<1/6)return p+(q-p)*6*t;if(t<1/2)return q;if(t<2/3)return p+(q-p)*(2/3-t)*6;return p};const q=l<.5?l*(1+s):l+s-l*s,p=2*l-q,hk=h/360;return{r:Math.round(hue2rgb(p,q,hk+1/3)*255),g:Math.round(hue2rgb(p,q,hk)*255),b:Math.round(hue2rgb(p,q,hk-1/3)*255)}}
+function rgbToHsl(r,g,b){r/=255;g/=255;b/=255;const max=Math.max(r,g,b),min=Math.min(r,g,b);let h=0,s=0;const l=(max+min)/2;if(max!==min){const d=max-min;s=l>.5?d/(2-max-min):d/(max+min);switch(max){case r:h=(g-b)/d+(g<b?6:0);break;case g:h=(b-r)/d+2;break;case b:h=(r-g)/d+4;break}h/=6}return{h:h*360,s:s*100,l:l*100}}
+function randomHex(){const rgb=hslToRgb(Math.floor(Math.random()*360),70+Math.floor(Math.random()*31),45+Math.floor(Math.random()*21));return rgbToHex(rgb.r,rgb.g,rgb.b).slice(1)}
+function randomColorText(text){let result="";for(const ch of text)result+=ch==="\n"?"\n":toChatColorTag(randomHex())+ch;return result}
+document.getElementById("randomButton").addEventListener("click",()=>{const target=getOperationTarget();if(target.text.length)replaceOperationTarget(randomColorText(target.text))});
+function upDownText(text){let result="",index=0;for(const ch of text){if(ch==="\n"){result+="\n";continue}result+=index%2===0?"[SUP]"+ch+"[/SUP]":"[SUB]"+ch+"[/SUB]";index++}return result}
+document.getElementById("randomUpDownButton").addEventListener("click",()=>{const target=getOperationTarget();if(target.text.length)replaceOperationTarget(upDownText(target.text))});
+function randomColorUpDownText(text){let result="",index=0;for(const ch of text){if(ch==="\n"){result+="\n";continue}const color=toChatColorTag(randomHex());result+=color+(index%2===0?"[SUP]"+ch+"[/SUP]":"[SUB]"+ch+"[/SUB]");index++}return result}
+document.getElementById("randomColorUpDownButton").addEventListener("click",()=>{const target=getOperationTarget();if(target.text.length)replaceOperationTarget(randomColorUpDownText(target.text))});
+let gradientStartHex=DEFAULT_GRADIENT_START,gradientEndHex=DEFAULT_GRADIENT_END;
+const gradientStartColor=document.getElementById("gradientStartColor"),gradientEndColor=document.getElementById("gradientEndColor"),gradientStartHexDisplay=document.getElementById("gradientStartHex"),gradientEndHexDisplay=document.getElementById("gradientEndHex");
+function updateGradientDisplay(){gradientStartHexDisplay.textContent=gradientStartHex;gradientEndHexDisplay.textContent=gradientEndHex;gradientStartColor.value=gradientStartHex;gradientEndColor.value=gradientEndHex;document.getElementById("gradationButton").style.background="linear-gradient(90deg, "+gradientStartHex+", "+gradientEndHex+")"}
+gradientStartColor.addEventListener("input",()=>{gradientStartHex=normalizeHex(gradientStartColor.value);updateGradientDisplay()});
+gradientEndColor.addEventListener("input",()=>{gradientEndHex=normalizeHex(gradientEndColor.value);updateGradientDisplay()});
+document.getElementById("gradientSwapButton").addEventListener("click",()=>{[gradientStartHex,gradientEndHex]=[gradientEndHex,gradientStartHex];updateGradientDisplay()});
+function interpolateColor(startHex,endHex,ratio){const start=hexToRgb(startHex),end=hexToRgb(endHex);return rgbToHex(Math.round(start.r+(end.r-start.r)*ratio),Math.round(start.g+(end.g-start.g)*ratio),Math.round(start.b+(end.b-start.b)*ratio))}
+function sameColorGradient(text){const chars=[...text].filter(ch=>ch!=="\n"),count=chars.length;if(!count)return text;let result="",index=0;for(const ch of text){if(ch==="\n"){result+="\n";continue}const ratio=count===1?0:index/(count-1);result+=toChatColorTag(interpolateColor(gradientStartHex,gradientEndHex,ratio))+ch;index++}return result}
+document.getElementById("gradationButton").addEventListener("click",()=>{const target=getOperationTarget();if(target.text.length)replaceOperationTarget(sameColorGradient(target.text))});
+function rainbowGradient(text){const base=hexToRgb(customHex),hsl=rgbToHsl(base.r,base.g,base.b);let result="",index=0;for(const ch of text){if(ch==="\n"){result+="\n";continue}const rgb=hslToRgb(hsl.h+(index%36)*10,Math.max(hsl.s,70),hsl.l);result+=toChatColorTag(rgbToHex(rgb.r,rgb.g,rgb.b))+ch;index++}return result}
+document.getElementById("rainbowButton").addEventListener("click",()=>{const target=getOperationTarget();if(target.text.length)replaceOperationTarget(rainbowGradient(target.text))});
+
+const kaomojiSets={
+fun:["(＾▽＾)","(≧▽≦)","ヽ(＾Д＾)ﾉ","(ﾉ´ヮ`)ﾉ","٩(ˊᗜˋ*)و","(ﾉ≧∀≦)ﾉ","(o^▽^o)","(*≧ω≦)","(ง •̀ω•́)ง","(*´∀`*)","＼(＾O＾)／","ヽ(・∀・)ﾉ","(≧◡≦)","(^ω^)","(*^▽^*)","o(≧▽≦)o","٩(^‿^)۶"],
+greeting:["(＾▽＾)ﾉ","(・ω・)ﾉ","(^_^)/","(o´ω`o)ﾉ","ヾ(^▽^)","(´｡• ᵕ •｡)ﾉ","(￣▽￣)ﾉ","(^o^)ノ","ヽ(・∀・)ﾉ","(｡･ω･｡)ﾉ","(*´︶`*)ﾉ","(ﾟ▽ﾟ)/","m(_ _)m","(＾ω＾)ﾉ","(•‿•)ﾉ"],
+thanks:["m(_ _)m","(*_ _)人","(人´∀`*)","(T人T)","(*´人`*)","(｡-人-｡)","(*´︶`人)","(人 •͈ᴗ•͈)","( ˘人˘ )","(人˘︶˘*)","(*´ω`人)","(⁎ᴗ͈ˬᴗ͈⁎)","(⋆ᵕᴗᵕ⋆)"],
+congratulations:["ヽ(＾Д＾)ﾉ","＼(＾▽＾)／","＼(^o^)／","(ﾉ≧∀≦)ﾉ","(o´∀`o)","(☆▽☆)","(*ﾟ▽ﾟ*)","(´∀｀)b","٩(๑>∀<๑)۶","(๑˃̵ᴗ˂̵)و","(*≧∀≦*)","＼(*^▽^*)/","(≧∇≦)b","♪ヽ(´▽｀)/"],
+goodjob:["(｀・ω・´)ゞ","(￣^￣)ゞ","(ง •̀_•́)ง","(•̀ᴗ•́)و","(・∀・)b","(*•̀ㅂ•́)و","(｡•̀ᴗ-)✧","(^_^)ゞ","(ง˶•̀ᴗ•́)ง","(๑•̀ㅂ•́)و✧","(•̀o•́)ง"],
+shock:["(゜ロ゜)","(°ロ°)","(⊙_⊙)","(；ﾟДﾟ)","(￣□￣;)","(ﾟдﾟ)","(O_O)","(ﾟ∀ﾟ;)","(´⊙ω⊙`)","(◎_◎;)","(°Д°)","Σ(￣ロ￣lll)"],
+sleep:["(-_-)zzz","( ˘ω˘ )","(∪｡∪)｡｡｡zzz","(｡-ω-)","(´-ω-`)","( _ _ ).｡o○","(~_~;)","(￣ρ￣)..zzZZ","( ᵕᴗᵕ )✩⡱","(っ˘ω˘ς )","( ¯꒳¯ )ᐝ","(つω-｀).｡o○"],
+eat:["(๑´ڡ`๑)","(o´ρ`o)","(*´﹃`*)","( ´ڡ` )","(＾༥＾)","(｡･ρ･｡)","(っ˘ڡ˘ς)","(￣～￣)","(｡´༥`｡)","(*´ч`*)","(￣¬￣)"],
+action:["ε=ε=ε=┌(＾o＾)┘","ε≡≡ﾍ( ´Д`)ﾉ","三┏( ^o^)┛","┗(＾0＾)┓","┗(・ω・)┛","┏(＾Д＾)┛","ヽ(｀Д´)ﾉ","(/・ω・)/","(ง ˙o˙)ว","🏃💨","ᕕ( ᐛ )ᕗ"],
+joke:["( ﾟ∀ﾟ)","(￣▽￣)","(￣ー￣)ﾆﾔﾘ","(≖ᴗ≖ )","(ಡωಡ)","( ͡° ͜ʖ ͡°)","(ﾉ∀`)","(´∀｀*)","(￣∇￣)","┐(´д｀)┌","¯\\_(ツ)_/¯","(・_・)"]
+};
+function getRandomKaomoji(list){return Array.isArray(list)&&list.length?list[Math.floor(Math.random()*list.length)]:""}
+function insertKaomoji(kaomoji){if(!kaomoji)return;const text=inputText.value,start=Math.min(lastCursorStart,text.length),end=Math.min(Math.max(lastCursorEnd,start),text.length);saveHistory();inputText.value=text.substring(0,start)+kaomoji+text.substring(end);const pos=start+kaomoji.length;inputText.focus();inputText.setSelectionRange(pos,pos);lastCursorStart=lastCursorEnd=pos;updatePreview()}
+const kaomojiModal=document.getElementById("kaomojiModal");
+function openKaomojiModal(){kaomojiModal.classList.add("show")}
+function closeKaomojiModal(){kaomojiModal.classList.remove("show")}
+document.getElementById("kaomojiOpenButton").addEventListener("click",openKaomojiModal);
+document.getElementById("kaomojiCloseButton").addEventListener("click",closeKaomojiModal);
+kaomojiModal.addEventListener("click",event=>{if(event.target===kaomojiModal)closeKaomojiModal()});
+document.addEventListener("keydown",event=>{if(event.key==="Escape")closeKaomojiModal()});
+document.querySelectorAll(".kaomoji-button[data-kaomoji-mood]").forEach(button=>button.addEventListener("click",()=>{insertKaomoji(getRandomKaomoji(kaomojiSets[button.dataset.kaomojiMood]));closeKaomojiModal()}));
+
+function showColorSaveMessage(message){const button=document.getElementById("saveColorSettings"),original=button.textContent;button.textContent=message;setTimeout(()=>button.textContent=original,1200)}
+function saveColorSettings(){const settings={custom:customHex,gradientStart:gradientStartHex,gradientEnd:gradientEndHex};try{localStorage.setItem(COLOR_SETTINGS_KEY,JSON.stringify(settings));showColorSaveMessage("Settings saved")}catch(e){showColorSaveMessage("Could not save")}}
+function loadColorSettings(){let saved=null;try{const raw=localStorage.getItem(COLOR_SETTINGS_KEY);if(raw)saved=JSON.parse(raw)}catch(e){}if(!saved)return;if(/^#[0-9A-F]{6}$/i.test(saved.custom||""))customHex=saved.custom.toUpperCase();if(/^#[0-9A-F]{6}$/i.test(saved.gradientStart||""))gradientStartHex=saved.gradientStart.toUpperCase();if(/^#[0-9A-F]{6}$/i.test(saved.gradientEnd||""))gradientEndHex=saved.gradientEnd.toUpperCase()}
+function resetColorSettings(){customHex=DEFAULT_CUSTOM_COLOR;gradientStartHex=DEFAULT_GRADIENT_START;gradientEndHex=DEFAULT_GRADIENT_END;updateCustomColorDisplay();updateGradientDisplay();try{localStorage.removeItem(COLOR_SETTINGS_KEY)}catch(e){}const button=document.getElementById("resetColorSettings"),original=button.textContent;button.textContent="Defaults restored";setTimeout(()=>button.textContent=original,1200)}
+document.getElementById("saveColorSettings").addEventListener("click",saveColorSettings);
+document.getElementById("resetColorSettings").addEventListener("click",resetColorSettings);
+
+function parseColorTag(text,index){if(index+15>=text.length||text[index]!=="[")return null;if(text.substring(index+2,index+8)!=="[[#C0]"||text.substring(index+8,index+10)!=="-]"||text[index+15]!=="]")return null;const hex=text[index+1]+text.substring(index+10,index+15);if(!/^[0-9A-Fa-f]{6}$/.test(hex))return null;return{hex:"#"+hex.toUpperCase(),length:16}}
+function updatePreview(){const text=inputText.value||"";preview.innerHTML="";let color="#FFFFFF",supDepth=0,subDepth=0,strikeDepth=0,underlineDepth=0,i=0;while(i<text.length){
+if(text.startsWith("[SUP]",i)){supDepth++;i+=5;continue}if(text.startsWith("[/SUP]",i)){supDepth=Math.max(0,supDepth-1);i+=6;continue}
+if(text.startsWith("[SUB]",i)){subDepth++;i+=5;continue}if(text.startsWith("[/SUB]",i)){subDepth=Math.max(0,subDepth-1);i+=6;continue}
+if(text.startsWith("[S]",i)){strikeDepth++;i+=3;continue}if(text.startsWith("[/S]",i)){strikeDepth=Math.max(0,strikeDepth-1);i+=4;continue}
+if(text.startsWith("[U]",i)){underlineDepth++;i+=3;continue}if(text.startsWith("[/U]",i)){underlineDepth=Math.max(0,underlineDepth-1);i+=4;continue}
+const colorTag=parseColorTag(text,i);if(colorTag){color=colorTag.hex;i+=colorTag.length;continue}
+const ch=text[i];if(ch==="\n"){preview.appendChild(document.createElement("br"));i++;continue}
+const span=document.createElement("span");span.className="preview-char";span.textContent=ch;span.style.color=color;
+if(supDepth>0){span.style.fontSize="12px";span.style.position="relative";span.style.top="-5px"}else if(subDepth>0){span.style.fontSize="12px";span.style.position="relative";span.style.top="4px"}else span.style.fontSize="16px";
+if(strikeDepth>0)span.style.textDecoration="line-through";else if(underlineDepth>0)span.style.textDecoration="underline";
+preview.appendChild(span);i++}}
+inputText.addEventListener("input",updatePreview);
+
+function saveTemplate(slot){const key="chatInputHelper_template_"+slot;try{localStorage.setItem(key,inputText.value)}catch(e){return}const button=document.getElementById("save"+slot),original=button.textContent;button.textContent="Saved!";setTimeout(()=>button.textContent=original,1000)}
+function loadTemplate(slot){const key="chatInputHelper_template_"+slot;let saved;try{saved=localStorage.getItem(key)}catch(e){return false}if(saved===null)return false;saveHistory();inputText.value=saved;updatePreview();inputText.focus();const pos=inputText.value.length;inputText.setSelectionRange(pos,pos);lastCursorStart=lastCursorEnd=pos;return true}
+["A","B","C"].forEach(slot=>{document.getElementById("save"+slot).addEventListener("click",()=>saveTemplate(slot));document.getElementById("presetLoad"+slot).addEventListener("click",()=>{if(loadTemplate(slot))closeKaomojiModal()})});
+document.getElementById("undoButton").addEventListener("click",undo);
+loadColorSettings();updateCustomColorDisplay();updateGradientDisplay();updatePreview();inputText.focus();inputText.setSelectionRange(0,0);lastCursorStart=lastCursorEnd=0;
+</script>
+</body>
+</html>

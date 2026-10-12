@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="icon" type="image/png" href="cat-icon.png">
+<link rel="apple-touch-icon" href="cat-icon.png">
+<title>Chat Input Helper - Help</title>
+<style>
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; padding: 0; background: #2b2b2b; color: white; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; }
+body { padding: 16px; padding-bottom: 30px; }
+.page { width: 100%; max-width: 700px; margin: 0 auto; }
+h1 { font-size: 22px; line-height: 1.4; margin: 0 0 20px 0; }
+h2 { font-size: 17px; line-height: 1.4; margin: 28px 0 10px 0; }
+h3 { font-size: 15px; line-height: 1.4; margin: 18px 0 8px 0; }
+p, li { font-size: 14px; line-height: 1.7; }
+p { margin: 8px 0; }
+ul { padding-left: 22px; }
+.feature { background: #333333; border: 1px solid #555555; border-radius: 8px; padding: 10px 12px; margin: 8px 0; }
+.feature-title { font-weight: bold; font-size: 15px; margin-bottom: 4px; }
+.feature-description { font-size: 13px; line-height: 1.6; color: #eeeeee; }
+.notice { background: #333333; border: 1px solid #666666; border-radius: 8px; padding: 12px; margin-top: 12px; font-size: 13px; line-height: 1.7; }
+.notice p { font-size: 13px; }
+.button-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 14px 0; }
+.button-label { display: inline-flex; align-items: center; justify-content: center; min-height: 32px; padding: 0 12px; background: #3a3a3a; border: 1px solid #555555; border-radius: 6px; font-size: 13px; white-space: nowrap; }
+.scroll-example { width: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; padding-bottom: 6px; margin: 10px 0; }
+.scroll-example-inner { display: flex; width: max-content; gap: 6px; }
+.scroll-example .button-label { flex-shrink: 0; }
+.back-area { text-align: center; margin-top: 30px; }
+.back-button { display: inline-flex; align-items: center; justify-content: center; min-width: 150px; height: 38px; padding: 0 24px; background: #3a3a3a; color: white; text-decoration: none; border-radius: 8px; border: 1px solid #555555; }
+.back-button:active { opacity: 0.7; transform: scale(0.98); }
+.footer { margin-top: 22px; text-align: center; color: #999999; font-size: 12px; }
+a { color: #66ccff; }
+</style>
+</head>
+<body>
+<div class="page">
+<h1>Chat Input Helper</h1>
+
+<h2>About This Tool</h2>
+<p>Chat Input Helper is a small utility that makes it easier to add text formatting to messages in the chat of <em>Puzzles &amp; Survival</em>.</p>
+<p>You can add colors, apply gradients or random colors to selected text, and use formatting such as superscript, subscript, strikethrough, and underline.</p>
+<p>You can also insert kaomoji (Japanese-style text emoticons) and save or reuse frequently used messages.</p>
+<p>The tool is designed to keep things simple and easy to use, especially on an iPhone.</p>
+<div class="notice"><strong>Privacy</strong><p>This tool does not send your chat text to a server or collect and store it remotely.</p><p>Saved messages and color settings are generally stored in your browser on the device you are using.</p></div>
+
+<h2>Getting Started</h2>
+<p>First, enter your text in the <strong>Text Input</strong> field near the top of the tool.</p>
+<p>To format only part of your text, select the text using your iPhone's usual text-selection controls, then tap the button for the effect you want.</p>
+<div class="feature"><div class="feature-title">Select Text → Apply Formatting</div><div class="feature-description">You can apply colors, superscript, subscript, strikethrough, underline, and other effects to the selected text.</div></div>
+<p>If no text is selected when you tap a formatting button, the operation applies to the entire contents of the input field.</p>
+<div class="notice">For the best results, <strong>select the text first, then tap the formatting button</strong> when you want to format only part of your message.</div>
+<p>Color buttons work differently: they insert a color code at the current cursor position instead of replacing the text.</p>
+<p>Tap the text field and place the cursor where you want the color code to be inserted.</p>
+
+<h2>Color Buttons</h2>
+<p>Color buttons insert a color code at the cursor position. The code can be used to color text in the game chat.</p>
+<div class="button-list"><div class="button-label">White</div><div class="button-label">Gray</div><div class="button-label">Blue</div><div class="button-label">Red</div><div class="button-label">Green</div><div class="button-label">Yellow</div><div class="button-label">Cyan</div><div class="button-label">Pink</div><div class="button-label">Custom</div><div class="button-label">Color Picker</div></div>
+<div class="feature"><div class="feature-title">White / Gray / Blue / Red / Green / Yellow / Cyan / Pink</div><div class="feature-description">Each button inserts the color code for its preset color at the cursor position.</div></div>
+<div class="feature"><div class="feature-title">Custom</div><div class="feature-description">Inserts the color code for your currently selected custom color at the cursor position.</div></div>
+<p>After a color code is inserted, the cursor automatically moves one character to the right.</p>
+<p>This makes it easier to insert another color code or continue typing immediately.</p>
+<p>Color buttons insert a code at the cursor position; they do not replace the text already in the field.</p>
+
+<h2>Save or Reset Color Settings</h2>
+<div class="feature"><div class="feature-title">Color Settings</div><div class="feature-description">Set your custom color and the start and end colors used for gradients.</div></div>
+<div class="feature"><div class="feature-title">Save Color Settings</div><div class="feature-description">Saves your current custom color and gradient start and end colors in the browser on this device.</div></div>
+<div class="feature"><div class="feature-title">Reset Color Settings</div><div class="feature-description">Resets the saved color settings to their default values.</div></div>
+<p>This is useful if you want to keep the colors you use most often.</p>
+<p>Saved settings are generally managed locally in your browser on this device.</p>
+
+<h2>Text Selection and Formatting Buttons</h2>
+<p>These buttons apply formatting or color effects to the text you want to modify.</p>
+<p>If text is selected, the selected range is used.</p>
+<p>If no text is selected, the entire input field is used.</p>
+<p>The buttons are arranged in a horizontal row. If they do not all fit on the screen, swipe left or right to find the button you need.</p>
+<div class="scroll-example"><div class="scroll-example-inner"><div class="button-label">up</div><div class="button-label">dn</div><div class="button-label">S</div><div class="button-label">U</div><div class="button-label">gradation</div><div class="button-label">rainbow</div><div class="button-label">random</div><div class="button-label">up/dn</div><div class="button-label">rnd+up/dn</div></div></div>
+<div class="feature"><div class="feature-title">up</div><div class="feature-description">Displays the selected text as superscript.</div></div>
+<div class="feature"><div class="feature-title">dn</div><div class="feature-description">Displays the selected text as subscript.</div></div>
+<div class="feature"><div class="feature-title">S</div><div class="feature-description">Adds a strikethrough to the selected text.</div></div>
+<div class="feature"><div class="feature-title">U</div><div class="feature-description">Underlines the selected text.</div></div>
+<div class="feature"><div class="feature-title">When S and U overlap</div><div class="feature-description">If strikethrough and underline overlap on the same text, the preview displays strikethrough in preference to underline.</div></div>
+<div class="feature"><div class="feature-title">gradation</div><div class="feature-description">Colors the selected text one character at a time, gradually changing from the configured start color to the end color.</div></div>
+<p>You can change the gradient's start and end colors in Color Settings.</p>
+<div class="feature"><div class="feature-title">rainbow</div><div class="feature-description">Gradually changes the hue of each character to create a colorful, rainbow-like effect.</div></div>
+<p>The rainbow effect uses your current custom color as its starting reference and varies the hue from there.</p>
+<div class="feature"><div class="feature-title">random</div><div class="feature-description">Applies a randomly chosen color to each character in the selected text.</div></div>
+<div class="feature"><div class="feature-title">up/dn</div><div class="feature-description">Alternates each character between superscript and subscript: superscript, subscript, superscript, subscript, and so on.</div></div>
+<div class="feature"><div class="feature-title">rnd+up/dn</div><div class="feature-description">Applies a random color to each character while alternating between superscript and subscript.</div></div>
+<div class="notice">For the best results, select the text you want to format before using these buttons.<br><br>If no text is selected, the entire input field is used.</div>
+
+<h2>Presets</h2>
+<div class="feature"><div class="feature-title">Presets</div><div class="feature-description">Quickly insert frequently used kaomoji (text emoticons) and saved messages.</div></div>
+<p>Kaomoji are organized into categories.</p>
+<div class="button-list"><div class="button-label">Fun</div><div class="button-label">Greetings</div><div class="button-label">Thanks</div><div class="button-label">Congratulations</div><div class="button-label">Good Job</div><div class="button-label">Shock</div><div class="button-label">Good Night</div><div class="button-label">Eating</div><div class="button-label">Actions</div><div class="button-label">Jokes</div></div>
+<p>Tap a category to randomly select one of its kaomoji and insert it into the input field.</p>
+<div class="feature"><div class="feature-title">Saved Message A / B / C</div><div class="feature-description">Use these slots to insert messages you have saved.</div></div>
+<p>When you insert a saved message from Presets, it replaces the current contents of the input field.</p>
+
+<h2>Copy</h2>
+<div class="feature"><div class="feature-title">Copy</div><div class="feature-description">Copies the complete text in the input field to your clipboard.</div></div>
+<p>You can then paste the copied text into the game's chat or another app.</p>
+<p>When copying succeeds, the cat inside the button briefly grows larger.</p>
+
+<h2>Undo</h2>
+<div class="feature"><div class="feature-title">Undo</div><div class="feature-description">Reverses the most recent editing action performed by this tool.</div></div>
+<p>The tool keeps up to 50 editing-history entries.</p>
+<p>Undo can reverse tool actions such as inserting color codes, applying formatting, clearing the text field, and inserting a saved message.</p>
+<p>When text was selected before formatting, Undo also restores the previous selection when possible.</p>
+<div class="feature"><div class="feature-description">Select text<br>↓<br>Apply formatting<br>↓<br>Undo<br>↓<br>Try a different effect</div></div>
+<div class="notice">Undo is not intended to undo ordinary typing one character at a time.<br><br>It is mainly for reversing editing actions performed using this tool's buttons.</div>
+
+<h2>Clear</h2>
+<div class="feature"><div class="feature-title">Clear</div><div class="feature-description">Deletes all text from the input field.</div></div>
+<p>Clearing the text can also be undone.</p>
+<p>If you clear the field by mistake, tap Undo to restore the previous contents.</p>
+
+<h2>Saved Messages</h2>
+<p>Save messages you use often and insert them whenever you need them.</p>
+<div class="feature"><div class="feature-title">Saved Message A</div><div class="feature-description">A slot for saving and inserting Message A.</div></div>
+<div class="feature"><div class="feature-title">Saved Message B</div><div class="feature-description">A slot for saving and inserting Message B.</div></div>
+<div class="feature"><div class="feature-title">Saved Message C</div><div class="feature-description">A slot for saving and inserting Message C.</div></div>
+<p>When you insert a saved message, it replaces the current contents of the input field.</p>
+<p>It is not added to the end of your current text; the entire input field is replaced.</p>
+<p>Saved messages are stored in your browser on this device.</p>
+<p>The messages you save are not sent from this tool to a server.</p>
+<div class="notice">If you clear your browser data, or if your browser settings remove stored data, your saved messages may be lost.</div>
+
+<h2>Preview</h2>
+<div class="feature"><div class="feature-title">Preview</div><div class="feature-description">Interprets the formatting tags in the input field and displays the result in a way that resembles the game's chat display.</div></div>
+<p>Use the preview while editing to check how colors, superscript, subscript, strikethrough, underline, and other formatting may appear.</p>
+<div class="feature"><div class="feature-title">When S and U overlap</div><div class="feature-description">If strikethrough and underline are applied to the same text, the preview gives priority to strikethrough.</div></div>
+
+<h2>Using the Tool on a Smartphone</h2>
+<p>This tool is designed with iPhone text selection and formatting in mind.</p>
+<p>Instead of shrinking buttons until they become difficult to tap, the tool lets you scroll horizontally when the buttons do not fit on the screen.</p>
+<p>For example, the formatting buttons appear in a row like this:</p>
+<div class="scroll-example"><div class="scroll-example-inner"><div class="button-label">up</div><div class="button-label">dn</div><div class="button-label">S</div><div class="button-label">U</div><div class="button-label">gradation</div><div class="button-label">rainbow</div><div class="button-label">random</div><div class="button-label">up/dn</div><div class="button-label">rnd+up/dn</div></div></div>
+<p>Swipe left or right across this row to reveal buttons that are off-screen.</p>
+<div class="notice">Depending on how your iPhone handles text selection, the selection may disappear when you tap a button.<br><br>Undo is designed to restore the previous selection when possible.</div>
+
+<h2>About Saved Data</h2>
+<p>Some data, such as saved messages and color settings, is stored in your browser.</p>
+<div class="feature"><div class="feature-title">Examples of Saved Data</div><div class="feature-description">Saved Messages A, B, and C<br>Custom color<br>Gradient start color<br>Gradient end color</div></div>
+<p>This data is generally managed in the browser on the device you are using.</p>
+<div class="notice">If you clear your browser data, or if your browser settings remove stored data, your saved information may be lost.</div>
+
+<h2>Important Notes</h2>
+<div class="notice"><p>This is a personal utility tool.</p><p>Changes to the game's features or specifications may cause some formatting features to stop working as expected.</p><p>The developer cannot be held responsible for any problems that may arise from using this tool. Please use it at your own discretion.</p><p>When using this tool in the game, please also follow the game's rules and terms of service.</p></div>
+
+<h2>About This Guide</h2>
+<p>This guide describes the tool as of <strong>October 2026</strong>.</p>
+<p>Future updates may change the layout, features, or game specifications.</p>
+
+<h2>Thanks for Reading!</h2>
+<p>Thanks for taking the time to read this guide.</p>
+<p>I hope this tool makes adding a little extra style to your chat easier.</p>
+<p>Have fun chatting! ヽ(=´▽`=)ﾉ</p>
+
+<div class="back-area"><a href="chat-input-helper-en.html" class="back-button">← Back to Tool</a></div>
+<div class="footer">Produced by しろねこ24</div>
+</div>
+</body>
+</html>
